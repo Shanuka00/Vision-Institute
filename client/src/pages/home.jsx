@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import visionLogo from '../images/vision_logo.png';
+import '../styles/home_styles.css';
 
 import Carousel1 from '../images/Carousel/Carousel01.jpg';
 import Carousel2 from '../images/Carousel/Carousel02.jpeg';
@@ -23,25 +24,28 @@ function Home() {
         <Navbar.Brand>
           <img
             src={visionLogo}
-            width="200"
-            height="200"
+            width="100"
+            height="100"
             className="d-inline-block align-top"
             alt="Vision Logo"
           />
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/classes">Classes</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link as={Link} to="/login">
-                <Button variant="primary" size="lg">Login</Button>
-            </Nav.Link>
-          </Nav>
+            
+            <Nav className="nav-links">
+                <Nav.Link className="nav-link" as={Link} to="/">Home</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/classes">Classes</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/about">About</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/contact">Contact Us</Nav.Link>
+            </Nav>
+            <Nav>
+                <Nav.Link as={Link} to="/login">
+                    <Button className="u-login" variant="primary" size="lg">Login</Button>
+                </Nav.Link>
+            </Nav>
+
         </Navbar.Collapse>
       </Navbar>
 
