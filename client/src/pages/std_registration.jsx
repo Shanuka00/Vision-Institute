@@ -1,10 +1,56 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+//import visionLogo from '../images/vision_logo.png';
+import '../styles/registration_styles.css';
+// import Navbar from 'react-bootstrap/Navbar';
+// import Nav from 'react-bootstrap/Nav';
+// import Button from 'react-bootstrap/Button';
+
 
 function StdRegistration() {
   return (
-    <form className="mx-40 w-70 space-y-20 mt-20 mb-20 bg-gray-200 rounded-xl p-10">
+
+    <div>
+
+    <div className='defheader'>
+
+    {/* <Navbar className="custom-navbar" expand="lg">
+        <Navbar.Brand>
+          <img
+            src={visionLogo}
+            width="90"
+            height="90"
+            className="d-inline-block align-top"
+            alt="Vision Logo"
+          />
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+            
+            <Nav className="nav-links">
+                <Nav.Link className="nav-link" as={Link} to="/">Home</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/classes">Classes</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/about">About</Nav.Link>
+                <Nav.Link className="nav-link" as={Link} to="/contact">Contact Us</Nav.Link>
+            </Nav>
+            <Nav>
+                <Nav.Link as={Link} to="/login">
+                    <Button className="u-login" variant="primary" size="lg">Login</Button>
+                </Nav.Link>
+            </Nav>
+
+        </Navbar.Collapse>
+      </Navbar> */}
+
+    </div>
+
+    <div className='regform'>
+
+    <form className="mx-40 w-70 space-y-20 mb-20 bg-gray-200 rounded-xl p-10">
       <div className="mx-auto w-100 space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
@@ -13,24 +59,6 @@ function StdRegistration() {
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="janesmith"
-                  />
-                </div>
-              </div>
-            </div>
 
             <div className="col-span-full">
               <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
@@ -296,6 +324,11 @@ function StdRegistration() {
         </button>
       </div>
     </form>
+
+    </div>
+
+
+    </div>
   );
 }
 
