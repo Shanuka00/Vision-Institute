@@ -39,7 +39,7 @@ function Login() {
 
               <div>
                 <Link to="/std_registration">
-                  <button className="inline-block w-full rounded bg-primary px-7 pb-3 pt-3 text-sm font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                  <button className="inline-block w-full rounded px-7 pb-3 pt-3 text-sm font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                   👉 New Registration 👈<br/>(අලුතින් ලියාපදිංචි වන්න)</button>
                 </Link>
               </div>
@@ -47,7 +47,7 @@ function Login() {
                 <div className="relative mb-6 bg-white rounded mt-4" data-twe-input-wrapper-init>
                   <input
                     type="text"
-                    className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-black dark:text-black dark:placeholder:text-gray-500 dark:autofill:shadow-autofill dark:peer-focus:text-primary"
+                    className="peer block min-h-[auto] w-full rounded-xl border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-black dark:text-black dark:placeholder:text-gray-500 dark:autofill:shadow-autofill dark:peer-focus:text-primary"
                     id="exampleFormControlInput2"
                     placeholder="Vision ID"
                   />
@@ -86,7 +86,7 @@ function Login() {
               <div className="text-center lg:text-left">
                 <button
                   type="button"
-                  className="inline-block w-full rounded bg-primary mt-0 px-7 pb-3 pt-3 text-base font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  className="inline-block w-full rounded mt-0 px-7 pb-3 pt-3 text-base font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   data-twe-ripple-init
                   data-twe-ripple-color="light">
                   Login
@@ -94,7 +94,7 @@ function Login() {
 
                 <div>
                   <Link to="/std_registration">
-                    <button className="inline-block w-full rounded bg-primary mt-4 px-7 pb-3 pt-3 text-sm font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                    <button className="inline-block w-full rounded mt-4 px-7 pb-3 pt-3 text-sm font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                     If you are already a student attending<br/>classes in the institute<br/>(ඔබ දැනටමත් ආයතනයේ පන්ති<br/>පැමිණෙන සිසුවෙක් නම්)</button>
                   </Link>
                 </div>
