@@ -19,7 +19,7 @@ function Login() {
               alt="A classroom" />  
 
             <div className="text-center">
-              <label className="inline-block text-lg font-bold italic text-blue-900 hover:cursor-pointer mt-4">
+              <label className="inline-block text-lg font-bold italic text-indigo-900 hover:cursor-pointer mt-4">
                 "දක්ෂ පලපුරුදු ගුරු මඩුල්ලක්<br/>ඔබ ප්‍රදේශයේ<br/>ඔබත් සම්බන්ධ වන්න"
               </label>
             </div>
