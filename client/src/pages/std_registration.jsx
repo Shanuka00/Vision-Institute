@@ -352,7 +352,7 @@ function StdRegistration() {
             <label className="inline-flex items-center cursor-pointer">
 
               <input type="checkbox" value="" class="sr-only peer"/>
-              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <div className="relative w-11 h-6 rounded-full peer peer-focus:ring-4 dark:bg-indigo-900 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-950"></div>
               </label>
 
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 ml-3">
@@ -362,7 +362,7 @@ function StdRegistration() {
 
 
             <div className="mt-4 sm:col-span-full ml-auto mr-auto">
-              <button type="submit" className="inline-flex items-center px-4 py-2 rounded-md shadow-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button type="submit" className="inline-flex items-center px-4 py-2 rounded-md shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 👉 Continue to payment 👈<br/>ලියාපදිංචි ගාස්තු ගෙවීම සඳහා
               </button>
             </div>
