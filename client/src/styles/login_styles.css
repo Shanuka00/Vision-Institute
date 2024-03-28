@@ -1,0 +1,15 @@
+.wrapper {
+    height: 100vh;
+}
+
+.home-container {
+    background-image: url('../images/bgpic.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.login {
+    width: 300px;
+    height: min-content;
+    border-radius: 5px;
+}
