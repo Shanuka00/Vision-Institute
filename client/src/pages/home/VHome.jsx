@@ -28,7 +28,7 @@ export const VHome = () => {
             දීප්තිමත් අනාගතයක් උදෙසා ඔබත් අදම සම්බන්ධ වන්න..
           </p>
 
-          <div class="flex justify-center py-0 my-16">
+          <div className="flex justify-center py-0 my-16">
             <Link
               to="/std_registration"
               className="inline-flex items-center px-10 py-3 rounded-xl shadow-medium text-white font-medium bg-indigo-950 hover:text-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 no-underline"
