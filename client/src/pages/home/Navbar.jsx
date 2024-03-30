@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="-pt-1">
           <Nav>
             <Nav.Link as={RLink} to="/login" className="bg-blue-800">
-              <button type="button" class="inline-flex items-center px-4 py-2 rounded shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button type="button" className="inline-flex items-center px-4 py-2 rounded shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Login
               </button>
             </Nav.Link>

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
 import StudentRegistration from './pages/std_registration';
 import RegistrationFees from './pages/reg_fees';
+import IdCreation from './pages/id_create';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Navbar from "./pages/home/Navbar";
@@ -31,8 +32,9 @@ function App() {
           <Footer />
         </>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/std_registration" element={<><NavbarReg /><StudentRegistration /></>} />
-        <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /></>} />
+        <Route path="/std_registration" element={<><NavbarReg /><StudentRegistration /><Footer /></>} />
+        <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
+        <Route path="/id_create" element={<><NavbarReg /><IdCreation /><Footer /></>} />
       </Routes>
       <Helmet>
           <title>Vision Institute - Atabage</title>
