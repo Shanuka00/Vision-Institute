@@ -29,7 +29,6 @@ function StdRegistration() {
     parentName: '',
     occupation: '',
     contactNo: '',
-    grade: '',
     aboutVision: '',
     agreedToTerms: false
   });
@@ -68,7 +67,6 @@ function StdRegistration() {
         parentName: formData.parentName,
         occupation: formData.occupation,
         contactNo: formData.contactNo,
-        grade: formData.grade,
         aboutVision: formData.aboutVision,
         formAgreement: formData.agreedToTerms
       }
@@ -362,7 +360,7 @@ function StdRegistration() {
 
             <div className="sm:col-span-3">
               <label htmlFor="occupation" className="block text-sm font-medium leading-6 text-gray-900">
-              Ocupation | තනතුර
+              Ocupation | රැකියාව
               </label>
               <div className="mt-2">
                 <input
@@ -399,39 +397,8 @@ function StdRegistration() {
 
 
         <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Other Details | වෙනත් තොරතුරු</h2>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-            <div className="sm:col-span-3">
-              <label htmlFor="grade" className="block text-sm font-medium leading-6 text-gray-900">
-                Select Your Grade | ඔබගේ ශ්‍රේණිය තෝරන්න
-                <span className="text-red-500"> *</span>
-              </label>
-              <div className="mt-2">
-                <select
-                  id="grade"
-                  name="grade"
-                  value={formData.grade}
-                  onChange={handleChange}
-                  autoComplete="grade"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option>Grade 1</option>
-                  <option>Grade 2</option>
-                  <option>Grade 3</option>
-                  <option>Grade 4</option>
-                  <option>Grade 5</option>
-                  <option>Grade 6</option>
-                  <option>Grade 7</option>
-                  <option>Grade 8</option>
-                  <option>Grade 9</option>
-                  <option>Grade 10</option>
-                  <option>Grade 11</option>
-                </select>
-              </div>
-            </div>
-
 
             <div className="col-span-full">
                 <label htmlFor="aboutVision" className="block text-sm font-medium leading-6 text-gray-900">
@@ -446,7 +413,6 @@ function StdRegistration() {
                       value={formData.aboutVision}
                       onChange={handleChange}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={''}
                     />
                 </div>
             </div>

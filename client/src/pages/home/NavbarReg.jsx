@@ -17,7 +17,7 @@ const Navbar = () => {
 
       <div className="px-2 flex justify-between items-center w-full h-full">
 
-        <div>
+        <div className="flex">
         <Nav.Link as={RLink} to="/" className="ml-0 pl-0">
           <img
             src={visionLogo}
@@ -27,10 +27,9 @@ const Navbar = () => {
             alt="Vision Logo"
           />
         </Nav.Link>
+        <div className="pt-6">
+          <h2 className="text-lg text-gray-500 font-semibold no-underline">New registration</h2>
         </div>
-
-        <div className="pt-2">
-          <h2 className="text-lg text-indigo-900 font-semibold no-underline">New registration</h2>
         </div>
 
         <div className="-pt-1">

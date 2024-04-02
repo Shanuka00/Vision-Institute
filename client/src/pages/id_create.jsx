@@ -2,8 +2,12 @@ import React from 'react'
 import '../styles/registration_styles.css';
 import { Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";
+import { useLocation } from 'react-router-dom';
 
-function id_create() {
+function IdCreate() {
+
+  const location = useLocation();
+  const nextVid = location.state?.nextVid["maxVisionId"];
 
   return (
     
@@ -29,9 +33,11 @@ function id_create() {
               <div className="pl-2 sm:col-span-full mb-2 pt-0">
                 <input
                   type="text"
-                  name="lastName"
-                  id="last-name"
-                  autoComplete="last-name"
+                  name="nextVid"
+                  id="next-vid"
+                  autoComplete="off"
+                  value={nextVid}
+                  readOnly
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -76,7 +82,7 @@ function id_create() {
               <button
                 className="inline-flex items-center px-4 py-2 rounded-md shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                👉 Create your vision profile 👈<br/>ඔබේ විෂන් ගිණුම සාදන්න
+                👉 Complete registration 👈<br/>ලියාපදිංචිය අවසන් කරන්න
               </button>
             </Link>
             </div>
@@ -95,4 +101,4 @@ function id_create() {
   )
 }
 
-export default id_create
+export default IdCreate

@@ -1,7 +1,8 @@
-//client/src/pages/reg_fees.jsx
+//client/src/pages/reg_fees.jsxmaxVisionId
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import peoplesLogo from '../images/peopleslogo.png';
 import hnbLogo from '../images/hnblogo.png';
 
@@ -43,7 +44,6 @@ function RegFees() {
     parentName,
     occupation,
     contactNo,
-    grade,
     aboutVision,
     formAgreement,
   } = location.state || {};
@@ -53,6 +53,46 @@ function RegFees() {
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+
+  const navigate = useNavigate();
+
+  const handleClick = async () => {
+    try {
+      
+      const response = await axios.post('/api/vision/addUser', {
+        maxVisionId,
+        firstName,
+        lastName,
+        initial,
+        birthday,
+        password: 'default',
+        gender,
+        emailAddress,
+        mobilePhone,
+        whatsappNumber,
+        addressLine1,
+        addressLine2,
+        city,
+        school,
+        parentName,
+        occupation,
+        contactNo,
+        aboutVision,
+        role: 'student',
+        state: 'noregpass',
+      });
+      console.log('User added successfully:', response.data);
+      // Navigate to the next page after successfully adding the user
+      navigate('/id_create',{
+        state: {
+          nextVid: {maxVisionId},
+        }
+      });
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  };
+  
 
   return (
     <div className="pt-28 flex flex-col gap-1">
@@ -86,11 +126,11 @@ function RegFees() {
 
       <div className="text-center mb-0 py-0 pt-0 mt-0">
         <button className="px-4 w-64 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded shadow-sm">
-          Complete registration
+          Continue registration
         </button>
       </div>
       <div className="text-center mt-2">
-        <button className="px-4 w-64 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded shadow-sm">
+        <button className="px-4 w-64 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded shadow-sm" onClick={handleClick}>
           Continue without payment
         </button>
       </div>
@@ -112,7 +152,6 @@ function RegFees() {
           <p>ParentName: {parentName}</p>
           <p>Occupation: {occupation}</p>
           <p>Contact Number: {contactNo}</p>
-          <p>Grade: {grade}</p>
           <p>About Vision: {aboutVision}</p>
           <p>Form Agreement: {formAgreement ? 'Agreed' : 'Not Agreed'}</p>
       </div>
