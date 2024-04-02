@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const visionController = require('./controllers/visionController');
+const visionRoutes = require('./routes/visionRoutes');
 
 const app = express();
 const port = 5000;
@@ -9,8 +9,8 @@ const port = 5000;
 app.use(express.json());
 app.use(cors());
 
-// Route to fetch the maximum vision ID
-app.get('/api/vision/maxVisionId', visionController.getMaxVisionId);
+// Use vision routes
+app.use('/api/vision', visionRoutes);
 
 // Start server
 app.listen(port, () => {
