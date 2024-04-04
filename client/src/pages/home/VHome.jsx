@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import cabinImage2 from "../../images/assets/cabin2.jpg";
+import cabinImage2 from "../../images/cabin2.jpg";
 
 export const VHome = () => {
   return (

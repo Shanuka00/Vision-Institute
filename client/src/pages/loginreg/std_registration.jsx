@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/registration_styles.css';
+import '../../styles/registration_styles.css';
 import Datetime from 'react-datetime';
 import { Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";

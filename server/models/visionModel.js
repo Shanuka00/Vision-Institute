@@ -90,7 +90,39 @@ const addUser = async ({
 };
 
 
+// Function to get a user by their Vision ID
+const getUserByVisionId = async (visionId) => {
+    try {
+
+        // Perform a database query to find the user with the given Vision ID
+        const query = 'SELECT * FROM visionuser WHERE visionid = ?';
+        const result = await pool.query(query, [visionId]);
+
+        const rows = result;
+
+        return rows; // Assuming Vision ID is unique, return the first row
+    } catch (error) {
+        console.error('Error fetching user by Vision ID:', error);
+        throw error;
+    }
+};
+
+// Function to update a user's password and state
+const updatePasswordAndState = async (visionId, password) => {
+    try {
+        // Perform a database query to update the user's password and state
+        const query = 'UPDATE visionuser SET password = ?, state = ? WHERE visionid = ?';
+        await pool.query(query, [password, 'NoRegYesPass', visionId]);
+    } catch (error) {
+        console.error('Error updating password and state:', error);
+        throw error;
+    }
+};
+
+
 module.exports = {
     addUser,
-    getMaxVisionId
+    getMaxVisionId,
+    getUserByVisionId,
+    updatePasswordAndState
 };

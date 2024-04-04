@@ -1,5 +1,5 @@
 const visionModel = require('../models/visionModel');
-const visionRoutes = require('../routes/visionRoutes');
+//const visionRoutes = require('../routes/visionRoutes');
 
 // Function to add a new user to the visionuser table
 const addUser = async (req, res) => {
@@ -16,6 +16,7 @@ const addUser = async (req, res) => {
     }
   };
 
+
 const getMaxVisionId = async (req, res) => {
     try {
         const result = await visionModel.getMaxVisionId();
@@ -30,7 +31,37 @@ const getMaxVisionId = async (req, res) => {
     }
 };
 
+
+const updatePasswordAndState = async (req, res) => {
+    const { visionId, password } = req.body;
+
+    try {
+        // Check if the visionId exists in the database
+        const user = await visionModel.getUserByVisionId(visionId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if the password matches the confirmation
+        const confirmPassword = req.body.confirmPassword;
+        if (password !== confirmPassword) {
+            return res.status(400).json({ error: 'Passwords do not match' });
+        }
+
+        // Update the user's password and state
+        await visionModel.updatePasswordAndState(visionId, password);
+
+        // Send a success response
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error updating password and state:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     addUser,
-    getMaxVisionId
+    getMaxVisionId,
+    updatePasswordAndState
 };
