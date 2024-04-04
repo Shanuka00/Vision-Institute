@@ -1,6 +1,6 @@
 import React from "react";
 import PhoneIcon from "@heroicons/react/24/solid/PhoneIcon";
-import cabinImage2 from "../../images/assets/cabin2.jpg";
+import cabinImage2 from "../../images/cabin2.jpg";
 
 const Classes = () => {
   return (

@@ -3,8 +3,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import peoplesLogo from '../images/peopleslogo.png';
-import hnbLogo from '../images/hnblogo.png';
+import peoplesLogo from '../../images/peopleslogo.png';
+import hnbLogo from '../../images/hnblogo.png';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -45,7 +45,7 @@ function RegFees() {
     occupation,
     contactNo,
     aboutVision,
-    formAgreement,
+    //formAgreement,
   } = location.state || {};
 
   const [selectedFile, setSelectedFile] = React.useState(null);
@@ -135,7 +135,7 @@ function RegFees() {
         </button>
       </div>
 
-      <div className='pt-24'>
+      {/* <div className='pt-24'>
           <h1>Registration Fees</h1>
           <p>First Name: {firstName}</p>
           <p>Last name: {lastName}</p>
@@ -158,7 +158,7 @@ function RegFees() {
 
       <div className="pt-28 flex flex-col gap-1">
           <p>Maximum Vision ID: {maxVisionId}</p>
-      </div>
+      </div> */}
 
     </div> 
 

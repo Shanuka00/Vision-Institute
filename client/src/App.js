@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/login';
-import StudentRegistration from './pages/std_registration';
-import RegistrationFees from './pages/reg_fees';
-import IdCreation from './pages/id_create';
+import Login from './pages/loginreg/login';
+import StudentRegistration from './pages/loginreg/std_registration';
+import RegistrationFees from './pages/loginreg/reg_fees';
+import IdCreation from './pages/loginreg/id_create';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Navbar from "./pages/home/Navbar";

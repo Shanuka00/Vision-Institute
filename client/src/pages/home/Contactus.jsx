@@ -17,10 +17,10 @@ const Contactus = () => {
             <span className="uppercase px-3 py-1 bg-indigo-200 text-indigo-900 rounded-2xl text-sm">Form</span>
             <p className="text-2xl py-2 text-gray-600">Contact us form</p>
             <div className="text-2xl relative">
-                <p className="flex py-2 "><p className="mr-4">👉</p>Your name</p>
-                <p className="flex py-2 "><p className="mr-4">👉</p>Your email</p>
-                <p className="flex py-2 "><p className="mr-4">👉</p>Phone number</p>
-                <p className="flex py-2 "><p className="mr-4">👉</p>Message</p>
+                <div className="flex py-2 "><p className="mr-4">👉</p>Your name</div>
+                <div className="flex py-2 "><p className="mr-4">👉</p>Your email</div>
+                <div className="flex py-2 "><p className="mr-4">👉</p>Phone number</div>
+                <div className="flex py-2 "><p className="mr-4">👉</p>Message</div>
             </div>
           </div>
 
@@ -29,9 +29,9 @@ const Contactus = () => {
             <span className="uppercase px-3 py-1 bg-indigo-200 text-indigo-900 rounded-2xl text-sm">Details</span>
             <p className="text-2xl py-2 text-slate-500">Contact details</p>
             <div className="text-2xl relative">
-                <p className="flex py-2  "><p className="mr-4">✅</p>Address</p>
-                <p className="flex py-2  "><p className="mr-4">✅</p>Email</p>
-                <p className="flex py-2  "><p className="mr-4">✅</p>Phone number</p>
+                <div className="flex py-2  "><p className="mr-4">✅</p>Address</div>
+                <div className="flex py-2  "><p className="mr-4">✅</p>Email</div>
+                <div className="flex py-2  "><p className="mr-4">✅</p>Phone number</div>
             </div>
           </div>
           

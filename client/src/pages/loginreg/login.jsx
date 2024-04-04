@@ -1,8 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import loginImage from '../images/login_image.png';
-import visionLogoT from '../images/visionLogoT.png';
+import loginImage from '../../images/login_image.png';
+import visionLogoT from '../../images/visionLogoT.png';
 import Nav from 'react-bootstrap/Nav';
 
 function Login() {
@@ -11,7 +11,7 @@ function Login() {
     <section className="mx-40 w-70 space-y-20 mt-10 pt-1 mb-10 bg-gray-200 rounded-xl p-10">
       <div className="h-full">
 
-        <div className="flex h-full flex-wrap items-center justify-center lg:justify-between">
+        <div className="flex h-full flex-wrap-reverse items-center justify-center lg:justify-between">
           <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 pl-10 mt-20">    
             <img
               src={loginImage}
