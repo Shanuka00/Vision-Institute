@@ -1,8 +1,17 @@
 import React from "react";
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import cabinImage2 from "../../images/cabin2.jpg";
+import Typewriter from 'typewriter-effect';
 
 export const VHome = () => {
+
+  const [loop, setLoop] = useState(true);
+
+  const handleTypingEnd = () => {
+    setLoop(false); // Stop the loop after typing ends
+  };
+
   return (
     <div name = "home" className="w-full mt-0 mb-0">
       <div className="w-full h-[700px] bg-gray-800/80 absolute ">
@@ -25,7 +34,15 @@ export const VHome = () => {
             - Atabage -
           </h6>
           <p className="text-center pt-12 text-2xl text-gray-300 font-semibold italic mb-0">
-            දීප්තිමත් අනාගතයක් උදෙසා ඔබත් අදම සම්බන්ධ වන්න..
+          <Typewriter
+            options={{
+              autoStart: true,
+              loop: loop,
+              delay: 50,
+              strings: ["දීප්තිමත් අනාගතයක් උදෙසා ඔබත් අදම සම්බන්ධ වන්න.."],
+            }}
+            onTypingEnd={handleTypingEnd}
+          />
           </p>
 
           <div className="flex justify-center py-0 my-16">
