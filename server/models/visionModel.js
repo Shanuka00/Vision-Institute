@@ -108,11 +108,11 @@ const getUserByVisionId = async (visionId) => {
 };
 
 // Function to update a user's password and state
-const updatePasswordAndState = async (visionId, password) => {
+const updatePasswordAndState = async (visionId, encryptedPassword) => {
     try {
         // Perform a database query to update the user's password and state
         const query = 'UPDATE visionuser SET password = ?, state = ? WHERE visionid = ?';
-        await pool.query(query, [password, 'NoRegYesPass', visionId]);
+        await pool.query(query, [encryptedPassword, 'NoRegYesPass', visionId]);
     } catch (error) {
         console.error('Error updating password and state:', error);
         throw error;

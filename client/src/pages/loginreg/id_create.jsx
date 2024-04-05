@@ -22,6 +22,7 @@ function IdCreate() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const duration = 6000; // Duration in milliseconds
     const interval = 10; // Update interval in milliseconds
     const startTime = Date.now();

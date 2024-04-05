@@ -15,6 +15,7 @@ function RegFees() {
 
   useEffect(() => {
     fetchMaxVisionId();
+    window.scrollTo(0, 0);
   }, []);
 
   const fetchMaxVisionId = async () => {
@@ -65,7 +66,7 @@ function RegFees() {
         lastName,
         initial,
         birthday,
-        password: 'default',
+        password: 'e4c4bcf6f1addc82e879fe8dbe1eddb3',
         gender,
         emailAddress,
         mobilePhone,

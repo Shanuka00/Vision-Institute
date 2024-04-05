@@ -1,11 +1,12 @@
+require('dotenv').config();
 const mysql = require('mysql');
 
 // Database connection configuration
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'visionedu'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 // Get a connection from the pool to check if the database is connected
