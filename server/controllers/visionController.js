@@ -1,5 +1,6 @@
 const visionModel = require('../models/visionModel');
-//const visionRoutes = require('../routes/visionRoutes');
+//const encryptPassword = require('../middleware/encryptPasswordMiddleware');
+const encryptPassword = require('../middleware/encryptPassword');
 
 // Function to add a new user to the visionuser table
 const addUser = async (req, res) => {
@@ -32,6 +33,7 @@ const getMaxVisionId = async (req, res) => {
 };
 
 
+// Route handler for updating password and state
 const updatePasswordAndState = async (req, res) => {
     const { visionId, password } = req.body;
 
@@ -48,8 +50,10 @@ const updatePasswordAndState = async (req, res) => {
             return res.status(400).json({ error: 'Passwords do not match' });
         }
 
+        const encryptedPassword = encryptPassword(password);
+
         // Update the user's password and state
-        await visionModel.updatePasswordAndState(visionId, password);
+        await visionModel.updatePasswordAndState(visionId, encryptedPassword);
 
         // Send a success response
         res.json({ message: 'Password updated successfully' });

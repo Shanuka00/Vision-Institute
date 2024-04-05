@@ -1,0 +1,44 @@
+/* Define the fade-in animation */
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Apply the fade-in animation to elements with the 'fade-in' class */
+  .fade-in {
+    animation: fadein 1s ease-in-out;
+  }
+
+/* Define the zoom-in animation */
+@keyframes zoomin {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Apply the zoom-in animation to elements with the 'zoom-in' class */
+  .zoom-in {
+    animation: zoomin 1s ease-in-out;
+  }
+
+  
+
+/* Define the counting animation */
+@keyframes counting {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Apply the counting animation to elements */
+  .text-indigo-900 {
+    animation: counting 2s ease-in-out;
+  }

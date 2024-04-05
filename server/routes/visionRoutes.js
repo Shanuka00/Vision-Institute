@@ -1,5 +1,6 @@
 const express = require('express');
 const visionController = require('../controllers/visionController');
+//const encryptPasswordMiddleware = require('../middleware/encryptPasswordMiddleware');
 
 const router = express.Router();
 
