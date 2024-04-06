@@ -3,7 +3,10 @@ const News = () => {
   return (
     <div name="news" className="w-full my-32">
       <div className="max-w-[1240px] mx-auto px-2">
-        <h2 className="text-5xl font-bold text-center">Latest Updates</h2>
+
+        <div className="text-center text-gray-600">
+          <h2 className="text-3xl uppercase">Latest Updates</h2>
+        </div>
         
         <div className="my-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
 

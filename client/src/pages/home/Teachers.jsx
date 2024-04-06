@@ -1,6 +1,5 @@
 import React from "react";
 import PhoneIcon from "@heroicons/react/24/solid/PhoneIcon";
-import cabinImage2 from "../../images/cabin2.jpg";
 
 const Classes = () => {
   return (
@@ -8,7 +7,6 @@ const Classes = () => {
       <div className="w-full h-[700px] absolute ">
         <img
           className="w-full h-full object-cover mix-blend-overlay"
-          src={cabinImage2}
           alt="/"
         />
       </div>
