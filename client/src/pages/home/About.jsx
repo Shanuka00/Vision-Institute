@@ -48,10 +48,10 @@ const About = () => {
       clearInterval(interval2);
       clearInterval(interval3);
     };
-  }, []); // No dependencies in the useEffect hook
+  }, []);
 
   return (
-    <div className="w-full mt-0">
+    <div name ="about" className="w-full mt-0 pt-12">
       <div  className="max-w-[1240px] mx-auto mt-0">
         <div className="flex mt-0 grid md:grid-cols-2">
 
@@ -64,7 +64,7 @@ const About = () => {
 
           <div className="text-center px-4">
             <h2 className="text-5xl font-bold mt-4">Who We Are?</h2>
-            <p name ="about" className="text-2xl py-6 pb-6 text-gray-600 text-left">
+            <p className="text-2xl py-6 pb-6 text-gray-600 text-left">
             We are happy to inform you that our Vision Education Institute, which was started in the year 2022, is currently successfully carrying out educational activities, gaining the approval of parents and children. Learning activities are conducted by the qualified and experienced school teachers of our institution and we invite you to join and make your future successful.
             </p>
           </div>

@@ -28,7 +28,7 @@ const Navbar = () => {
           />
         </Nav.Link>
         <div className="pt-6">
-          <h2 className="text-lg text-gray-500 font-semibold no-underline">New registration</h2>
+          <h2 className="text-sm text-gray-500 font-semibold no-underline sm:text-lg">New registration</h2>
         </div>
         </div>
 

@@ -8,7 +8,7 @@ import RegistrationFees from './pages/loginreg/reg_fees';
 import IdCreation from './pages/loginreg/id_create';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-import Navbar from "./pages/home/Navbar";
+import HNavbar from "./pages/home/HNavbar";
 import NavbarReg from "./pages/home/NavbarReg";
 import { VHome } from "./pages/home/VHome";
 import About from "./pages/home/About";
@@ -17,13 +17,15 @@ import News from "./pages/home/News";
 import Contactus from "./pages/home/Contactus";
 import Footer from "./pages/home/Footer";
 
+import Sidebar from "./pages/student/stsidebar";
+
 function App() {
   return (
     <HelmetProvider>
     <Router>
       <Routes>
         <Route path="/" element={<>
-          <Navbar />
+          <HNavbar />
           <VHome />
           <About />
           <Teachers />
@@ -35,6 +37,9 @@ function App() {
         <Route path="/std_registration" element={<><NavbarReg /><StudentRegistration /><Footer /></>} />
         <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
         <Route path="/id_create" element={<><NavbarReg /><IdCreation /><Footer /></>} />
+
+      <Route path="/st_sidebar" element={<Sidebar/>} />
+
       </Routes>
       <Helmet>
           <title>Vision Institute - Atabage</title>

@@ -1,7 +1,7 @@
 import React from "react";
 const News = () => {
   return (
-    <div name="news" className="w-full my-32">
+    <div name="news" className="w-full my-32 pt-4 py-1">
       <div className="max-w-[1240px] mx-auto px-2">
 
         <div className="text-center text-gray-600">

@@ -3,7 +3,7 @@ import PhoneIcon from "@heroicons/react/24/solid/PhoneIcon";
 
 const Classes = () => {
   return (
-    <div name = "teachers" className="w-full mt-24">
+    <div className="w-full mt-24">
       <div className="w-full h-[700px] absolute ">
         <img
           className="w-full h-full object-cover mix-blend-overlay"
@@ -13,7 +13,7 @@ const Classes = () => {
 
       <div className="max-w-[1240px] mx-auto text-white relative">
         <div className="px-4 py-2 mt-4">
-          <h2 className="text-3xl mt-4 pt-8 text-gray-600 uppercase text-center">
+          <h2 name = "teachers" className="text-3xl mt-4 pt-8 text-gray-600 uppercase text-center">
             Meet our qualified teachers{" "}
           </h2>
         </div>

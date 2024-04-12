@@ -33,18 +33,18 @@ export const VHome = () => {
       <div className="max-w-[1240px] mx-auto text-white relative pt-10 mb-0">
         <div className="px-4 pt-12">
 
-          <h2 className={`text-2xl pt-16 text-gray-300 italic font-semibold text-medium uppercase text-center font-sans ${fadeIn ? 'fade-in' : ''}`}>
+          <h2 className={`md:text-2xl text-lg pt-16 text-gray-300 italic font-semibold text-medium uppercase text-center font-sans ${fadeIn ? 'fade-in' : ''}`}>
             ප්‍රදේශයේ වැඩිම සිසුන් පිරිසකට ඉහල සාමාර්ථ ලබා දෙන<br/>දක්ෂ පළපුරුදු ගුරු මඩුල්ලක් සමගින්..{" "}
           </h2>
 
-          <h3 className={`text-7xl font-bold mt-16 text-center ${zoomIn ? 'zoom-in' : ''}`}>
+          <h3 className={`font-bold mt-12 text-center ${zoomIn ? 'zoom-in' : ''} text:1xl md:text-7xl sm:text-3xl`}>
             Vision Educational Institute
           </h3>
-          <h6 className={`text-4xl font-bold py-1 text-center ${zoomIn ? 'zoom-in' : ''}`}>
+          <h6 className={`font-bold py-1 text-center ${zoomIn ? 'zoom-in' : ''} text:xl md:text-4xl sm:text-1xl`}>
             - Atabage -
           </h6>
 
-          <div className="text-center pt-12 text-2xl text-gray-300 font-semibold italic mb-0">
+          <div className="text-center pt-12 md:text-2xl text-lg text-gray-300 font-semibold italic mb-0">
             <Typewriter
               options={{
                 autoStart: true,
@@ -56,7 +56,7 @@ export const VHome = () => {
             />
           </div>
 
-          <div className="flex justify-center py-0 my-16">
+          <div className={`flex justify-center py-0 my-16 ${fadeIn ? 'fade-in' : ''}`}>
             <Link
               to="/std_registration"
               className="inline-flex items-center px-10 py-3 rounded-xl shadow-medium text-white font-medium bg-indigo-950 hover:text-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 no-underline"

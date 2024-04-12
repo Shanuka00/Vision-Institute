@@ -2,10 +2,10 @@ import React from "react";
 
 const Contactus = () => {
   return (
-    <div name = "contactus" className="w-full text-white my-12">
+    <div className="w-full text-white my-12">
       <div className="w-full h-[800px] absolute mix-blend-overlay"></div>
       <div className="max-w-[1240px] mx-auto py-12">
-        <div className="text-center py-2 text-gray-600">
+        <div name = "contactus" className="text-center py-2 pt-4 text-gray-600">
 
           <h2 className="text-3xl uppercase py-1">Get in touch with us</h2>
         </div>
