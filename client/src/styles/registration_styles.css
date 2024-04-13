@@ -16,14 +16,14 @@
 }
 
 .navbar .d-inline-block.align-top {
-    margin-left: 15%; /* Adjust the margin as needed */
+    margin-left: 15%;
 }
 
 .nav-link {
-    margin-left: 10px; /* Adjust margin-left */
-    margin-right: 10px; /* Adjust margin-right */
-    padding-left: 10px; /* Adjust padding-left */
-    padding-right: 10px; /* Adjust padding-right */
+    margin-left: 10px;
+    margin-right: 10px; 
+    padding-left: 10px; 
+    padding-right: 10px;
     font-weight: bold;
 }
 

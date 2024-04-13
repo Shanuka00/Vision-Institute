@@ -18,6 +18,7 @@ import Contactus from "./pages/home/Contactus";
 import Footer from "./pages/home/Footer";
 
 import Sidebar from "./pages/student/stsidebar";
+import Dashboard from "./pages/student/dashboard";
 
 function App() {
   return (
@@ -38,7 +39,13 @@ function App() {
         <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
         <Route path="/id_create" element={<><NavbarReg /><IdCreation /><Footer /></>} />
 
-      <Route path="/st_sidebar" element={<Sidebar/>} />
+        {/* <Route path="/st_sidebar" element={<><Sidebar/><IdCreation /></>} /> */}
+        <Route path="/st_sidebar" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <Sidebar />
+              <Dashboard />
+            </div>
+          } />
 
       </Routes>
       <Helmet>
