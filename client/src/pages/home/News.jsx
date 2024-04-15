@@ -1,4 +1,8 @@
 import React from "react";
+
+import adMath1 from '../../images/news/ad_math1.png';
+
+
 const News = () => {
   return (
     <div name="news" className="w-full my-32 pt-4 py-1">
@@ -8,31 +12,50 @@ const News = () => {
           <h2 className="text-3xl uppercase">Latest Updates</h2>
         </div>
         
-        <div className="my-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 relative gap-x-8 gap-y-10 px-2 pt-2 text-black" >
 
-          <div className="flex bg-gray-300 rounded-xl py-6">
-            <div>
-              <h3 className="font-bold text-lg h-[300px]">Class Ad 1</h3>
-            </div>
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
           </div>
 
-          <div className="flex bg-gray-300 rounded-xl py-6">
-            <div>
-              <h3 className="font-bold text-lg">Class Ad 2</h3>
-            </div>
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
           </div>
 
-          <div className="flex bg-gray-300 rounded-xl py-6">
-            <div>
-              <h3 className="font-bold text-lg">Class Ad 3</h3>
-            </div>
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
           </div>
 
-          <div className="flex bg-gray-300 rounded-xl py-6">
-            <div>
-              <h3 className="font-bold text-lg">Class Ad 4</h3>
-            </div>   
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
           </div>
+
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
+          </div>
+
+          <div className="rounded-xl shadow-2xl pt-3">
+              <img
+              src={adMath1}
+              className="w-full rounded-lg"
+              alt="Mathematics class" />
+          </div>
+
 
         </div>
       </div>
