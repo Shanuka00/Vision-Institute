@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Dashboard() {
+function DashboardSt() {
   return (
         <div className='rounded-s-3xl bg-white w-full'>
             <h2 className='font-lg text-center mt-8'>This is student dashboard</h2>
@@ -8,4 +8,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default DashboardSt
