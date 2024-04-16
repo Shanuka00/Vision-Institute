@@ -1,3 +1,5 @@
+//server/middleware/encryptPassword.js
+
 const crypto = require('crypto');
 
 function encryptPassword(password) {

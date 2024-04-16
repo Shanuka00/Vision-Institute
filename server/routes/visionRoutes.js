@@ -1,6 +1,6 @@
 const express = require('express');
 const visionController = require('../controllers/visionController');
-//const encryptPasswordMiddleware = require('../middleware/encryptPasswordMiddleware');
+const { validateUser } = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.post('/addUser', visionController.addUser);
 
 // Route to update the password and state
 router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
+
+// Login route
+router.post('/login', validateUser);
 
 module.exports = router;

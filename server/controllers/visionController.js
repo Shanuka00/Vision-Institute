@@ -1,5 +1,4 @@
 const visionModel = require('../models/visionModel');
-//const encryptPassword = require('../middleware/encryptPasswordMiddleware');
 const encryptPassword = require('../middleware/encryptPassword');
 
 // Function to add a new user to the visionuser table
