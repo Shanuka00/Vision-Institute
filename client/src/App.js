@@ -19,6 +19,13 @@ import RegWaiting from './pages/loginreg/reg_waiting';
 import NavbarWait from "./pages/loginreg/navbar_waiting";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
+import SidebarAd from "./pages/admin/ad_sidebar";
+import BankdepoAd from "./pages/admin/ad_bankdepo";
+import CalenderAd from "./pages/admin/ad_calender";
+import DashboardAd from "./pages/admin/ad_dashboard";
+import LogoutAd from "./pages/admin/ad_logout";
+import ProfileAd from "./pages/admin/ad_profile";
+
 import SidebarSt from "./pages/student/st_sidebar";
 import BankdepoSt from "./pages/student/st_bankdepo";
 import CalenderSt from "./pages/student/st_calender";
@@ -26,11 +33,22 @@ import DashboardSt from "./pages/student/st_dashboard";
 import LogoutSt from "./pages/student/st_logout";
 import ProfileSt from "./pages/student/st_profile";
 
+import SidebarTe from "./pages/teacher/te_sidebar";
+import BankdepoTe from "./pages/teacher/te_bankdepo";
+import CalenderTe from "./pages/teacher/te_calender";
+import DashboardTe from "./pages/teacher/te_dashboard";
+import LogoutTe from "./pages/teacher/te_logout";
+import ProfileTe from "./pages/teacher/te_profile";
+
 function App() {
   return (
+
     <HelmetProvider>
     <Router>
       <Routes>
+
+
+        {/* website routes */}
         <Route path="/" element={<>
           <HNavbar />
           <VHome />
@@ -40,6 +58,9 @@ function App() {
           <Contactus />
           <Footer />
         </>} />
+
+
+        {/* login/registration routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/std_registration" element={<><NavbarReg /><StudentRegistration /><Footer /></>} />
         <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
@@ -47,6 +68,40 @@ function App() {
         <Route path="/reg_waiting" element={<><NavbarWait /><RegWaiting /><Footer /></>} />
 
 
+        {/* admin routes */}
+        <Route path="/ad_dashboard" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <DashboardAd />
+            </div>
+          } />
+        <Route path="/ad_calender" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <CalenderAd />
+            </div>
+          } />
+          <Route path="/ad_bankdepo" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <BankdepoAd />
+            </div>
+          } />
+        <Route path="/ad_profile" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <ProfileAd />
+            </div>
+          } />
+        <Route path="/ad_logout" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <LogoutAd />
+            </div>
+          } />
+
+
+        {/* student routes */}
         <Route path="/st_dashboard" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarSt />
@@ -75,6 +130,39 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarSt />
               <LogoutSt />
+            </div>
+          } />
+
+          
+        {/* teacher routes */}
+        <Route path="/te_dashboard" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <DashboardTe />
+            </div>
+          } />
+        <Route path="/te_calender" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <CalenderTe />
+            </div>
+          } />
+          <Route path="/te_bankdepo" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <BankdepoTe />
+            </div>
+          } />
+        <Route path="/te_profile" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <ProfileTe />
+            </div>
+          } />
+        <Route path="/te_logout" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <LogoutTe />
             </div>
           } />
 

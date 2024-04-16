@@ -5,7 +5,82 @@ import loginImage from '../../images/login_image.png';
 import visionLogoT from '../../images/visionLogoT.png';
 import Nav from 'react-bootstrap/Nav';
 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 function Login() {
+
+  // const [visionId, setVisionId] = useState('');
+  // const [password, setPassword] = useState('');
+  // const navigate = useNavigate();
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post('/api/vision/login', {
+  //       visionId,
+  //       password
+  //     });
+  //     console.log('Login successful:', response.data);
+  //     // Assuming the response includes some form of user data or token
+  //     Swal.fire({
+  //       title: "Login Successful!",
+  //       icon: "success",
+  //       confirmButtonText: "Proceed"
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         navigate('/dashboard'); // Navigate to the dashboard or another page
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error('Login failed:', error);
+  //     Swal.fire({
+  //       title: "Login Failed",
+  //       text: "Invalid ID or password. Please try again!",
+  //       icon: "error",
+  //       confirmButtonText: "Retry"
+  //     });
+  //   }
+  // };
+
+
+  const [visionId, setVisionId] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('/api/vision/login', {
+        visionId,
+        password
+      });
+      console.log('Login successful:', response.data);
+      // Response includes redirect path to navigate accordingly
+      Swal.fire({
+        title: "Login Successful!",
+        icon: "success",
+        confirmButtonText: "Proceed"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(response.data.redirect); // Use the redirect path from the server
+        }
+      });
+    } catch (error) {
+      console.error('Login failed:', error);
+      Swal.fire({
+        title: "Login Failed",
+        text: "Invalid ID or password. Please try again!",
+        icon: "error",
+        confirmButtonText: "Retry"
+      });
+    }
+  };
+
   return (
     
     <section className="mx-40 w-70 space-y-20 mt-10 pt-1 mb-10 bg-gray-200 rounded-xl p-10">
@@ -29,7 +104,8 @@ function Login() {
 
 
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12 pr-10">
-            <form>
+
+            <form onSubmit={handleSubmit} className="form">
 
             <div className="text-center mb-3 w-40 ml-auto mr-auto mt-2">
               <Nav.Link as={Link} to="/">
@@ -48,8 +124,11 @@ function Login() {
                   <input
                     type="text"
                     className="peer block min-h-[auto] w-full rounded-xl border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-black dark:text-black dark:placeholder:text-gray-500 dark:autofill:shadow-autofill dark:peer-focus:text-primary"
-                    id="exampleFormControlInput2"
+                    id="visionid"
                     placeholder="Vision ID"
+                    value={visionId}
+                    onChange={(e) => setVisionId(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -57,8 +136,11 @@ function Login() {
                   <input
                     type="password"
                     className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-black dark:text-black dark:placeholder:text-gray-500 dark:autofill:shadow-autofill dark:peer-focus:text-primary"
-                    id="exampleFormControlInput22"
+                    id="password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -85,8 +167,8 @@ function Login() {
               
               <div className="text-center lg:text-left">
                 <button
-                  type="button"
-                  className="inline-block w-full rounded mt-0 px-7 pb-3 pt-3 text-base font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  type="submit"
+                  className="submit-button inline-block w-full rounded mt-0 px-7 pb-3 pt-3 text-base font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   data-twe-ripple-init
                   data-twe-ripple-color="light">
                   Login
