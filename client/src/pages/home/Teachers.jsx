@@ -1,6 +1,13 @@
 import React from "react";
 
 import teacherThilak from '../../images/teachers/thilaksir.png';
+import teacherIndika from '../../images/teachers/indikasir.png';
+import teacherAsela from '../../images/teachers/aselasir.png';
+import teacherSujith from '../../images/teachers/sujithsir.png';
+import teacherVikum from '../../images/teachers/vikumsir.png';
+import teacherChathurangi from '../../images/teachers/chathurangimiss.png';
+import teacherPathum from '../../images/teachers/pathumsir.png';
+import teacherRavi from '../../images/teachers/ravisir.png';
 
 const Classes = () => {
   return (
@@ -41,13 +48,13 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherSujith}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Sujith sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Sujith Maithree
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
                 Mathematics
@@ -58,16 +65,16 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherAsela}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Asela sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Asela Rathnayaka
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                Science
               </p>
             </div>
           </div>
@@ -75,16 +82,16 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherIndika}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Indika sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Indika Dharmawardana
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                English
               </p>
             </div>
           </div>
@@ -92,16 +99,16 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherVikum}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Vikum sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Vikum S. Dissanayake
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                Sinhala
               </p>
             </div>
           </div>
@@ -109,16 +116,16 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherRavi}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Ravi sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Kumar Ravichandran
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                Tamil
               </p>
             </div>
           </div>
@@ -126,16 +133,16 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherChathurangi}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Chathurangi miss" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Chathurangi Perera
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                Scholarship
               </p>
             </div>
           </div>
@@ -143,20 +150,19 @@ const Classes = () => {
           <div className="bg-white rounded-xl shadow-2xl -pb-2">
             <div className="p-3">
               <img
-              src={teacherThilak}
+              src={teacherPathum}
               className="w-full rounded-lg"
-              alt="Thilak sir" />
+              alt="Pathum sir" />
             </div>
             <div className="bg-slate-100 text-center rounded-b-xl -mb-4">
               <p className="text-lg font-semibold text-indigo-800 w-full pt-2 mb-1">
-                Thilak Ganekumbura
+                Pathum Jayananda
               </p>
               <p className="text-indigo-500 mt-0 pb-2">
-                Mathematics
+                Scholarship
               </p>
             </div>
           </div>
-
 
         </div>
       </div>
