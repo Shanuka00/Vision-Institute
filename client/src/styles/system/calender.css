@@ -1,0 +1,30 @@
+.calendar-event-text {
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    margin-left: 5px;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-daygrid-day-number {
+    color: rgb(0, 0, 163);
+    text-decoration: none !important;
+}
+
+.custom-calendar .fc-day-header{
+    padding: 0;
+    margin: 0;
+    text-decoration: none !important;
+    border: 1px solid #f0f0f0;
+    background-color: #f0f0f0;
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+}

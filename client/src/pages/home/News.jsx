@@ -1,7 +1,11 @@
 import React from "react";
 
 import adMath1 from '../../images/news/ad_math1.png';
-
+import adClass1 from '../../images/news/ad_class1.png';
+import adClass2 from '../../images/news/ad_class2.png';
+import adSchol1 from '../../images/news/ad_schol1.png';
+import adSinhala1 from '../../images/news/ad_sinhala1.png';
+import adTamil1 from '../../images/news/ad_tamil1.png';
 
 const News = () => {
   return (
@@ -14,48 +18,47 @@ const News = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 relative gap-x-8 gap-y-10 px-2 pt-2 text-black" >
 
-          <div className="rounded-xl shadow-2xl pt-3">
+          <div className="rounded-xl shadow-2xl pt-3 h-fit">
               <img
               src={adMath1}
               className="w-full rounded-lg"
               alt="Mathematics class" />
           </div>
 
-          <div className="rounded-xl shadow-2xl pt-3">
+          <div className="rounded-xl shadow-2xl pt-3 h-fit">
               <img
-              src={adMath1}
+              src={adSchol1}
               className="w-full rounded-lg"
-              alt="Mathematics class" />
+              alt="Scholarship class" />
+          </div>
+          
+          <div className="rounded-xl shadow-2xl pt-3 h-fit">
+              <img
+              src={adClass2}
+              className="w-full rounded-lg"
+              alt="Maths and Science classes" />
           </div>
 
-          <div className="rounded-xl shadow-2xl pt-3">
+          <div className="rounded-xl shadow-2xl pt-3 h-fit md:mt-1">
               <img
-              src={adMath1}
+              src={adTamil1}
               className="w-full rounded-lg"
-              alt="Mathematics class" />
+              alt="Tamil class" />
           </div>
 
-          <div className="rounded-xl shadow-2xl pt-3">
+          <div className="rounded-xl shadow-2xl pt-3 h-fit md:-mt-16">
               <img
-              src={adMath1}
+              src={adSinhala1}
               className="w-full rounded-lg"
-              alt="Mathematics class" />
+              alt="Sinhala class" />
           </div>
 
-          <div className="rounded-xl shadow-2xl pt-3">
+          <div className="rounded-xl shadow-2xl pt-3 h-fit md:-mt-3">
               <img
-              src={adMath1}
+              src={adClass1}
               className="w-full rounded-lg"
-              alt="Mathematics class" />
+              alt="Classes in vision" />
           </div>
-
-          <div className="rounded-xl shadow-2xl pt-3">
-              <img
-              src={adMath1}
-              className="w-full rounded-lg"
-              alt="Mathematics class" />
-          </div>
-
 
         </div>
       </div>
