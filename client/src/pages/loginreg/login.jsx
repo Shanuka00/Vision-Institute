@@ -6,80 +6,52 @@ import visionLogoT from '../../images/visionLogoT.png';
 import Nav from 'react-bootstrap/Nav';
 
 import { useState } from 'react';
+//import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+//import { AuthContext } from '../../services/AuthContext';
+import authService from '../../services/authService';
 import Swal from 'sweetalert2';
 
 function Login() {
 
-  // const [visionId, setVisionId] = useState('');
-  // const [password, setPassword] = useState('');
-  // const navigate = useNavigate();
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await axios.post('/api/vision/login', {
-  //       visionId,
-  //       password
-  //     });
-  //     console.log('Login successful:', response.data);
-  //     // Assuming the response includes some form of user data or token
-  //     Swal.fire({
-  //       title: "Login Successful!",
-  //       icon: "success",
-  //       confirmButtonText: "Proceed"
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         navigate('/dashboard'); // Navigate to the dashboard or another page
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error('Login failed:', error);
-  //     Swal.fire({
-  //       title: "Login Failed",
-  //       text: "Invalid ID or password. Please try again!",
-  //       icon: "error",
-  //       confirmButtonText: "Retry"
-  //     });
-  //   }
-  // };
-
-
   const [visionId, setVisionId] = useState('');
   const [password, setPassword] = useState('');
+ 
   const navigate = useNavigate();
+  //const { setLoginResponse } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post('/api/vision/login', {
+      const response = await authService.login({
         visionId,
-        password
+        password,
       });
-      console.log('Login successful:', response.data);
-      // Response includes redirect path to navigate accordingly
+      console.log(response);
+      //setLoginResponse(response);
+    
       Swal.fire({
         title: "Login Successful!",
         icon: "success",
-        confirmButtonText: "Proceed"
+        confirmButtonText: "Proceed",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate(response.data.redirect); // Use the redirect path from the server
+          // Navigate to the appropriate dashboard based on the redirect path from the server
+          navigate(response.redirect);
         }
       });
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
       Swal.fire({
         title: "Login Failed",
         text: "Invalid ID or password. Please try again!",
         icon: "error",
-        confirmButtonText: "Retry"
+        confirmButtonText: "Retry",
       });
     }
-  };
+  };  
+  
 
   return (
     
