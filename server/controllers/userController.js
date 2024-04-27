@@ -1,6 +1,8 @@
 // controllers/userController.js
 const User = require('../models/userModel');
 const encryptPassword = require('../middleware/encryptPassword');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 exports.validateUser = (req, res) => {
     const { visionId, password } = req.body;
@@ -19,11 +21,11 @@ exports.validateUser = (req, res) => {
             return res.status(401).json({ message: 'Authentication failed. Wrong password.' });
         }
 
-        // Setup session data
-        req.session.user = {
+        // Generate JWT token
+        const token = jwt.sign({
             userId: user.visionid,
             role: user.role
-        };
+        }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         let redirectPath = determineRedirectPath(user.role, user.state);
         if (!redirectPath) {
@@ -33,7 +35,8 @@ exports.validateUser = (req, res) => {
         res.json({
             message: 'Login successful!',
             userId: user.visionid,
-            redirect: redirectPath
+            redirect: redirectPath,
+            token: token
         });
     });
 };

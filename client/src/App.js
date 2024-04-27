@@ -19,6 +19,8 @@ import RegWaiting from './pages/loginreg/reg_waiting';
 import NavbarWait from "./pages/loginreg/navbar_waiting";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
+//import { AuthProvider } from './services/AuthContext';
+
 import SidebarAd from "./pages/admin/ad_sidebar";
 import BankdepoAd from "./pages/admin/ad_bankdepo";
 import CalenderAd from "./pages/admin/ad_calender";
@@ -36,6 +38,7 @@ import ProfileSt from "./pages/student/st_profile";
 import SidebarTe from "./pages/teacher/te_sidebar";
 import BankdepoTe from "./pages/teacher/te_bankdepo";
 import CalenderTe from "./pages/teacher/te_calender";
+import CreateQuiz from "./pages/teacher/te_create_quiz";
 import DashboardTe from "./pages/teacher/te_dashboard";
 import LogoutTe from "./pages/teacher/te_logout";
 import ProfileTe from "./pages/teacher/te_profile";
@@ -57,8 +60,7 @@ function App() {
           <News />
           <Contactus />
           <Footer />
-        </>} />
-
+        </>} />  
 
         {/* login/registration routes */}
         <Route path="/login" element={<Login />} />
@@ -66,6 +68,9 @@ function App() {
         <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
         <Route path="/id_create" element={<><NavbarReg /><IdCreation /><Footer /></>} />
         <Route path="/reg_waiting" element={<><NavbarWait /><RegWaiting /><Footer /></>} />
+
+
+        {/* <Route element={<AuthProvider />}> */}
 
 
         {/* admin routes */}
@@ -141,30 +146,42 @@ function App() {
               <DashboardTe />
             </div>
           } />
+
         <Route path="/te_calender" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
               <CalenderTe />
             </div>
           } />
-          <Route path="/te_bankdepo" element={
+        <Route path="/te_calender/create_quiz" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <CreateQuiz />
+            </div>
+          } />
+
+        <Route path="/te_bankdepo" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
               <BankdepoTe />
             </div>
           } />
+
         <Route path="/te_profile" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
               <ProfileTe />
             </div>
           } />
+
         <Route path="/te_logout" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
               <LogoutTe />
             </div>
           } />
+
+        {/* </Route> */}
 
 
       </Routes>
