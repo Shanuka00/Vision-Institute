@@ -38,11 +38,11 @@ const HNavbar = () => {
           <Nav className="text-lg text-indigo-900 font-semibold hover:font-bold no-underline w-full bg-zinc-200">
             
             <div className="md:flex px-2 pr-4 justify-center pt-3 ml-auto mr-auto text-lg text-indigo-900 font-semibold hover:font-bold no-underline w-full">
-            <NavItem to="home" onClick={handleToggleNav}><p className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Home</p></NavItem>
-            <NavItem to="about" onClick={handleToggleNav}><p className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">About</p></NavItem>
-            <NavItem to="teachers" onClick={handleToggleNav}><p className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Teachers</p></NavItem>
-            <NavItem to="news" onClick={handleToggleNav}><p className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">News</p></NavItem>
-            <NavItem to="contactus" onClick={handleToggleNav}><p className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Contact us</p></NavItem>
+            <NavItem to="home" onClick={handleToggleNav}><p style={{ textDecoration: 'none', cursor: 'pointer' }} className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Home</p></NavItem>
+            <NavItem to="about" onClick={handleToggleNav}><p style={{ textDecoration: 'none', cursor: 'pointer' }} className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">About</p></NavItem>
+            <NavItem to="teachers" onClick={handleToggleNav}><p style={{ textDecoration: 'none', cursor: 'pointer' }} className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Teachers</p></NavItem>
+            <NavItem to="news" onClick={handleToggleNav}><p style={{ textDecoration: 'none', cursor: 'pointer' }} className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">News</p></NavItem>
+            <NavItem to="contactus" onClick={handleToggleNav}><p style={{ textDecoration: 'none', cursor: 'pointer' }} className="text-indigo-900 ms-1 font-semibold hover:font-bold no-underline">Contact us</p></NavItem>
             </div>
             
             <Nav.Link as={RouterLink} to="/login" className="bg-blue-800" onClick={handleToggleNav}>

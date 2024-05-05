@@ -1,4 +1,4 @@
-//client/src/pages/reg_fees.jsxmaxVisionId
+//client/src/pages/reg_fees.jsx
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -6,12 +6,33 @@ import { useNavigate } from 'react-router-dom';
 import peoplesLogo from '../../images/peopleslogo.png';
 import hnbLogo from '../../images/hnblogo.png';
 
+import 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import Swal from 'sweetalert2';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function RegFees() {
 
   const [maxVisionId, setMaxVisionId] = useState('');
+  const [fileSelected, setFileSelected] = useState(false);
+  const MAX_FILE_SIZE = 2 * 1024 * 1024;
+  const [fileUploaded, setFileUploaded] = useState(false);
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
+    authDomain: "vision-institute-80d7f.firebaseapp.com",
+    projectId: "vision-institute-80d7f",
+    storageBucket: "vision-institute-80d7f.appspot.com",
+    messagingSenderId: "438460841851",
+    appId: "1:438460841851:web:b607f9eac852d2e02d07de",
+    measurementId: "G-D1W84V5B4V"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
 
   useEffect(() => {
     fetchMaxVisionId();
@@ -46,16 +67,79 @@ function RegFees() {
     occupation,
     contactNo,
     aboutVision,
-    //formAgreement,
   } = location.state || {};
 
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const navigate = useNavigate();
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+  const handleUpload = async () => {
+    const file = document.getElementById("formFile").files[0];
+    const extension = file.name.split('.').pop();
+    const storageRef = ref(storage, `regslips/${maxVisionId}_regfees.${extension}`);
+  
+    // Show the SweetAlert2 loading dialog with a timer
+    let timerInterval;
+    const toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        timerInterval = setInterval(() => {
+          Swal.getTimerLeft();
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    });
+    toast.fire({
+      title: "Uploading your slip!",
+      html: "Wait until uploading finished",
+      icon: "info"
+    });
+  
+    try {
+      await uploadBytes(storageRef, file);
+      console.log("File uploaded successfully");
+      setFileUploaded(true);
+  
+      // Close the SweetAlert2 loading dialog and show a success message
+      Swal.close();
+      Swal.fire({
+        title: "Success!",
+        text: "Your payment slip has been uploaded successfully, Continue registration!",
+        icon: "success",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+  
+      // Close the SweetAlert2 loading dialog and show an error message
+      Swal.close();
+      Swal.fire({
+        title: "Error!",
+        text: "There was an error uploading your payment slip. Please try again.",
+        icon: "error",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
   };
 
-  const navigate = useNavigate();
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= MAX_FILE_SIZE) {
+      setFileSelected(true);
+    } else {
+      setFileSelected(false);
+      alert("File size must be less than or equal to 2MB");
+    }
+  };
 
   const handleClick = async () => {
     try {
@@ -107,59 +191,62 @@ function RegFees() {
         <Card bankLogo={hnbLogo} bankName="HNB" accountName="W.T.S.R.K. Ranasinghe" accountNumber="0510 1002 1851" branch="Gampola" />
       </div>
 
-      <div className="flex justify-between items-center mx-8 pt-7 pb-0">
-        <p className="text-lg font-bold ml-auto mx-8">Registration Fees:</p>
-        <div className="flex items-center border border-gray-300 rounded px-3 py-2 mr-auto mb-3">
+      <div className="mt-3 w-96 ml-auto mr-auto">
+          <label
+            className="mb-2 inline-block text-neutral-700 font-bold"
+          >
+          Registration fees
+          </label>
+          <div className="flex items-center border border-gray-300 rounded px-3 py-2 mr-auto mb-3">
           <span className="mr-2">Rs.</span>
           <input className="w-full focus:outline-none" type="text" value="300.00" readOnly />
         </div>
       </div>
 
-      <div className="flex justify-between items-center mx-8">
-        <p className="text-lg font-bold ml-auto mx-6">Bank Slip Upload:</p>
-        <label htmlFor="fileUpload" className="cursor-pointer text-indigo-700 font-semibold mr-auto mb-3">
-          👉 Click here to upload payment slip 👈
-        </label>
-        <input id="fileUpload" type="file" onChange={handleFileChange} style={{ display: 'none' }} />
-      </div>
+      <div className="mb-7 w-96 ml-auto mr-auto">
+          <label
+            className="inline-block text-neutral-700 font-bold"
+          >
+          Upload payment slip
+          </label>
 
-      <div className="-pt-6 -mt-2"><p></p>{selectedFile && <p className="text-green-600 pt-0 mt-0"><br/><center>File selected: {selectedFile.name}</center></p>}</div>
+          <div className="flex items-center rounded py-2 mr-auto">
+            <input
+              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+              type="file"
+              onChange={handleFileChange}
+              id="formFile"
+            />
+            <button
+              id="uploadBtn"
+              disabled={!fileSelected}
+              onClick={handleUpload}
+              className={`ml-2 px-4 w-24 py-1.5 ${fileSelected ? "ml-2 bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold rounded shadow-sm`}
+            >
+              Upload
+            </button>
+          </div>
+      </div>
 
       <div className="text-center mb-0 py-0 pt-0 mt-0">
-        <button className="px-4 w-64 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded shadow-sm">
-          Continue registration
-        </button>
+      <button
+        id="continueBtn"
+        disabled={!fileUploaded}
+        className={`px-4 w-64 py-2 ${fileUploaded ? "bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold rounded shadow-sm`}
+      >
+        Continue registration
+      </button>
+
       </div>
       <div className="text-center mt-2">
-        <button className="px-4 w-64 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded shadow-sm" onClick={handleClick}>
-          Continue without payment
+        <button 
+          className="text-blue-600 mt-2 font-semibold hover:underline hover:pointer hover:font-bold"
+          style={{ textDecoration: 'none', cursor: 'pointer' }}
+          onClick={handleClick}
+        >
+          Continue without payment..
         </button>
       </div>
-
-      {/* <div className='pt-24'>
-          <h1>Registration Fees</h1>
-          <p>First Name: {firstName}</p>
-          <p>Last name: {lastName}</p>
-          <p>Initial: {initial}</p>
-          <p>Birthday: {birthday}</p>
-          <p>Gender: {gender}</p>
-          <p>Email Address: {emailAddress}</p>
-          <p>Mobile Phone: {mobilePhone}</p>
-          <p>Whatsapp Number: {whatsappNumber}</p>
-          <p>AddressLine1: {addressLine1}</p>
-          <p>AddressLine2: {addressLine2}</p>
-          <p>City: {city}</p>
-          <p>School: {school}</p>
-          <p>ParentName: {parentName}</p>
-          <p>Occupation: {occupation}</p>
-          <p>Contact Number: {contactNo}</p>
-          <p>About Vision: {aboutVision}</p>
-          <p>Form Agreement: {formAgreement ? 'Agreed' : 'Not Agreed'}</p>
-      </div>
-
-      <div className="pt-28 flex flex-col gap-1">
-          <p>Maximum Vision ID: {maxVisionId}</p>
-      </div> */}
 
     </div> 
 

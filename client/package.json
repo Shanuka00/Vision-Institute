@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
+    "firebase": "^10.11.1",
     "lucide-react": "^0.365.0",
     "mdb-react-ui-kit": "^7.2.0",
     "react": "^18.2.0",
