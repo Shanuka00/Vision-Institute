@@ -13,13 +13,26 @@ import Swal from 'sweetalert2';
 function IdCreate() {
 
   const location = useLocation();
+
   const nextVid = location.state?.nextVid["maxVisionId"];
+
+  const {
+    currentState,
+  } = location.state || {};
+
   const { width, height } = useWindowSize()
   const [opacity, setOpacity] = useState(1);
   const [active, setActive] = useState(true);
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  let newState;
+  if (currentState === true) {
+    newState = "YesRegYesPass";
+  } else if (currentState === false) {
+    newState = "NoRegYesPass";
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,12 +73,12 @@ function IdCreate() {
     const visionId = location.state?.nextVid?.maxVisionId;
 
     try {
-        await axios.post('/api/vision/updatePasswordAndState', { visionId, password, confirmPassword });
+        await axios.post('/api/vision/updatePasswordAndState', { visionId, password, confirmPassword, newState });
         console.log('Password updated successfully!');
         showAlertSuccess();
 
     } catch (error) {
-        console.log(password, confirmPassword, visionId);
+        console.log(password, confirmPassword, visionId, newState);
         console.error('Error updating password:', error);
         console.log('Error updating password. Please try again later.');
     }

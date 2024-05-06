@@ -142,6 +142,7 @@ function RegFees() {
   };
 
   const handleClick = async () => {
+
     try {
       
       const response = await axios.post('/api/vision/addUser', {
@@ -164,13 +165,55 @@ function RegFees() {
         contactNo,
         aboutVision,
         role: 'student',
-        state: 'noregpass',
+        state: 'NoRegNoPass',
       });
+      console.log('User added successfully:', response.data);
+
+      // Navigate to the next page after successfully adding the user
+      navigate('/id_create',{
+        state: {
+          nextVid: {maxVisionId},
+          currentState: false,
+        }
+      });
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  };
+
+  const handlePaid = async () => {
+
+    try {
+      
+      const response = await axios.post('/api/vision/addUser', {
+        maxVisionId,
+        firstName,
+        lastName,
+        initial,
+        birthday,
+        password: 'e4c4bcf6f1addc82e879fe8dbe1eddb3',
+        gender,
+        emailAddress,
+        mobilePhone,
+        whatsappNumber,
+        addressLine1,
+        addressLine2,
+        city,
+        school,
+        parentName,
+        occupation,
+        contactNo,
+        aboutVision,
+        role: 'student',
+        state: 'YesRegNoPass',
+      });
+
       console.log('User added successfully:', response.data);
       // Navigate to the next page after successfully adding the user
       navigate('/id_create',{
         state: {
           nextVid: {maxVisionId},
+          currentState: true,
         }
       });
     } catch (error) {
@@ -233,6 +276,7 @@ function RegFees() {
         id="continueBtn"
         disabled={!fileUploaded}
         className={`px-4 w-64 py-2 ${fileUploaded ? "bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold rounded shadow-sm`}
+        onClick={handlePaid}
       >
         Continue registration
       </button>

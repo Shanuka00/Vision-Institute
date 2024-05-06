@@ -52,7 +52,8 @@ const updatePasswordAndState = async (req, res) => {
         const encryptedPassword = encryptPassword(password);
 
         // Update the user's password and state
-        await visionModel.updatePasswordAndState(visionId, encryptedPassword);
+        const newState = req.body.newState;
+        await visionModel.updatePasswordAndState(visionId, encryptedPassword, newState);
 
         // Send a success response
         res.json({ message: 'Password updated successfully' });
