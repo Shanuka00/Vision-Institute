@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Link, NavLink } from 'react-router-dom';
 import sideImage from '../../images/side_logo.png';
 
 const SidebarAd = () => {
-    const [isOpen, setIsOpen] = useState(false);  // State to manage the open/close of the sidebar menu
+    const [isOpen, setIsOpen] = useState(false);
+
+    const [isFixed, setIsFixed] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsFixed(true);
+            } else {
+                setIsFixed(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
-        <div className="w-0 tracking-normal relative flex flex-col bg-clip-border bg-gray-200 text-gray-700 h-screen sm:w-full max-w-[18rem] p-2 pb-2 shadow-xl shadow-gray-900/5">
+        <div className={`w-0 relative sm:fixed top-0 left-0 bg-clip-border bg-gray-200 text-gray-700 h-screen sm:w-full max-w-[18rem] p-2 pb-2 shadow-xl shadow-gray-900/5 overflow-y-auto ${isFixed ? 'sm:top-0' : ''}`}>
             <div className="flex justify-between items-center mb-2 p-4 sm:justify-start bg-gray-200">
 
                 <div className="w-full pr-auto-0 -ml-6 mt-1">
@@ -64,13 +82,13 @@ const SidebarAd = () => {
                     Bank deposit
                 </NavLink>
 
-                <NavLink to="/ad_profile" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
+                <NavLink to="/ad_classallo" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
                     <div className="grid place-items-center mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                          <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd"></path>
+                        <path d="M10 20h4v-8h2l2 3h5v-5l-6-6-6 6v5zm-4-9v5h5v-2H7v-3zm8-4v2h-2V8h2zm2-4h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zM6 6h2v2H6V6zm4 4H6v2h4V10zm4 0h-2v2h2V10zm4 0h-2v2h2V10zm0 4h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H6v2h4v-2zm4-8h2V6h-2v2zm-4 0h2V6h-2v2zm-4 0h2V6h-2v2z"></path>
                         </svg>
                     </div>
-                    Profile
+                    Classroom allocation
                 </NavLink>
 
                 <NavLink to="/ad_logout" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
@@ -88,4 +106,3 @@ const SidebarAd = () => {
 }
 
 export default SidebarAd;
-

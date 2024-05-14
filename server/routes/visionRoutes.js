@@ -1,5 +1,6 @@
 const express = require('express');
 const visionController = require('../controllers/visionController');
+const roomController = require('../controllers/roomController');
 const { validateUser } = require('../controllers/userController');
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
 
 // Login route
 router.post('/login', validateUser);
+
+// Get next class ID
+router.get('/nextroomid', roomController.getNextClassroomID);
 
 module.exports = router;
