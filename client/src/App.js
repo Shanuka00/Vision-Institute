@@ -26,7 +26,7 @@ import BankdepoAd from "./pages/admin/ad_bankdepo";
 import CalenderAd from "./pages/admin/ad_calender";
 import DashboardAd from "./pages/admin/ad_dashboard";
 import LogoutAd from "./pages/admin/ad_logout";
-import ProfileAd from "./pages/admin/ad_profile";
+import ClassalloAd from "./pages/admin/ad_classallo";
 
 import SidebarSt from "./pages/student/st_sidebar";
 import BankdepoSt from "./pages/student/st_bankdepo";
@@ -92,10 +92,10 @@ function App() {
               <BankdepoAd />
             </div>
           } />
-        <Route path="/ad_profile" element={
+        <Route path="/ad_classallo" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
-              <ProfileAd />
+              <ClassalloAd />
             </div>
           } />
         <Route path="/ad_logout" element={

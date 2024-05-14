@@ -6,9 +6,7 @@ import visionLogoT from '../../images/visionLogoT.png';
 import Nav from 'react-bootstrap/Nav';
 
 import { useState } from 'react';
-//import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import { AuthContext } from '../../services/AuthContext';
 import authService from '../../services/authService';
 import Swal from 'sweetalert2';
 
@@ -18,7 +16,6 @@ function Login() {
   const [password, setPassword] = useState('');
  
   const navigate = useNavigate();
-  //const { setLoginResponse } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,18 +26,24 @@ function Login() {
         password,
       });
       console.log(response);
-      //setLoginResponse(response);
-    
-      Swal.fire({
-        title: "Login Successful!",
-        icon: "success",
-        confirmButtonText: "Proceed",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Navigate to the appropriate dashboard based on the redirect path from the server
-          navigate(response.redirect);
-        }
-      });
+  
+      if (response && response.token) {
+        
+        // store the token in local storage
+        localStorage.setItem('token', response.token);
+  
+        Swal.fire({
+          title: "Login Successful!",
+          icon: "success",
+          confirmButtonText: "Proceed",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(response.redirect);
+          }
+        });
+      } else {
+        throw new Error('Login failed: No token in response');
+      }
     } catch (error) {
       console.error("Login failed:", error);
       Swal.fire({
@@ -50,7 +53,7 @@ function Login() {
         confirmButtonText: "Retry",
       });
     }
-  };  
+  };
   
 
   return (
