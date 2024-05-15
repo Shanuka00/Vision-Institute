@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import downIco from '../../images/downico.gif';
 import api from '../../api/api';
 import Swal from 'sweetalert2';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import 'react-datetime/css/react-datetime.css';
+import '../../styles/system/roomallocation.css';
 
 function ClassalloAd() {
 
@@ -15,6 +19,9 @@ function ClassalloAd() {
     const [maxCapacity, setMaxCapacity] = useState('');
     const [withAC, setWithAC] = useState(false);
     const [classrooms, setClassrooms] = useState([]);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalData, setModalData] = useState([]);
 
     // Fetch classrooms from the server
     const fetchClassrooms = async () => {
@@ -62,10 +69,30 @@ function ClassalloAd() {
                 title: "New classroom created successfully!",
                 icon: "success",
                 confirmButtonText: "OK",
+            }).then(() => {
+                scrollToClassroomDetails2();
             });
 
             fetchClassrooms();
 
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleSearchAllocate = async () => {
+        try {
+            const data = { capacity, date, day, startTime, endTime };
+            let route;
+            if (day !== '') {
+                route = '/searchforallocateday'; // Change route if day is not empty
+            } else {
+                route = '/searchforallocatedate'; // Use this route if day is empty
+            }
+            const response = await api.post(route, data);
+            console.log(response.data);
+            setModalData(response.data);
+            setShowModal(true); // Show modal after data fetching
         } catch (error) {
             console.error(error);
         }
@@ -107,6 +134,29 @@ function ClassalloAd() {
         setWithAC(event.target.checked);
     };
 
+    const scrollToClassroomDetails = () => {
+        const classroomDetailsSection = document.getElementById('classroom-details');
+        if (classroomDetailsSection) {
+            classroomDetailsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const scrollToClassroomDetails2 = () => {
+        const classroomDetailsSection = document.getElementById('classroom-body');
+        if (classroomDetailsSection) {
+            classroomDetailsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleRoomButtonClick = (roomId) => {
+        // Handle button click logic
+        console.log(`Button clicked for room ID: ${roomId}`);
+    };
+
     return (
         <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
 
@@ -144,9 +194,10 @@ function ClassalloAd() {
                                     onChange={handleDateChange}
                                     disabled={inputType === 'day'}
                                 />
+                                
                                 <select
                                     id="day"
-                                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                    className={`w-full px-3 py-2 rounded-md border ${inputType === 'date' ? 'bg-transparent' : 'bg-white'} border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500`}
                                     value={day}
                                     onChange={handleDayChange}
                                     disabled={inputType === 'date'}
@@ -183,9 +234,39 @@ function ClassalloAd() {
                                 value={endTime}
                                 onChange={handleEndTimeChange}
                             />
-                            <button className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-4 rounded mt-4">
+                            <button onClick={handleSearchAllocate} className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-4 rounded mt-4">
                                 Search for allocate
                             </button>
+
+                            {/* Modal to display fetched data */}
+                            <Modal show={showModal} onHide={handleCloseModal}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Available Classrooms</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="room-buttons">
+                                        {/* Iterate over modalData and display room details */}
+                                        {modalData.map((room, index) => (
+                                            <button 
+                                                key={index}
+                                                className={`room-button ${room.withac ? 'ac-room' : 'non-ac-room'}`}
+                                                onClick={() => handleRoomButtonClick(room)}
+                                            >
+                                                <span>{room.roomid}</span>
+                                                <span>{room.withac ? ' (with AC)   ' : ' (Non-AC)   '}</span>
+                                                <span>Max-capacity: {room.maxcapacity}</span>
+                                                
+                                            </button>
+                                        ))}
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleCloseModal}>
+                                        Close
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+
                         </div>
                     </div>
                 </div>
@@ -260,13 +341,13 @@ function ClassalloAd() {
 
             </div>
 
-            <div className="mb-3 w-full mr-0">
+            <div className="mb-3 w-full mr-0" onClick={scrollToClassroomDetails}>
                 <img className='ml-auto mr-10 w-14 mt-2 opacity-60' src={downIco} alt="Down arrow" />
             </div>
 
             {/* Classroom Table */}
-            <div className="rounded shadow-md bg-gray-100 p-4 mx-10">
-                    <h2 className="text-xl font-bold mb-4">Classroom details</h2>
+            <div id="classroom-details" className="rounded shadow-md bg-gray-100 p-4 mx-10">
+                    <h2 id="classroom-body" className="text-xl font-bold mb-4">Classroom details</h2>
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>
