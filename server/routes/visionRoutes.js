@@ -3,6 +3,7 @@ const visionController = require('../controllers/visionController');
 const roomController = require('../controllers/roomController');
 const { validateUser } = require('../controllers/userController');
 const { getAllClassrooms } = require('../controllers/loadroomsController');
+const { searchForAllocateDay, searchForAllocateDate } = require('../controllers/roomAllocationController');
 
 const router = express.Router();
 
@@ -26,5 +27,11 @@ router.get('/nextroomid', roomController.getNextClassroomID);
 
 // Create a new classroom
 router.post('/createclassroom', roomController.createClassroom);
+
+// Create a new classroom
+router.post('/searchforallocateday', searchForAllocateDay);
+
+// Create a new classroom
+router.post('/searchforallocatedate', searchForAllocateDate);
 
 module.exports = router;
