@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import downIco from '../../images/downico.gif';
 import api from '../../api/api';
+import Swal from 'sweetalert2';
 
 function ClassalloAd() {
+
     const [capacity, setCapacity] = useState('')
     const [date, setDate] = useState('')
     const [day, setDay] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
-    const [isAcRoom, setIsAcRoom] = useState(false)
     const [inputType, setInputType] = useState('');
     const [newClassId, setNewClassId] = useState('');
+    const [maxCapacity, setMaxCapacity] = useState('');
+    const [withAC, setWithAC] = useState(false);
+    const [classrooms, setClassrooms] = useState([]);
+
+    // Fetch classrooms from the server
+    const fetchClassrooms = async () => {
+        try {
+            const response = await api.get('/classrooms');
+            setClassrooms(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchClassrooms();
+    }, []);
 
     const handleSetIdClick = async () => {
         try {
@@ -21,8 +39,44 @@ function ClassalloAd() {
         }
     };
 
+    // Handler to create a new classroom
+    const handleCreateClassroom = async () => {
+        try {
+            // Prepare data to send to the server
+            const data = {
+                maxcapacity: maxCapacity,
+                withac: withAC ? 1 : 0,
+                roomid: newClassId
+            };
+            // Send a POST request to create a new classroom
+            const response = await api.post('/createclassroom', data);
+            // Handle the response
+            console.log(response.data); // Log the response data (if needed)
+            // Reset the form fields
+            setMaxCapacity('');
+            setWithAC(false);
+            setNewClassId(response.data.roomId);
+
+            // Show SweetAlert after successful creation
+            Swal.fire({
+                title: "New classroom created successfully!",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+
+            fetchClassrooms();
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleCapacityChange = (event) => {
         setCapacity(event.target.value)
+    }
+
+    const handleMaxCapacityChange = (event) => {
+        setMaxCapacity(event.target.value)
     }
 
     const handleDateChange = (event) => {
@@ -49,9 +103,9 @@ function ClassalloAd() {
         setEndTime(event.target.value)
     }
 
-    const handleIsAcRoomChange = (event) => {
-        setIsAcRoom(event.target.checked)
-    }
+    const handleIsACChange = (event) => {
+        setWithAC(event.target.checked);
+    };
 
     return (
         <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
@@ -166,15 +220,15 @@ function ClassalloAd() {
 
                     <div className="grid grid-cols-1 gap-2">
                         <div>
-                            <label htmlFor="capacity" className="block text-sm font-medium mb-1">
-                                Capacity you need:
+                            <label htmlFor="maxcapacity" className="block text-sm font-medium mb-1">
+                                Max capacity:
                             </label>
                             <input
                                 type="number"
-                                id="capacity"
+                                id="maxcapacity"
                                 className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                value={capacity}
-                                onChange={handleCapacityChange}
+                                value={maxCapacity}
+                                onChange={handleMaxCapacityChange}
                             />
                         </div>
                     </div>
@@ -187,8 +241,8 @@ function ClassalloAd() {
                                     type="checkbox"
                                     id="isAcRoom"
                                     className="w-4 h-4 text-blue-600 focus:ring-1 focus:ring-blue-500"
-                                    checked={isAcRoom}
-                                    onChange={handleIsAcRoomChange}
+                                    checked={withAC}
+                                    onChange={handleIsACChange} 
                             />
                     </div>
 
@@ -196,7 +250,7 @@ function ClassalloAd() {
                     
                         <div>
                             
-                            <button className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-4 rounded mt-4">
+                            <button onClick={handleCreateClassroom} className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-4 rounded mt-4">
                                 Create classroom
                             </button>
                         </div>
@@ -208,6 +262,41 @@ function ClassalloAd() {
 
             <div className="mb-3 w-full mr-0">
                 <img className='ml-auto mr-10 w-14 mt-2 opacity-60' src={downIco} alt="Down arrow" />
+            </div>
+
+            {/* Classroom Table */}
+            <div className="rounded shadow-md bg-gray-100 p-4 mx-10">
+                    <h2 className="text-xl font-bold mb-4">Classroom details</h2>
+                    <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Room ID
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Max Capacity
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    AC Room
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {classrooms.map((classroom) => (
+                                <tr key={classroom.roomid}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{classroom.roomid}</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{classroom.maxcapacity}</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{classroom.withac ? 'Yes' : 'No'}</div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
             </div>
             
         </div>

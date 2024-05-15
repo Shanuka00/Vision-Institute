@@ -22,6 +22,34 @@ const getNextClassroomID = async () => {
     });
 };
 
+
+// Model function to create a new classroom
+const createClassroom = async (maxCapacity, withAC, roomID) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                reject(err);
+            }
+
+            // SQL query to insert new classroom into the database
+            const query = 'INSERT INTO classroom (roomid, maxcapacity, withac) VALUES (?, ?, ?)';
+            connection.query(query, [roomID, maxCapacity, withAC], (error, results) => {
+                connection.release();
+
+                if (error) {
+                    reject(error);
+                }
+
+                // Assuming roomId is auto-generated in the database
+                const roomId = results.insertId;
+                resolve({ roomId });
+            });
+        });
+    });
+};
+
+
 module.exports = {
-    getNextClassroomID
+    getNextClassroomID,
+    createClassroom
 };
