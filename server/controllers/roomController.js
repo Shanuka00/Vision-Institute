@@ -14,6 +14,23 @@ const getNextClassroomID = async (req, res) => {
     }
 };
 
+// Controller function to create a new classroom
+const createClassroom = async (req, res) => {
+    try {
+        // Extract data from request body
+        const { maxcapacity, withac, roomid } = req.body;
+        // Call model function to create a new classroom
+        const newClassroom = await roomModel.createClassroom(maxcapacity, withac, roomid);
+        // Send response
+        res.status(201).json({ message: 'New classroom created successfully' });
+    } catch (error) {
+        console.error('Error creating classroom:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+};
+
+
 module.exports = {
   getNextClassroomID,
+  createClassroom
 };

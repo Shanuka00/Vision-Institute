@@ -2,6 +2,7 @@ const express = require('express');
 const visionController = require('../controllers/visionController');
 const roomController = require('../controllers/roomController');
 const { validateUser } = require('../controllers/userController');
+const { getAllClassrooms } = require('../controllers/loadroomsController');
 
 const router = express.Router();
 
@@ -17,7 +18,13 @@ router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
 // Login route
 router.post('/login', validateUser);
 
+// Load classrooms
+router.get('/classrooms', getAllClassrooms);
+
 // Get next class ID
 router.get('/nextroomid', roomController.getNextClassroomID);
+
+// Create a new classroom
+router.post('/createclassroom', roomController.createClassroom);
 
 module.exports = router;
