@@ -52,3 +52,57 @@ exports.searchForAllocateDate = async (capacity, date, day, startTime, endTime) 
         );
     });
 };
+
+
+
+// Model function to get all courses with additional details
+exports.getAllCoursesWithDetails = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT courseid, subject, grade, name FROM course', (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
+
+// Model function to allocate a classroom to a course
+exports.allocateClassroomToCourse = async (roomid, courseid, day, date, starttime, endtime) => {
+    return new Promise((resolve, reject) => {
+        pool.query('INSERT INTO roomallocation (roomid, courseid, day, date, starttime, endtime) VALUES (?, ?, ?, ?, ?, ?)', 
+        [roomid, courseid, day, date, starttime, endtime], 
+        (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
+
+// Model function to get all room allocations
+exports.getAllRoomAllocations = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM roomallocation', (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
+// Model function to delete a room allocation
+exports.deleteRoomAllocation = async (roomId, courseId, day, date, startTime, endTime) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM roomallocation WHERE roomid = ? AND courseid = ? AND day = ? AND date = ? AND starttime = ? AND endtime = ?', [roomId, courseId, day, date, startTime, endTime], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};

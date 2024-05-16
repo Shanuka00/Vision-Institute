@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import downIco from '../../images/downico.gif';
 import api from '../../api/api';
 import Swal from 'sweetalert2';
@@ -22,6 +23,8 @@ function ClassalloAd() {
 
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState([]);
+
+    const navigate = useNavigate();
 
     // Fetch classrooms from the server
     const fetchClassrooms = async () => {
@@ -152,15 +155,35 @@ function ClassalloAd() {
         setShowModal(false);
     };
 
-    const handleRoomButtonClick = (roomId) => {
-        // Handle button click logic
-        console.log(`Button clicked for room ID: ${roomId}`);
+    const handleRoomButtonClick = (roomId, capacity, date, day, startTime, endTime) => {
+        navigate('/ad_classallo/allocate',{
+            state: {
+              selectedRoom: {roomId},
+              selectedDate: {date},
+              selectedDay: {day},
+              selectedStartTime: {startTime},
+              selectedEndTime: {endTime}
+            }
+          });
+    };
+
+    const handleCurrentAllocations = async () => {
+        try {
+            navigate('/ad_classallo/current');
+        } catch (error) {
+          console.error(error);
+        }
     };
 
     return (
         <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
 
+            <div className='flex w-full'>
             <h3 className='ml-10 mb-8 font-bold'>Classroom allocation</h3>
+            <button onClick={handleCurrentAllocations} className="bg-indigo-900 hover:bg-indigo-950 ml-auto mr-10 text-white font-semibold mb-4 px-3 rounded">
+                Current allocations
+            </button>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 mx-10 gap-8">
                 
@@ -250,7 +273,7 @@ function ClassalloAd() {
                                             <button 
                                                 key={index}
                                                 className={`room-button ${room.withac ? 'ac-room' : 'non-ac-room'}`}
-                                                onClick={() => handleRoomButtonClick(room)}
+                                                onClick={() => handleRoomButtonClick(room.roomid, capacity, date, day, startTime, endTime)}
                                             >
                                                 <span>{room.roomid}</span>
                                                 <span>{room.withac ? ' (with AC)   ' : ' (Non-AC)   '}</span>
