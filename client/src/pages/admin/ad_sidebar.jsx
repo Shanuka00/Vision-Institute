@@ -4,9 +4,10 @@ import { Link, NavLink } from 'react-router-dom';
 import sideImage from '../../images/side_logo.png';
 
 const SidebarAd = () => {
-    const [isOpen, setIsOpen] = useState(false);
 
+    const [isOpen, setIsOpen] = useState(false);
     const [isFixed, setIsFixed] = useState(false);
+    const [focusedNavLink, setFocusedNavLink] = useState('/ad_dashboard');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,6 +24,10 @@ const SidebarAd = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const handleNavLinkClick = (to) => {
+        setFocusedNavLink(to);
+    };
 
     return (
         <div className={`w-0 relative sm:fixed top-0 left-0 bg-clip-border bg-gray-200 text-gray-700 h-screen sm:w-full max-w-[18rem] p-2 pb-2 shadow-xl shadow-gray-900/5 overflow-y-auto ${isFixed ? 'sm:top-0' : ''}`}>
@@ -42,63 +47,73 @@ const SidebarAd = () => {
             </div>
 
             <nav className={`${isOpen ? 'flex' : 'hidden'} flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700 sm:flex sm:flex-col sm:gap-1 sm:min-w-[240px] sm:p-2 sm:font-sans sm:text-base sm:font-normal sm:text-gray-700`}>
-                <NavLink
 
+
+                <NavLink
                     to="/ad_dashboard"
-                    className={({ isActive }) =>
-                        isActive
-                        ? "mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none"
-                        : "mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none"
-                    }>
-                    
+                    onClick={() => handleNavLinkClick('/ad_dashboard')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/ad_dashboard' ? 'bg-white text-blue-900' : ''}`}
+                >
                     <div className="grid place-items-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                      <path fillRule="evenodd" d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z" clipRule="evenodd"></path>
-                    </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
+                            <path fillRule="evenodd" d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z" clipRule="evenodd"></path>
+                        </svg>
                     </div>
                     Dashboard
                 </NavLink>
 
-                <NavLink to="/ad_calender" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
+                <NavLink
+                    to="/ad_calender"
+                    onClick={() => handleNavLinkClick('/ad_calender')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/ad_calender' ? 'bg-white text-blue-900' : ''}`}
+                >
                     <div className="grid place-items-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                      <path fillRule="evenodd" d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z" clipRule="evenodd"></path>
-                    </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
+                            <path fillRule="evenodd" d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z" clipRule="evenodd"></path>
+                        </svg>
                     </div>
                     Calender
-                    <div className="ml-auto">
-                        <div className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-blue-500/20 text-blue-900 py-1 px-2 text-xs rounded-full">
-                            <span>4</span>
-                        </div>
-                    </div>
                 </NavLink>
 
-                <NavLink to="/ad_bankdepo" activeclassname="bg-white text-indigo-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
+                <NavLink
+                    to="/ad_bankdepo"
+                    onClick={() => handleNavLinkClick('/ad_bankdepo')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/ad_bankdepo' ? 'bg-white text-blue-900' : ''}`}
+                >
                     <div className="grid place-items-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                      <path fillRule="evenodd" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z" clipRule="evenodd"></path>
-                    </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
+                            <path fillRule="evenodd" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z" clipRule="evenodd"></path>
+                        </svg>
                     </div>
                     Bank deposit
                 </NavLink>
 
-                <NavLink to="/ad_classallo" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
+                <NavLink
+                    to="/ad_classallo"
+                    onClick={() => handleNavLinkClick('/ad_classallo')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/ad_classallo' ? 'bg-white text-blue-900' : ''}`}
+                >
                     <div className="grid place-items-center mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                        <path d="M10 20h4v-8h2l2 3h5v-5l-6-6-6 6v5zm-4-9v5h5v-2H7v-3zm8-4v2h-2V8h2zm2-4h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zM6 6h2v2H6V6zm4 4H6v2h4V10zm4 0h-2v2h2V10zm4 0h-2v2h2V10zm0 4h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H6v2h4v-2zm4-8h2V6h-2v2zm-4 0h2V6h-2v2zm-4 0h2V6h-2v2z"></path>
+                            <path d="M10 20h4v-8h2l2 3h5v-5l-6-6-6 6v5zm-4-9v5h5v-2H7v-3zm8-4v2h-2V8h2zm2-4h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zm-4 0h-2v2h2V6zM6 6h2v2H6V6zm4 4H6v2h4V10zm4 0h-2v2h2V10zm4 0h-2v2h2V10zm0 4h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H6v2h4v-2zm4-8h2V6h-2v2zm-4 0h2V6h-2v2zm-4 0h2V6h-2v2z"></path>
                         </svg>
                     </div>
                     Classroom allocation
                 </NavLink>
 
-                <NavLink to="/ad_logout" activeclassname="bg-white text-blue-900" className="mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none">
+                <NavLink
+                    to="/ad_logout"
+                    onClick={() => handleNavLinkClick('/ad_logout')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/ad_logout' ? 'bg-white text-blue-900' : ''}`}
+                >
                     <div className="grid place-items-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                      <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z" clipRule="evenodd"></path>
-                    </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
+                            <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z" clipRule="evenodd"></path>
+                        </svg>
                     </div>
                     Logout
                 </NavLink>
+
             </nav>
 
         </div>
