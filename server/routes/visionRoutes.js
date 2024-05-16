@@ -3,7 +3,7 @@ const visionController = require('../controllers/visionController');
 const roomController = require('../controllers/roomController');
 const { validateUser } = require('../controllers/userController');
 const { getAllClassrooms } = require('../controllers/loadroomsController');
-const { searchForAllocateDay, searchForAllocateDate } = require('../controllers/roomAllocationController');
+const { searchForAllocateDay, searchForAllocateDate, getAllCoursesWithDetails, allocateClassroomToCourse, getAllRoomAllocations, deleteRoomAllocation } = require('../controllers/roomAllocationController');
 
 const router = express.Router();
 
@@ -33,5 +33,17 @@ router.post('/searchforallocateday', searchForAllocateDay);
 
 // Create a new classroom
 router.post('/searchforallocatedate', searchForAllocateDate);
+
+// Route to get all courses with additional details
+router.get('/getAllCoursesWithDetails', getAllCoursesWithDetails);
+
+// Route to allocate a classroom to a course
+router.post('/allocateClassroomToCourse', allocateClassroomToCourse);
+
+// Route to get all room allocations
+router.get('/getAllRoomAllocations', getAllRoomAllocations);
+
+// Route to delete a room allocation
+router.delete('/deleteRoomAllocation/:roomId/:courseId/:day/:date/:startTime/:endTime', deleteRoomAllocation);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Room = require('../models/loadroomsModel');
 
+
 // Controller function to get all classrooms
 exports.getAllClassrooms = async (req, res) => {
     try {
