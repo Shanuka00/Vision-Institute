@@ -4,6 +4,8 @@ const roomController = require('../controllers/roomController');
 const { validateUser } = require('../controllers/userController');
 const { getAllClassrooms } = require('../controllers/loadroomsController');
 const { searchForAllocateDay, searchForAllocateDate, getAllCoursesWithDetails, allocateClassroomToCourse, getAllRoomAllocations, deleteRoomAllocation } = require('../controllers/roomAllocationController');
+const stprofileController = require('../controllers/stprofileController');
+const { getQRCode } = require('../controllers/stQrController');
 
 const router = express.Router();
 
@@ -45,5 +47,11 @@ router.get('/getAllRoomAllocations', getAllRoomAllocations);
 
 // Route to delete a room allocation
 router.delete('/deleteRoomAllocation/:roomId/:courseId/:day/:date/:startTime/:endTime', deleteRoomAllocation);
+
+// Route to load student profile by vision ID
+router.post('/profileByVisionId', stprofileController.getProfileByVisionId);
+
+// Route to get QR code
+router.get('/qrcodeFetch', getQRCode);
 
 module.exports = router;

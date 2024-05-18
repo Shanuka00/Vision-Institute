@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import sideImage from '../../images/side_logo.png';
+import LogoutTe from './te_logout';
 
 const SidebarTe = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isFixed, setIsFixed] = useState(false);
     const [focusedNavLink, setFocusedNavLink] = useState('/te_dashboard');
+    const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -34,8 +36,9 @@ const SidebarTe = () => {
             <div className="flex justify-between items-center mb-2 p-4 sm:justify-start bg-gray-200">
 
                 <div className="w-full pr-auto-0 -ml-6 mt-1">
-                <Nav.Link as={Link} to="/">
-                    <img src={sideImage} className='w-full' alt="Vision Institute" />
+                <Nav.Link onClick={() => setShowLogoutConfirmation(true)}>
+                <img src={sideImage} className="w-full" alt="Vision Institute" />
+                {showLogoutConfirmation && <LogoutTe setShouldRefreshSidebar={setIsFixed} />}
                 </Nav.Link>
                 </div>
 
