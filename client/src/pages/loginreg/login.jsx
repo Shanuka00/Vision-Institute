@@ -31,6 +31,7 @@ function Login() {
         
         // store the token in local storage
         localStorage.setItem('token', response.token);
+        localStorage.setItem('visionId', response.userId);
   
         Swal.fire({
           title: "Login Successful!",

@@ -1,11 +1,47 @@
-import React from 'react'
+import { useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function LogoutAd() {
-    return (
-        <div className='rounded-s-3xl bg-white w-full'>
-            <h2 className='font-lg text-center mt-8'>This is admin logout point</h2>
-        </div>
-  )
+    const navigate = useNavigate();
+
+    const handleLogout = useCallback(() => {
+        navigate('/');
+      }, [navigate]);
+
+    const cancelLogout = useCallback(() => {
+        navigate('/ad_dashboard');
+        window.location.reload();
+      }, [navigate]);
+
+    useEffect(() => {
+        const showConfirmation = () => {
+          Swal.fire({
+              title: 'Are you sure you want to logout?',
+              text: 'You are about logout from the system.',
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Yes, logout!'
+          }).then(async (result) => {
+              if (result.isConfirmed) {
+                  try {
+                      handleLogout();
+                  } catch (error) {
+                    console.error(error);
+                  }
+              }
+          });
+        };
+    
+        showConfirmation();
+    
+        // Add event listener for the cancel button
+        Swal.getCancelButton().addEventListener('click', () => {
+          cancelLogout();
+        });
+    }, [handleLogout, cancelLogout]);
 }
 
 export default LogoutAd
