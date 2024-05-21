@@ -72,7 +72,7 @@ function ClassalloCurrentAd() {
             <div id="roomallocatio-details" className="rounded shadow-md bg-gray-100 p-4 mx-10">
                 <div className="flex">
                 <h2 id="roomallocation-body" className="text-xl font-bold mb-3 mt-1">Allocated classroom details</h2>
-                <img onClick={handleBackButton} className='ml-auto w-10 mb-4 -mt-1' src={backB} alt="Down arrow" />
+                <img onClick={handleBackButton} style={{ textDecoration: 'none', cursor: 'pointer' }} className='ml-auto w-10 mb-4 -mt-1' src={backB} alt="Down arrow" />
                 </div>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">

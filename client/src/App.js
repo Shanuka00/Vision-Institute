@@ -36,6 +36,7 @@ import CalenderSt from "./pages/student/st_calender";
 import DashboardSt from "./pages/student/st_dashboard";
 import LogoutSt from "./pages/student/st_logout";
 import ProfileSt from "./pages/student/st_profile";
+import ProfileStEdit from "./pages/student/st_profile_edit";
 
 import SidebarTe from "./pages/teacher/te_sidebar";
 import BankdepoTe from "./pages/teacher/te_bankdepo";
@@ -143,6 +144,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarSt />
               <ProfileSt />
+            </div>
+          } />
+        <Route path="/st_profile/edit" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarSt />
+              <ProfileStEdit />
             </div>
           } />
         <Route path="/st_logout" element={

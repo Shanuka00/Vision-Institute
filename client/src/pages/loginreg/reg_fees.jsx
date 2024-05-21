@@ -243,7 +243,7 @@ function RegFees() {
           <div className="flex items-center border border-gray-300 rounded px-3 py-2 mr-auto mb-3">
           <span className="mr-2">Rs.</span>
           <input className="w-full focus:outline-none" type="text" value="300.00" readOnly />
-        </div>
+          </div>
       </div>
 
       <div className="mb-7 w-96 ml-auto mr-auto">
