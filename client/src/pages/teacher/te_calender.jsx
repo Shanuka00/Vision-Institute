@@ -64,7 +64,7 @@ function CalenderTe() {
                     <Form>
 
                     <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Label>Select Course</Form.Label>
+                        <Form.Label>Select course</Form.Label>
                         <Form.Control as="select">
                         <option>Select a course</option>
                         <option>Course 1</option>
@@ -74,16 +74,21 @@ function CalenderTe() {
                     </Form.Group>
 
                     <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label><br/>Quiz Title</Form.Label>
+                        <Form.Label><br/>Quiz title</Form.Label>
                         <Form.Control type="text" placeholder="Enter quiz title" />
                     </Form.Group>
 
                     <Form.Group controlId="exampleForm.ControlInput2">
-                    <Form.Label><br/>Due Date</Form.Label>
+                    <Form.Label><br/>Due date and time</Form.Label>
                     <Datetime
                         timeFormat={true}
                         className="readonly block w-full mt-2 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
+                    <div className="absolute inset-y-0 right-0 flex items-center mt-48 mr-5 px-2 pointer-events-none">
+                        <svg className="h-5 w-5 text-gray-400 mt-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                        </svg>
+                    </div>
                     </Form.Group>
 
                     </Form>

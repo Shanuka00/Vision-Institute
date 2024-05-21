@@ -61,7 +61,7 @@ function ProfileSt() {
   };
 
   const handleEditProfile = () => {
-    navigate('/edit-profile');
+    navigate('/st_profile/edit');
   };
 
   return (
