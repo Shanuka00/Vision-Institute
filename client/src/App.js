@@ -22,9 +22,12 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 //import { AuthProvider } from './services/AuthContext';
 
 import SidebarAd from "./pages/admin/ad_sidebar";
-import BankdepoAd from "./pages/admin/ad_bankdepo";
-import CalenderAd from "./pages/admin/ad_calender";
+import StdManagementAd from "./pages/admin/ad_stdmanagement";
+import AtndManagementAd from "./pages/admin/ad_atndmanagement";
+import FinManagementAd from "./pages/admin/ad_finmanagement";
+import NewRegAd from "./pages/admin/ad_newreg";
 import DashboardAd from "./pages/admin/ad_dashboard";
+import ProfileAd from "./pages/admin/ad_profile";
 import LogoutAd from "./pages/admin/ad_logout";
 import ClassalloAd from "./pages/admin/ad_classallo";
 import ClassalloAlocAd from "./pages/admin/ad_classallo_allocate";
@@ -83,16 +86,28 @@ function App() {
               <DashboardAd />
             </div>
           } />
-        <Route path="/ad_calender" element={
+        <Route path="/ad_newreg" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
-              <CalenderAd />
+              <NewRegAd />
             </div>
           } />
-          <Route path="/ad_bankdepo" element={
+          <Route path="/ad_stdmanagement" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
-              <BankdepoAd />
+              <StdManagementAd />
+            </div>
+          } />
+        <Route path="/ad_atndmanagement" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <AtndManagementAd />
+            </div>
+          } />
+        <Route path="/ad_finmanagement" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <FinManagementAd />
             </div>
           } />
         <Route path="/ad_classallo" element={
@@ -111,6 +126,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <ClassalloCurrentAd />
+            </div>
+          } />
+        <Route path="/ad_profile" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <ProfileAd />
             </div>
           } />
         <Route path="/ad_logout" element={
