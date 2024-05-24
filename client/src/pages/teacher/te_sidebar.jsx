@@ -79,16 +79,20 @@ const SidebarTe = () => {
                 </NavLink>
 
                 <NavLink
-                    to="/te_bankdepo"
-                    onClick={() => handleNavLinkClick('/te_bankdepo')}
-                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/te_bankdepo' ? 'bg-white text-blue-900' : ''}`}
+                    to="/te_payment"
+                    onClick={() => handleNavLinkClick('/te_payment')}
+                    className={`mb-3 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-white focus:bg-white active:bg-gray-50 outline-none text-indigo-900 font-semibold no-underline transition-none ${focusedNavLink === '/te_payment' ? 'bg-white text-blue-900' : ''}`}
                 >
                     <div className="grid place-items-center mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                            <path fillRule="evenodd" d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z" clipRule="evenodd"></path>
-                        </svg>
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" className="h-5 w-5">
+                        <path fill="var(--ci-primary-color, currentColor)" d="M432,64H16V384H432ZM400,352H48V96H400Z" stroke="currentColor" strokeWidth="2" className="ci-primary"/>
+                        <polygon fill="var(--ci-primary-color, currentColor)" points="464 144 464 416 96 416 96 448 496 448 496 144 464 144" className="ci-primary"/>
+                        <path fill="var(--ci-primary-color, currentColor)" d="M224,302.46c39.7,0,72-35.137,72-78.326s-32.3-78.326-72-78.326-72,35.136-72,78.326S184.3,302.46,224,302.46Zm0-124.652c22.056,0,40,20.782,40,46.326s-17.944,46.326-40,46.326-40-20.782-40-46.326S201.944,177.808,224,177.808Z" className="ci-primary"/>
+                        <rect width="32" height="176" x="80" y="136" fill="var(--ci-primary-color, currentColor)" className="ci-primary"/>
+                        <rect width="32" height="176" x="336" y="136" fill="var(--ci-primary-color, currentColor)" className="ci-primary"/>
+                    </svg>
                     </div>
-                    Bank deposit
+                    Payment
                 </NavLink>
 
                 <NavLink
@@ -111,7 +115,7 @@ const SidebarTe = () => {
                 >
                     <div className="grid place-items-center mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
-                            <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z" stroke="currentColor" stroke-width="1" clipRule="evenodd"></path>
+                            <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z" stroke="currentColor" strokeWidth="1" clipRule="evenodd"></path>
                         </svg>
                     </div>
                     Logout

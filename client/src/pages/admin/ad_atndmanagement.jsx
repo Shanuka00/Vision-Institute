@@ -12,7 +12,7 @@ function AtndManagementAd() {
 
     const handleGradeChange = (event) => {
         setGrade(event.target.value);
-        setCourse(''); // Reset by shan
+        setCourse('');
     };
 
     const handleCourseChange = (event) => {
@@ -20,7 +20,7 @@ function AtndManagementAd() {
     };
 
     const handleViewRecords = () => {
-        navigate('/attnd_records');
+        navigate('/ad_atndmanagement/records');
     };
 
     const handleGetAttendance = () => {
