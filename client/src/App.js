@@ -19,13 +19,16 @@ import RegWaiting from './pages/loginreg/reg_waiting';
 import NavbarWait from "./pages/loginreg/navbar_waiting";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-//import { AuthProvider } from './services/AuthContext';
-
 import SidebarAd from "./pages/admin/ad_sidebar";
 import StdManagementAd from "./pages/admin/ad_stdmanagement";
 import AtndManagementAd from "./pages/admin/ad_atndmanagement";
+import AtndManagementRecAd from "./pages/admin/ad_atndmanagement_records";
 import FinManagementAd from "./pages/admin/ad_finmanagement";
 import NewRegAd from "./pages/admin/ad_newreg";
+import NewRegStdAd from "./pages/admin/ad_newreg_student";
+import NewRegTeAd from "./pages/admin/ad_newreg_teacher";
+import NewRegCouAd from "./pages/admin/ad_newreg_course";
+import NewRegAdAd from "./pages/admin/ad_newreg_admin";
 import DashboardAd from "./pages/admin/ad_dashboard";
 import ProfileAd from "./pages/admin/ad_profile";
 import LogoutAd from "./pages/admin/ad_logout";
@@ -42,7 +45,7 @@ import ProfileSt from "./pages/student/st_profile";
 import ProfileStEdit from "./pages/student/st_profile_edit";
 
 import SidebarTe from "./pages/teacher/te_sidebar";
-import BankdepoTe from "./pages/teacher/te_bankdepo";
+import PaymentTe from "./pages/teacher/te_payment";
 import CalenderTe from "./pages/teacher/te_calender";
 import CreateQuiz from "./pages/teacher/te_create_quiz";
 import DashboardTe from "./pages/teacher/te_dashboard";
@@ -92,6 +95,30 @@ function App() {
               <NewRegAd />
             </div>
           } />
+        <Route path="/ad_newreg/student" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <NewRegStdAd />
+            </div>
+          } />
+        <Route path="/ad_newreg/teacher" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <NewRegTeAd />
+            </div>
+          } />
+        <Route path="/ad_newreg/course" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <NewRegCouAd />
+            </div>
+          } />
+        <Route path="/ad_newreg/admin" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <NewRegAdAd />
+            </div>
+          } />
           <Route path="/ad_stdmanagement" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
@@ -102,6 +129,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <AtndManagementAd />
+            </div>
+          } />
+        <Route path="/ad_atndmanagement/records" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <AtndManagementRecAd />
             </div>
           } />
         <Route path="/ad_finmanagement" element={
@@ -202,10 +235,10 @@ function App() {
             </div>
           } />
 
-        <Route path="/te_bankdepo" element={
+        <Route path="/te_payment" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
-              <BankdepoTe />
+              <PaymentTe />
             </div>
           } />
 
