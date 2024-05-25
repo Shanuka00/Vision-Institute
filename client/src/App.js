@@ -24,6 +24,8 @@ import StdManagementAd from "./pages/admin/ad_stdmanagement";
 import AtndManagementAd from "./pages/admin/ad_atndmanagement";
 import AtndManagementRecAd from "./pages/admin/ad_atndmanagement_records";
 import FinManagementAd from "./pages/admin/ad_finmanagement";
+import FinManagementPayAd from "./pages/admin/ad_finmanagement_payment";
+import FinManagementExpAd from "./pages/admin/ad_finmanagement_expenses";
 import NewRegAd from "./pages/admin/ad_newreg";
 import NewRegStdAd from "./pages/admin/ad_newreg_student";
 import NewRegTeAd from "./pages/admin/ad_newreg_teacher";
@@ -141,6 +143,18 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <FinManagementAd />
+            </div>
+          } />
+        <Route path="/ad_finmanagement/payment" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <FinManagementPayAd />
+            </div>
+          } />
+        <Route path="/ad_finmanagement/expenses" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <FinManagementExpAd />
             </div>
           } />
         <Route path="/ad_classallo" element={
