@@ -42,6 +42,7 @@ import SidebarSt from "./pages/student/st_sidebar";
 import BankdepoSt from "./pages/student/st_bankdepo";
 import CalenderSt from "./pages/student/st_calender";
 import DashboardSt from "./pages/student/st_dashboard";
+import DashboardCouSt from "./pages/student/st_dashboard_course";
 import LogoutSt from "./pages/student/st_logout";
 import ProfileSt from "./pages/student/st_profile";
 import ProfileStEdit from "./pages/student/st_profile_edit";
@@ -51,6 +52,7 @@ import PaymentTe from "./pages/teacher/te_payment";
 import CalenderTe from "./pages/teacher/te_calender";
 import CreateQuiz from "./pages/teacher/te_create_quiz";
 import DashboardTe from "./pages/teacher/te_dashboard";
+import DashboardCouTe from "./pages/teacher/te_dashboard_course";
 import LogoutTe from "./pages/teacher/te_logout";
 import ProfileTe from "./pages/teacher/te_profile";
 
@@ -196,6 +198,12 @@ function App() {
               <DashboardSt />
             </div>
           } />
+        <Route path="/st_dashboard/course" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <DashboardCouSt />
+            </div>
+          } />
         <Route path="/st_calender" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarSt />
@@ -233,6 +241,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarTe />
               <DashboardTe />
+            </div>
+          } />
+        <Route path="/te_dashboard/course" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarTe />
+              <DashboardCouTe />
             </div>
           } />
 
