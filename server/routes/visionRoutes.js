@@ -6,6 +6,9 @@ const { getAllClassrooms } = require('../controllers/loadroomsController');
 const { searchForAllocateDay, searchForAllocateDate, getAllCoursesWithDetails, allocateClassroomToCourse, getAllRoomAllocations, deleteRoomAllocation } = require('../controllers/roomAllocationController');
 const stprofileController = require('../controllers/stprofileController');
 const { getQRCode } = require('../controllers/stQrController');
+const outsideMessagesController = require('../controllers/outsideMessagesController');
+const feesController = require('../controllers/feesController');
+const registrationsController = require('../controllers/registrationsController');
 
 const router = express.Router();
 
@@ -20,6 +23,9 @@ router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
 
 // Login route
 router.post('/login', validateUser);
+
+
+// ======================== Admin routes ===============================
 
 // Load classrooms
 router.get('/classrooms', getAllClassrooms);
@@ -48,10 +54,35 @@ router.get('/getAllRoomAllocations', getAllRoomAllocations);
 // Route to delete a room allocation
 router.delete('/deleteRoomAllocation/:roomId/:courseId/:day/:date/:startTime/:endTime', deleteRoomAllocation);
 
+// Route to fetch new messages from outside
+router.get('/outsideMessages', outsideMessagesController.getOutsideMessages);
+
+// Route to mark a message as seen
+router.post('/markAsSeenOM', outsideMessagesController.markMessageAsSeen);
+
+// Route to fetch current registration fees value
+router.get('/currentFeesLoad', feesController.getCurrentFees);
+
+// Route to update registration fees value
+router.post('/updateFeesReg', feesController.updateFees);
+
+// Route to handle new online registrations
+router.get('/newOnRegistrations', registrationsController.getRegistrations);
+router.post('/approveRegistration', registrationsController.approveRegistration);
+router.post('/rejectRegistration', registrationsController.rejectRegistration);
+
+
+// ====================== Student routes ===============================
+
 // Route to load student profile by vision ID
 router.post('/profileByVisionId', stprofileController.getProfileByVisionId);
 
 // Route to get QR code
 router.get('/qrcodeFetch', getQRCode);
+
+
+// ====================== Teacher routes ===============================
+
+
 
 module.exports = router;
