@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import api from '../../api/api';
 
 function RegFees() {
 
@@ -32,11 +33,13 @@ function RegFees() {
   const [fileSelected, setFileSelected] = useState(false);
   const MAX_FILE_SIZE = 2 * 1024 * 1024;
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [fees, setFees] = useState('');
 
   const storage = getStorage(app);
 
   useEffect(() => {
     fetchMaxVisionId();
+    fetchFeesAndSaveToLocal();
     window.scrollTo(0, 0);
   }, []);
 
@@ -128,6 +131,17 @@ function RegFees() {
         timerProgressBar: true,
         showConfirmButton: false
       });
+    }
+  };
+
+  const fetchFeesAndSaveToLocal = async () => {
+    try {
+      const response = await api.get('/currentFeesLoad');
+      const fetchedFees = response.data.value;
+      localStorage.setItem('fees', fetchedFees); // Save to local storage
+      setFees(fetchedFees); // Update state
+    } catch (error) {
+      console.error('Error fetching and saving current fees', error);
     }
   };
 
@@ -242,7 +256,7 @@ function RegFees() {
           </label>
           <div className="flex items-center border border-gray-300 rounded px-3 py-2 mr-auto mb-3">
           <span className="mr-2">Rs.</span>
-          <input className="w-full focus:outline-none" type="text" value="300.00" readOnly />
+          <input className="w-full focus:outline-none" type="text" value={fees} readOnly />
           </div>
       </div>
 

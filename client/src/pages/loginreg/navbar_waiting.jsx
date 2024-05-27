@@ -5,9 +5,14 @@ import { Link as RLink } from 'react-router-dom';
 import visionLogo from '../../images/vision_logo.png';
 
 import Nav from 'react-bootstrap/Nav';
+import LogoutReg from './logoutreg';
 
 const Navbar = () => {
+
   const [nav, setNav] = useState(false);
+  // eslint-disable-next-line
+  const [isFixed, setIsFixed] = useState(false);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
   const handleClose = () => {
     setNav(!nav);
@@ -34,10 +39,12 @@ const Navbar = () => {
 
         <div className="-pt-1">
           <Nav>
-            <Nav.Link as={RLink} to="/" className="bg-blue-800">
+            {/* <Nav.Link as={RLink} to="/" className="bg-blue-800"> */}
+            <Nav.Link onClick={() => setShowLogoutConfirmation(true)}>
               <button type="button" className="inline-flex items-center px-4 py-2 rounded shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Logout
               </button>
+              {showLogoutConfirmation && <LogoutReg setShouldRefreshSidebar={setIsFixed} />}
             </Nav.Link>
           </Nav>
         </div>

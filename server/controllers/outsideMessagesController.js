@@ -1,4 +1,5 @@
 const pool = require('../db');
+const OutsideMessage = require('../models/outsideMessagesModel');
 
 // Controller function to fetch new messages from outside
 exports.getOutsideMessages = async (req, res) => {
@@ -33,5 +34,17 @@ exports.markMessageAsSeen = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
+    }
+};
+
+// Controller function to handle contact form submission
+exports.sendMessage = async (req, res) => {
+    try {
+        const { name, email, mobile, message } = req.body;
+        await OutsideMessage.saveMessage(name, email, mobile, message);
+        res.status(200).json({ message: 'Message sent successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
     }
 };

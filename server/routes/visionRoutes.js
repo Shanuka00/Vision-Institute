@@ -24,6 +24,9 @@ router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
 // Login route
 router.post('/login', validateUser);
 
+// Route to handle contact form submission
+router.post('/sendMessage', outsideMessagesController.sendMessage);
+
 
 // ======================== Admin routes ===============================
 
