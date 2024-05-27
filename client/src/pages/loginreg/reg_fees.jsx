@@ -16,11 +16,6 @@ import axios from 'axios';
 
 function RegFees() {
 
-  const [maxVisionId, setMaxVisionId] = useState('');
-  const [fileSelected, setFileSelected] = useState(false);
-  const MAX_FILE_SIZE = 2 * 1024 * 1024;
-  const [fileUploaded, setFileUploaded] = useState(false);
-
   const firebaseConfig = {
     apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
     authDomain: "vision-institute-80d7f.firebaseapp.com",
@@ -30,8 +25,14 @@ function RegFees() {
     appId: "1:438460841851:web:b607f9eac852d2e02d07de",
     measurementId: "G-D1W84V5B4V"
   };
-  
+
   const app = initializeApp(firebaseConfig);
+
+  const [maxVisionId, setMaxVisionId] = useState('');
+  const [fileSelected, setFileSelected] = useState(false);
+  const MAX_FILE_SIZE = 2 * 1024 * 1024;
+  const [fileUploaded, setFileUploaded] = useState(false);
+
   const storage = getStorage(app);
 
   useEffect(() => {
@@ -73,8 +74,7 @@ function RegFees() {
 
   const handleUpload = async () => {
     const file = document.getElementById("formFile").files[0];
-    const extension = file.name.split('.').pop();
-    const storageRef = ref(storage, `regslips/${maxVisionId}_regfees.${extension}`);
+    const storageRef = ref(storage, `regslips/${maxVisionId}_regfees`);
   
     // Show the SweetAlert2 loading dialog with a timer
     let timerInterval;
