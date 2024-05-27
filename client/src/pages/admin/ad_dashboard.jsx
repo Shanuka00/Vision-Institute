@@ -2,17 +2,55 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import swal from 'sweetalert2';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+
 
 function DashboardAd() {
 
+  const [imageUrl, setImageUrl] = useState(null);
   const [messages, setMessages] = useState([]);
   const [registrations, setRegistrations] = useState([]);
   const [profileData, setProfileData] = useState({});
   const [fees, setFees] = useState('');
   const [newFees, setNewFees] = useState('');
   const [selectedRegistration, setSelectedRegistration] = useState(null);
+  // eslint-disable-next-line
   const [showModal, setShowModal] = useState(false);
+
+  const loadSlip = async (visionId) => {
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
+      authDomain: "vision-institute-80d7f.firebaseapp.com",
+      projectId: "vision-institute-80d7f",
+      storageBucket: "vision-institute-80d7f.appspot.com",
+      messagingSenderId: "438460841851",
+      appId: "1:438460841851:web:b607f9eac852d2e02d07de",
+      measurementId: "G-D1W84V5B4V"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+
+    // Construct the path to the image within your Firebase Storage bucket
+    const imagePath = `regslips/${visionId}_regfees`;
+
+    // Get a reference to the image
+    const imageRef = ref(storage, imagePath);
+
+    try {
+      // Get the download URL of the image
+      const url = await getDownloadURL(imageRef);
+      // Set the image URL in state
+      setImageUrl(url);
+    } catch (error) {
+      // Handle any errors
+      console.error('Error getting download URL:', error);
+    }
+};
+
 
   const fetchProfileData = async (visionId) => {
     try {
@@ -178,7 +216,7 @@ function DashboardAd() {
                   <p> {registration.firstname} {registration.lastname}</p>
                   <p> {registration.mobilenumber}</p>
                 </div>
-                <button onClick={() => { setSelectedRegistration(registration); setShowModal(true); }} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">View</button>
+                <button onClick={() => { loadSlip(registration.visionid); setSelectedRegistration(registration); setShowModal(true); }} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">View</button>
               </div>
             ))}
           </div>
@@ -189,25 +227,38 @@ function DashboardAd() {
       </div>
 
       {selectedRegistration && (
-        <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal
+          show={!!selectedRegistration}
+          onHide={() => setSelectedRegistration(null)}
+          contentlabel="Registration Details"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Registration Details</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <p>Vision ID: {selectedRegistration.visionid}</p>
-            <p>Name: {selectedRegistration.firstname} {selectedRegistration.lastname}</p>
-            <p>Mobilenumber: {selectedRegistration.mobilenumber}</p>
+
+          <Modal.Body style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ flex: 1 }}>
+                  <p><b>Vision ID:</b> {selectedRegistration.visionid}</p>
+                  <p><b>Name:</b> {selectedRegistration.firstname} {selectedRegistration.lastname}</p>
+                  <p><b>Initial:</b> {selectedRegistration.initial}</p>
+                  <p><b>Birthday:</b> {selectedRegistration.dateofbirth.substring(0, 10)}</p>
+                  <p><b>Gender:</b> {selectedRegistration.gender}</p>
+                  <p><b>Email:</b> {selectedRegistration.email}</p>
+                  <p><b>Mobilenumber:</b> {selectedRegistration.mobilenumber}</p>
+                  <p><b>City:</b> {selectedRegistration.city}</p>
+              </div>
+              {imageUrl && (
+                  <div style={{ flex: 1 }}>
+                      <p><b>Uploaded Slip:</b></p>
+                      <img src={imageUrl} alt="Uploaded Slip" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                  </div>
+              )}
           </Modal.Body>
+
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="danger" onClick={handleReject}>
-              Reject
-            </Button>
-            <Button variant="success" onClick={handleApprove}>
-              Approve
-            </Button>
+            <button onClick={handleApprove} className="bg-green-500 text-white px-4 py-2 rounded-lg">Approve</button>
+            <button onClick={handleReject} className="bg-red-500 text-white px-4 py-2 rounded-lg">Reject</button>
+            <button onClick={() => setSelectedRegistration(null)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">Cancel</button>
           </Modal.Footer>
         </Modal>
       )}
