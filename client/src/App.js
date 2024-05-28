@@ -21,9 +21,11 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import SidebarAd from "./pages/admin/ad_sidebar";
 import StdManagementAd from "./pages/admin/ad_stdmanagement";
+import StdManagementEnrAd from "./pages/admin/ad_stdmanagement_enroll";
 import AtndManagementAd from "./pages/admin/ad_atndmanagement";
 import AtndManagementRecAd from "./pages/admin/ad_atndmanagement_records";
 import FinManagementAd from "./pages/admin/ad_finmanagement";
+import FinManagementFeesAd from "./pages/admin/ad_finmanagement_classfees";
 import FinManagementPayAd from "./pages/admin/ad_finmanagement_payment";
 import FinManagementExpAd from "./pages/admin/ad_finmanagement_expenses";
 import NewRegAd from "./pages/admin/ad_newreg";
@@ -123,10 +125,16 @@ function App() {
               <NewRegAdAd />
             </div>
           } />
-          <Route path="/ad_stdmanagement" element={
+        <Route path="/ad_stdmanagement" element={
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <StdManagementAd />
+            </div>
+          } />
+        <Route path="/ad_stdmanagement/enroll" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <StdManagementEnrAd />
             </div>
           } />
         <Route path="/ad_atndmanagement" element={
@@ -145,6 +153,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <FinManagementAd />
+            </div>
+          } />
+        <Route path="/ad_finmanagement/classfees" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <FinManagementFeesAd />
             </div>
           } />
         <Route path="/ad_finmanagement/payment" element={

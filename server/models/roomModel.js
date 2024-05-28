@@ -1,3 +1,5 @@
+// server/models/roomModel.js
+
 const pool = require('../db');
 
 const getNextClassroomID = async () => {
