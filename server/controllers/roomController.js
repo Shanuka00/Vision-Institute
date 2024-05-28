@@ -1,3 +1,5 @@
+// server/controllers/roomController.js
+
 const roomModel = require('../models/roomModel');
 
 const getNextClassroomID = async (req, res) => {

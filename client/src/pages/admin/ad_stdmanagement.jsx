@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function StdManagementAd() {
     const [grades, setGrades] = useState([]);
@@ -8,6 +9,7 @@ function StdManagementAd() {
     const [students, setStudents] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isFreeCardEnabled, setIsFreeCardEnabled] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch grades from the server
@@ -60,13 +62,22 @@ function StdManagementAd() {
         }
     };
 
+    const newEnroll = () => {
+        navigate('/ad_stdmanagement/enroll');
+    };
+
     return (
         <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
 
             <div className='rounded-3xl bg-gray-100 px-10 py-10 w-full h-full'>
+            <div className='w-full text-right -mt-2'>
+                <button onClick={newEnroll} className='bg-indigo-900 hover:bg-indigo-950 ml-auto text-white font-semibold py-2 px-4 rounded'>
+                    New enroll
+                </button>
+            </div>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                 <div>
-                    <label className='block mb-2 text-sm font-medium text-gray-700'>Select grade:</label>
+                    <label className='block mb-2 text-medium font-medium text-gray-700'>Select grade:</label>
                     <select 
                         className='block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500' 
                         value={selectedGrade} 
@@ -79,7 +90,7 @@ function StdManagementAd() {
                     </select>
                 </div>
                 <div>
-                    <label className='block mb-2 text-sm font-medium text-gray-700'>Select course:</label>
+                    <label className='block mb-2 text-medium font-medium text-gray-700'>Select course:</label>
                     <select 
                         className='block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200 focus:border-blue-500' 
                         value={selectedCourse} 
@@ -136,7 +147,7 @@ function StdManagementAd() {
                     )}
                 </div>
                 <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+                    className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-4 rounded mt-4"
                     disabled={!isFreeCardEnabled}
                     onClick={handleMarkAsFreeCard}
                 >
