@@ -9,7 +9,7 @@ const { getQRCode } = require('../controllers/stQrController');
 const outsideMessagesController = require('../controllers/outsideMessagesController');
 const feesController = require('../controllers/feesController');
 const registrationsController = require('../controllers/registrationsController');
-const { getGrades, getCourses, enrollStudent } = require('../controllers/enrollController');
+const { getGrades, getCourses, getStudents, enrollStudent } = require('../controllers/enrollController');
 
 const router = express.Router();
 
@@ -78,6 +78,7 @@ router.post('/rejectRegistration', registrationsController.rejectRegistration);
 // Route to new course enrollments
 router.get('/grades', getGrades);
 router.get('/courses', getCourses);
+router.get('/studentsForFees', getStudents);
 router.post('/enroll', enrollStudent);
 
 

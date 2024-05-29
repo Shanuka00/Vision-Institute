@@ -21,6 +21,17 @@ const getCourses = (req, res) => {
         });
 };
 
+const getStudents = (req, res) => {
+    const { course } = req.query;
+    enrollModel.getStudents(course)
+        .then(students => {
+            res.status(200).json(students);
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Error fetching students", error });
+        });
+};
+
 const enrollStudent = (req, res) => {
     const { visionid, courseid, date } = req.body;
     enrollModel.enrollStudent(visionid, courseid, date)
@@ -35,5 +46,6 @@ const enrollStudent = (req, res) => {
 module.exports = {
     getGrades,
     getCourses,
+    getStudents,
     enrollStudent
 };
