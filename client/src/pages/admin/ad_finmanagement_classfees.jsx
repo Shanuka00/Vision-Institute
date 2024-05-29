@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
-//import swal from 'sweetalert2';
 import Modal from 'react-bootstrap/Modal';
 import backB from '../../images/backb.png';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
 
-
 function FinManagementFeesAd() {
-
   const [imageUrl, setImageUrl] = useState(null);
   const [registrations, setRegistrations] = useState([]);
   const [selectedRegistration, setSelectedRegistration] = useState(null);
   // eslint-disable-next-line
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  
-  // New state for the form
+
   const [grades, setGrades] = useState([]);
   const [courses, setCourses] = useState([]);
   const [students, setStudents] = useState([]);
@@ -27,7 +23,6 @@ function FinManagementFeesAd() {
   const [classFee, setClassFee] = useState('Rs. 0000');
 
   const loadSlip = async (visionId) => {
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
       authDomain: "vision-institute-80d7f.firebaseapp.com",
@@ -38,51 +33,79 @@ function FinManagementFeesAd() {
       measurementId: "G-D1W84V5B4V"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const storage = getStorage(app);
-
-    // Construct the path to the image within your Firebase Storage bucket
     const imagePath = `regslips/${visionId}_regfees`;
-
-    // Get a reference to the image
     const imageRef = ref(storage, imagePath);
 
     try {
-      // Get the download URL of the image
       const url = await getDownloadURL(imageRef);
-      // Set the image URL in state
       setImageUrl(url);
     } catch (error) {
-      // Handle any errors
       console.error('Error getting download URL:', error);
     }
   };
-  
+
   useEffect(() => {
     const fetchRegistrations = async () => {
       try {
         const response = await api.get('/newOnRegistrations');
-        setRegistrations(response.data.registrations);
+        if (response.data && Array.isArray(response.data.registrations)) {
+          setRegistrations(response.data.registrations);
+        } else {
+          console.error('Unexpected response structure:', response.data);
+          setRegistrations([]);
+        }
       } catch (error) {
         console.error('Error fetching registrations', error);
+        setRegistrations([]);
       }
     };
 
     fetchRegistrations();
 
-    // Fetch grades data
     const fetchGrades = async () => {
       try {
         const response = await api.get('/grades');
-        setGrades(response.data.grades);
+        if (response.data && Array.isArray(response.data)) {
+          setGrades(response.data);
+        } else {
+          console.error('Unexpected response structure:', response.data);
+          setGrades([]);
+        }
       } catch (error) {
         console.error('Error fetching grades', error);
+        setGrades([]);
       }
     };
 
+    if (selectedGrade) {
+      fetchCourses(selectedGrade);
+    }
+    if (selectedCourse) {
+      fetchStudents(selectedCourse);
+    }
+
     fetchGrades();
-  }, []);
+  }, [selectedGrade, selectedCourse]);
+
+  const fetchCourses = async (selectedGrade) => {
+    try {
+        const response = await api.get(`/courses?grade=${selectedGrade}`);
+        setCourses(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+  };
+
+  const fetchStudents = async (selectedCourse) => {
+    try {
+        const response = await api.get(`/studentsForFees?course=${selectedCourse}`);
+        setStudents(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+  };
 
   const handleApprove = async () => {
     try {
@@ -106,7 +129,7 @@ function FinManagementFeesAd() {
 
   const handleBackButton = async () => {
     try {
-        navigate('/ad_finmanagement');
+      navigate('/ad_finmanagement');
     } catch (error) {
       console.error(error);
     }
@@ -119,12 +142,16 @@ function FinManagementFeesAd() {
     setSelectedStudent('');
     setClassFee('Rs. 0000');
 
-    // Fetch courses data based on the selected grade
     try {
       const response = await api.get(`/courses?grade=${grade}`);
-      setCourses(response.data.courses);
+      if (response.data && Array.isArray(response.data.courses)) {
+        setCourses(response.data.courses);
+      } else {
+        setCourses([]);
+      }
     } catch (error) {
       console.error('Error fetching courses', error);
+      setCourses([]);
     }
   };
 
@@ -134,12 +161,16 @@ function FinManagementFeesAd() {
     setSelectedStudent('');
     setClassFee('Rs. 0000');
 
-    // Fetch students data based on the selected course
     try {
-      const response = await api.get(`/students?course=${course}`);
-      setStudents(response.data.students);
+      const response = await api.get(`/studentsForFees?course=${course}`);
+      if (response.data && Array.isArray(response.data.students)) {
+        setStudents(response.data.students);
+      } else {
+        setStudents([]);
+      }
     } catch (error) {
       console.error('Error fetching students', error);
+      setStudents([]);
     }
   };
 
@@ -147,7 +178,6 @@ function FinManagementFeesAd() {
     const student = e.target.value;
     setSelectedStudent(student);
 
-    // Fetch class fee based on the selected student
     try {
       const response = await api.get(`/classFee?student=${student}`);
       setClassFee(`Rs. ${response.data.fee}`);
@@ -157,7 +187,6 @@ function FinManagementFeesAd() {
   };
 
   const handlePay = () => {
-    // Handle the payment logic here
     console.log('Payment submitted');
   };
 
@@ -168,7 +197,6 @@ function FinManagementFeesAd() {
         <img onClick={handleBackButton} style={{ textDecoration: 'none', cursor: 'pointer' }} className='ml-auto w-10 mb-4 -mt-1' src={backB} alt="Down arrow" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
         <div className="col-span-2 bg-gray-200 md:row-span-2 p-4 rounded-lg shadow-md">
           <h3 className="text-lg font-bold mb-4">Pay class fees</h3>
           <form>
@@ -177,7 +205,7 @@ function FinManagementFeesAd() {
               <select id="grade" value={selectedGrade} onChange={handleGradeChange} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                 <option value="" disabled>Select a grade</option>
                 {grades.map((grade) => (
-                  <option key={grade.id} value={grade.id}>{grade.name}</option>
+                  <option key={grade.grade} value={grade.grade}>{grade.grade}</option>
                 ))}
               </select>
             </div>
@@ -186,7 +214,7 @@ function FinManagementFeesAd() {
               <select id="course" value={selectedCourse} onChange={handleCourseChange} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" disabled={!selectedGrade}>
                 <option value="" disabled>Select a course</option>
                 {courses.map((course) => (
-                  <option key={course.id} value={course.id}>{course.name}</option>
+                  <option key={course.courseid} value={course.courseid}>{course.name}</option>
                 ))}
               </select>
             </div>
@@ -195,18 +223,17 @@ function FinManagementFeesAd() {
               <select id="student" value={selectedStudent} onChange={handleStudentChange} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" disabled={!selectedCourse}>
                 <option value="" disabled>Select a student</option>
                 {students.map((student) => (
-                  <option key={student.id} value={student.id}>{student.name}</option>
+                  <option key={student.visionid} value={student.visionid}>{student.visionid} - {student.firstname} {student.lastname}</option>
                 ))}
               </select>
             </div>
             <div className="mb-4">
               <label htmlFor="classFee" className="block text-sm font-medium text-gray-700">Class Fees</label>
-              <input type="text" id="classFee" value={classFee} readOnly className="border mt-1 block w-2/12 pl-3 pr-10 py-2 text-base bg-gray-300 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-200" />
+              <input type="text" id="classFee" value={classFee} readOnly className="border mt-1 block w-2/12 pl-3 pr-10 py-2 text-base bg-gray-300 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" />
             </div>
-            <button type="button" onClick={handlePay} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">Pay</button>
+            <button onClick={handlePay} type="button" className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">Pay</button>
           </form>
         </div>
-
         <div>
           <div className="col-span-2 md:col-span-1 bg-gray-200 p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-bold mb-4">Online payments</h3>
@@ -224,7 +251,6 @@ function FinManagementFeesAd() {
             </div>
           </div>
         </div>
-
       </div>
 
       {selectedRegistration && (
@@ -263,7 +289,6 @@ function FinManagementFeesAd() {
           </Modal.Footer>
         </Modal>
       )}
-
     </div>
   );
 }

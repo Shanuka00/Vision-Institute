@@ -24,6 +24,18 @@ const getCourses = (grade) => {
     });
 };
 
+const getStudents = (course) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT DISTINCT s.visionid, v.firstname, v.lastname FROM studentenroll AS s INNER JOIN visionuser AS v ON v.visionid = s.visionid WHERE courseid = ?';
+        pool.query(query, [course], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
 const enrollStudent = (visionid, courseid, date) => {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO studentenroll (visionid, courseid, date) VALUES (?, ?, ?)';
@@ -39,5 +51,6 @@ const enrollStudent = (visionid, courseid, date) => {
 module.exports = {
     getGrades,
     getCourses,
+    getStudents,
     enrollStudent
 };
