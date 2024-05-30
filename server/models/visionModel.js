@@ -120,9 +120,23 @@ const updatePasswordAndState = async (visionId, encryptedPassword, newState) => 
 };
 
 
+const getStudentById = (visionId) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT visionid, firstname, lastname FROM visionuser WHERE visionid = ? AND PASSWORD = '7a81ef6b1c3c393b522a0b3a609de0e9'";
+        pool.query(query, [visionId], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
+
 module.exports = {
     addUser,
     getMaxVisionId,
+    getStudentById,
     getUserByVisionId,
     updatePasswordAndState
 };

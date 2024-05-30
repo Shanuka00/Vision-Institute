@@ -9,7 +9,7 @@ const { getQRCode } = require('../controllers/stQrController');
 const outsideMessagesController = require('../controllers/outsideMessagesController');
 const feesController = require('../controllers/feesController');
 const registrationsController = require('../controllers/registrationsController');
-const { getGrades, getCourses, getStudents, enrollStudent } = require('../controllers/enrollController');
+const { getGrades, getCourses, getStudents, enrollStudent, getClassFee, clzFeesPaid } = require('../controllers/enrollController');
 
 const router = express.Router();
 
@@ -27,6 +27,9 @@ router.post('/login', validateUser);
 
 // Route to handle contact form submission
 router.post('/sendMessage', outsideMessagesController.sendMessage);
+
+// Route to fetch already registered student
+router.get('/fetchAlreadyStudent', visionController.getStudentById);
 
 
 // ======================== Admin routes ===============================
@@ -75,11 +78,13 @@ router.get('/newOnRegistrations', registrationsController.getRegistrations);
 router.post('/approveRegistration', registrationsController.approveRegistration);
 router.post('/rejectRegistration', registrationsController.rejectRegistration);
 
-// Route to new course enrollments
+// Route to new course enrollments and classfees
 router.get('/grades', getGrades);
 router.get('/courses', getCourses);
 router.get('/studentsForFees', getStudents);
+router.get('/classFeeFetch', getClassFee);
 router.post('/enroll', enrollStudent);
+router.post('/payClzFees', clzFeesPaid);
 
 
 // ====================== Student routes ===============================
