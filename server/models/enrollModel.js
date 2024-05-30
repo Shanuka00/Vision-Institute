@@ -36,6 +36,18 @@ const getStudents = (course) => {
     });
 };
 
+const getClassFee = (course) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT monamount FROM course WHERE courseid = ?';
+        pool.query(query, [course], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
 const enrollStudent = (visionid, courseid, date) => {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO studentenroll (visionid, courseid, date) VALUES (?, ?, ?)';
@@ -48,9 +60,23 @@ const enrollStudent = (visionid, courseid, date) => {
     });
 };
 
+const clzFeesPaid = (month, amount, state, date, visionid, courseid) => {
+    return new Promise((resolve, reject) => {
+        const query = 'INSERT INTO classfees (month, paidamount, state, date, visionid, courseid) VALUES (?, ?, ?, ?, ?, ?)';
+        pool.query(query, [month, amount, state, date, visionid, courseid], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
 module.exports = {
     getGrades,
     getCourses,
     getStudents,
-    enrollStudent
+    getClassFee,
+    enrollStudent,
+    clzFeesPaid
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import Modal from 'react-bootstrap/Modal';
 import backB from '../../images/backb.png';
+import Swal from 'sweetalert2';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +21,8 @@ function FinManagementFeesAd() {
   const [selectedGrade, setSelectedGrade] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedStudent, setSelectedStudent] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [setAmount, setFeeAmount] = useState('');
   const [classFee, setClassFee] = useState('Rs. 0000');
 
   const loadSlip = async (visionId) => {
@@ -105,6 +108,13 @@ function FinManagementFeesAd() {
     } catch (error) {
         console.error(error);
     }
+    try {
+      const response = await api.get(`/classFeeFetch?course=${selectedCourse}`);
+      setClassFee(`Rs. ${response.data[0].monamount}`);
+      setFeeAmount(response.data[0].monamount);
+    } catch (error) {
+        console.error(error);
+    }
   };
 
   const handleApprove = async () => {
@@ -169,7 +179,7 @@ function FinManagementFeesAd() {
         setStudents([]);
       }
     } catch (error) {
-      console.error('Error fetching students', error);
+      console.error('Error fetching students and classfee', error);
       setStudents([]);
     }
   };
@@ -177,17 +187,33 @@ function FinManagementFeesAd() {
   const handleStudentChange = async (e) => {
     const student = e.target.value;
     setSelectedStudent(student);
-
-    try {
-      const response = await api.get(`/classFee?student=${student}`);
-      setClassFee(`Rs. ${response.data.fee}`);
-    } catch (error) {
-      console.error('Error fetching class fee', error);
-    }
   };
 
-  const handlePay = () => {
-    console.log('Payment submitted');
+  const handleMonthChange = async (e) => {
+    const month = e.target.value;
+    setSelectedMonth(month);
+  };
+
+  const handlePay = async () => {
+      try {
+          const data = { month: selectedMonth, amount: setAmount, state: 'approved', date: new Date() , visionid: selectedStudent, courseid: selectedCourse };
+          const response = await api.post('/payClzFees', data);
+          Swal.fire({
+              title: "Classfees Paid Successfully!",
+              text: response.data.message,
+              icon: "success",
+              confirmButtonText: "OK",
+          });
+          setSelectedStudent('');
+
+      } catch (error) {
+          Swal.fire({
+              title: "Classfees Payment Failed!",
+              text: error.response.data.message,
+              icon: "error",
+              confirmButtonText: "OK",
+          });
+      }
   };
 
   return (
@@ -218,6 +244,38 @@ function FinManagementFeesAd() {
                 ))}
               </select>
             </div>
+
+            <div className='flex'>
+            <div className="mb-4">
+              <label htmlFor="classFee" className="block text-sm font-medium text-gray-700">Class Fees</label>
+              <input type="text" id="classFee" value={classFee} readOnly className="border mt-1 block w-6/12 pl-3 pr-10 py-2 text-base bg-gray-300 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" />
+            </div>
+            <div className="w-4/12 ml-1">
+            <label htmlFor="course" className="inline-block text-sm text-gray-700 font-medium">
+                  Select month
+              </label>
+              <select
+                  id="month"
+                  className="w-full text-sm px-3 py-2 rounded-md border bg-white border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  onChange={handleMonthChange}
+              >
+                  <option value="">Select month</option>
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+              </select>
+            </div>
+            </div>
+
             <div className="mb-4">
               <label htmlFor="student" className="block text-sm font-medium text-gray-700">Student</label>
               <select id="student" value={selectedStudent} onChange={handleStudentChange} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" disabled={!selectedCourse}>
@@ -227,11 +285,8 @@ function FinManagementFeesAd() {
                 ))}
               </select>
             </div>
-            <div className="mb-4">
-              <label htmlFor="classFee" className="block text-sm font-medium text-gray-700">Class Fees</label>
-              <input type="text" id="classFee" value={classFee} readOnly className="border mt-1 block w-2/12 pl-3 pr-10 py-2 text-base bg-gray-300 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" />
-            </div>
-            <button onClick={handlePay} type="button" className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">Pay</button>
+            
+            <button onClick={handlePay} type="button" className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 mt-2 rounded-lg">Class fees paid</button>
           </form>
         </div>
         <div>

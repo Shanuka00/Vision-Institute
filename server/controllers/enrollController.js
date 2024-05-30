@@ -32,9 +32,31 @@ const getStudents = (req, res) => {
         });
 };
 
+const getClassFee = (req, res) => {
+    const { course } = req.query;
+    enrollModel.getClassFee(course)
+        .then(students => {
+            res.status(200).json(students);
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Error fetching classfee", error });
+        });
+};
+
 const enrollStudent = (req, res) => {
     const { visionid, courseid, date } = req.body;
     enrollModel.enrollStudent(visionid, courseid, date)
+        .then(() => {
+            res.status(200).json({ message: "Enrollment successful" });
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Enrollment failed", error });
+        });
+};
+
+const clzFeesPaid = (req, res) => {
+    const { month, amount, state, date, visionid, courseid } = req.body;
+    enrollModel.clzFeesPaid(month, amount, state, date, visionid, courseid)
         .then(() => {
             res.status(200).json({ message: "Enrollment successful" });
         })
@@ -47,5 +69,7 @@ module.exports = {
     getGrades,
     getCourses,
     getStudents,
-    enrollStudent
+    getClassFee,
+    enrollStudent,
+    clzFeesPaid
 };

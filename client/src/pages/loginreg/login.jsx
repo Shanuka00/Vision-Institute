@@ -151,7 +151,7 @@ function Login() {
                 </button>
 
                 <div>
-                  <Link to="/std_registration">
+                  <Link to="/already_reg">
                     <button className="inline-block w-full rounded mt-4 px-7 pb-3 pt-3 text-sm font-medium leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out bg-indigo-900 hover:bg-indigo-950 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                     If you are already a student attending<br/>classes in the institute<br/>(ඔබ දැනටමත් ආයතනයේ පන්ති<br/>පැමිණෙන සිසුවෙක් නම්)</button>
                   </Link>

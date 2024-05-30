@@ -15,6 +15,7 @@ import Login from './pages/loginreg/login';
 import StudentRegistration from './pages/loginreg/std_registration';
 import RegistrationFees from './pages/loginreg/reg_fees';
 import IdCreation from './pages/loginreg/id_create';
+import AlreadyReg from './pages/loginreg/already_reg';
 import RegWaiting from './pages/loginreg/reg_waiting';
 import NavbarWait from "./pages/loginreg/navbar_waiting";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -82,6 +83,7 @@ function App() {
         <Route path="/std_registration" element={<><NavbarReg /><StudentRegistration /><Footer /></>} />
         <Route path="/reg_fees" element={<><NavbarReg /><RegistrationFees /><Footer /></>} />
         <Route path="/id_create" element={<><NavbarReg /><IdCreation /><Footer /></>} />
+        <Route path="/already_reg" element={<><NavbarReg /><AlreadyReg /><Footer /></>} />
         <Route path="/reg_waiting" element={<><NavbarWait /><RegWaiting /><Footer /></>} />
 
 

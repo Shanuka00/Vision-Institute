@@ -32,6 +32,18 @@ const getMaxVisionId = async (req, res) => {
 };
 
 
+const getStudentById = (req, res) => {
+    const { visionId } = req.query;
+    visionModel.getStudentById(visionId)
+        .then(student => {
+            res.status(200).json(student);
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Error fetching student", error });
+        });
+};
+
+
 // Route handler for updating password and state
 const updatePasswordAndState = async (req, res) => {
     const { visionId, password } = req.body;
@@ -67,5 +79,6 @@ const updatePasswordAndState = async (req, res) => {
 module.exports = {
     addUser,
     getMaxVisionId,
+    getStudentById,
     updatePasswordAndState
 };
