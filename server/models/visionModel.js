@@ -107,6 +107,25 @@ const getUserByVisionId = async (visionId) => {
     }
 };
 
+
+// Function to get a user by their Vision ID
+const getUserByVisionId2 = async (visionId) => {
+    try {
+
+        // Perform a database query to find the user with the given Vision ID
+        const query = 'SELECT * FROM visionuser WHERE visionid = ?';
+        const result = await pool.query(query, [visionId]);
+
+        const rows = result;
+
+        return rows; // Assuming Vision ID is unique, return the first row
+    } catch (error) {
+        console.error('Error fetching user by Vision ID:', error);
+        throw error;
+    }
+};
+
+
 // Function to update a user's password and state
 const updatePasswordAndState = async (visionId, encryptedPassword, newState) => {
     try {
@@ -120,9 +139,22 @@ const updatePasswordAndState = async (visionId, encryptedPassword, newState) => 
 };
 
 
+// Function to update a user's password and state
+const updatePasswordAndState2 = async (visionId, encryptedPassword, newState) => {
+    try {
+        // Perform a database query to update the user's password and state
+        const query = 'UPDATE visionuser SET password = ?, state = ? WHERE visionid = ?';
+        await pool.query(query, [encryptedPassword, newState, visionId]);
+    } catch (error) {
+        console.error('Error updating password and state:', error);
+        throw error;
+    }
+};
+
+
 const getStudentById = (visionId) => {
     return new Promise((resolve, reject) => {
-        const query = "SELECT visionid, firstname, lastname FROM visionuser WHERE visionid = ? AND PASSWORD = '7a81ef6b1c3c393b522a0b3a609de0e9'";
+        const query = "SELECT visionid, firstname, lastname FROM visionuser WHERE visionid = ? AND PASSWORD = 'e4c4bcf6f1addc82e879fe8dbe1eddb3'";
         pool.query(query, [visionId], (error, results) => {
             if (error) {
                 reject(error);
@@ -138,5 +170,7 @@ module.exports = {
     getMaxVisionId,
     getStudentById,
     getUserByVisionId,
-    updatePasswordAndState
+    getUserByVisionId2,
+    updatePasswordAndState,
+    updatePasswordAndState2
 };
