@@ -1,9 +1,10 @@
 const pool = require('../db');
 
 class Profile {
+
     static findByVisionId(visionId, callback) {
         const query = `
-            SELECT firstname, lastname, initial, dateofbirth, gender, email, addressline1, addressline2, mobilenumber
+            SELECT *
             FROM visionuser
             WHERE visionid = ?
         `;

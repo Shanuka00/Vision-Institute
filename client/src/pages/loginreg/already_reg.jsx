@@ -3,7 +3,6 @@ import '../../styles/registration_styles.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -11,25 +10,15 @@ import api from '../../api/api';
 
 function AlreadyReg() {
 
-  const location = useLocation();
-
-  const {
-    currentState,
-  } = location.state || {};
-
   const [password, setPassword] = useState('');
   const [student, setStudent] = useState('');
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
+  const [visionId, setVisionId] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  let newState;
-  if (currentState === true) {
-    newState = "YesRegYesPass";
-  } else if (currentState === false) {
-    newState = "NoRegYesPass";
-  }
+  let newState = "approved";
 
   //update password and state
   const handleSubmit = async (e) => {
@@ -42,10 +31,8 @@ function AlreadyReg() {
         return;
     }
 
-    const visionId = location.state?.nextVid?.maxVisionId;
-
     try {
-        await axios.post('/api/vision/updatePasswordAndState', { visionId, password, confirmPassword, newState });
+        await axios.post('/api/vision/updatePasswordAndState2', { visionId, password, confirmPassword, newState });
         console.log('Password updated successfully!');
         showAlertSuccess();
 
@@ -87,6 +74,7 @@ function AlreadyReg() {
         setStudent(response.data[0].visionid);
         setFname(response.data[0].firstname);
         setLname(response.data[0].lastname);
+        setVisionId(response.data[0].visionid);
     } catch (error) {
         Swal.fire({
             title: "You can't access to this Vision ID!",

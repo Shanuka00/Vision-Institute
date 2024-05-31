@@ -76,9 +76,42 @@ const updatePasswordAndState = async (req, res) => {
 };
 
 
+// Route handler for updating password and state
+const updatePasswordAndState2 = async (req, res) => {
+    const { visionId, password } = req.body;
+
+    try {
+        // Check if the visionId exists in the database
+        const user = await visionModel.getUserByVisionId2(visionId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if the password matches the confirmation
+        const confirmPassword = req.body.confirmPassword;
+        if (password !== confirmPassword) {
+            return res.status(400).json({ error: 'Passwords do not match' });
+        }
+
+        const encryptedPassword = encryptPassword(password);
+
+        // Update the user's password and state
+        const newState = req.body.newState;
+        await visionModel.updatePasswordAndState2(visionId, encryptedPassword, newState);
+
+        // Send a success response
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error updating password and state:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     addUser,
     getMaxVisionId,
     getStudentById,
-    updatePasswordAndState
+    updatePasswordAndState,
+    updatePasswordAndState2
 };

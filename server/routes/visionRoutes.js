@@ -10,6 +10,7 @@ const outsideMessagesController = require('../controllers/outsideMessagesControl
 const feesController = require('../controllers/feesController');
 const registrationsController = require('../controllers/registrationsController');
 const { getGrades, getCourses, getStudents, enrollStudent, getClassFee, clzFeesPaid } = require('../controllers/enrollController');
+const updateProfilesController = require('../controllers/updateProfilesController');
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.post('/addUser', visionController.addUser);
 
 // Route to update the password and state
 router.post('/updatePasswordAndState', visionController.updatePasswordAndState);
+router.post('/updatePasswordAndState2', visionController.updatePasswordAndState2);
 
 // Login route
 router.post('/login', validateUser);
@@ -30,6 +32,9 @@ router.post('/sendMessage', outsideMessagesController.sendMessage);
 
 // Route to fetch already registered student
 router.get('/fetchAlreadyStudent', visionController.getStudentById);
+
+// Update user profiles
+router.post('/updateStudentProfile', updateProfilesController.updateStProfile);
 
 
 // ======================== Admin routes ===============================
