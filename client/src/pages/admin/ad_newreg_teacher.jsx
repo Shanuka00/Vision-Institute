@@ -360,7 +360,7 @@ function NewRegTeAd() {
                   onClick={handleSubmit}
                   className="inline-flex -mt-6 px-6 py-3 rounded-md shadow-sm font-medium text-white bg-indigo-900 hover:bg-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Update your profile
+                  Create profile
                 </button>
               </Link>
               
