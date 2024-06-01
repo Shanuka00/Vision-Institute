@@ -10,6 +10,7 @@ const outsideMessagesController = require('../controllers/outsideMessagesControl
 const feesController = require('../controllers/feesController');
 const registrationsController = require('../controllers/registrationsController');
 const { getGrades, getCourses, getStudents, enrollStudent, getClassFee, clzFeesPaid } = require('../controllers/enrollController');
+const { getCoursesStFees, saveClassFees } = require('../controllers/classFeesStController');
 const updateProfilesController = require('../controllers/updateProfilesController');
 const newCourseRegController = require('../controllers/newCourseRegController');
 
@@ -105,6 +106,10 @@ router.post('/profileByVisionId', stprofileController.getProfileByVisionId);
 
 // Route to get QR code
 router.get('/qrcodeFetch', getQRCode);
+
+// Routes to pay class fees
+router.get('/coursesOfSt', getCoursesStFees);
+router.post('/classfeesSt', saveClassFees);
 
 
 // ====================== Teacher routes ===============================

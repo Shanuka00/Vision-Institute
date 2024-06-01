@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import peoplesLogo from '../../images/peopleslogo.png';
 import hnbLogo from '../../images/hnblogo.png';
 
 import 'firebase/storage';
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Swal from 'sweetalert2';
 import api from '../../api/api';
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
   authDomain: "vision-institute-80d7f.firebaseapp.com",
@@ -23,11 +23,18 @@ initializeApp(firebaseConfig);
 const storage = getStorage();
 
 function BankdepoSt() {
+
+  const year = new Date().getFullYear();
+  const [uploadedFileUrl, setUploadedFileUrl] = useState('');
   const [visionId, setVisionId] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [grade, setGrade] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [classFees, setClassFees] = useState('0000.00');
   const [fileSelected, setFileSelected] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const MAX_FILE_SIZE = 2 * 1024 * 1024;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -37,15 +44,42 @@ function BankdepoSt() {
       const storedVisionId = localStorage.getItem('visionId');
       if (storedVisionId) {
         setVisionId(storedVisionId);
+        fetchCourses(storedVisionId);
       }
     }
   }, []);
 
+  const fetchCourses = async (selectedVisionId) => {
+    try {
+      const response = await api.get(`/coursesOfSt?visionid=${selectedVisionId}`);
+      setCourses(response.data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+  const handleCourseChange = (event) => {
+    setSelectedCourse(event.target.value);
+  };
+
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
+  useEffect(() => {
+    if (selectedCourse && selectedMonth && !isNaN(Number(selectedCourse))) {
+      const selectedCourseData = courses.find(course => course.courseid === Number(selectedCourse));
+      if (selectedCourseData) {
+        setClassFees(selectedCourseData.monamount);
+        setGrade(selectedCourseData.grade);
+      }
+    }    
+  }, [selectedCourse, selectedMonth, courses]);
+
   const handleUpload = async () => {
     const file = document.getElementById("formFile").files[0];
-    const extension = file.name.split('.').pop();
-    const storageRef = ref(storage, `regslips/${visionId}.${extension}`);
-
+    const storageRef = ref(storage, `classfees/${grade}/${visionId}_${year}_${selectedMonth}`);
+  
     let timerInterval;
     const toast = Swal.mixin({
       toast: true,
@@ -63,22 +97,24 @@ function BankdepoSt() {
         clearInterval(timerInterval);
       }
     });
-
+  
     toast.fire({
       title: "Uploading your slip!",
       html: "Wait until uploading finished",
       icon: "info"
     });
-
+  
     try {
       await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      setUploadedFileUrl(downloadURL); // Set the uploaded file URL
       console.log("File uploaded successfully");
       setFileUploaded(true);
-
+  
       Swal.close();
       Swal.fire({
         title: "Success!",
-        text: "Your payment slip has been uploaded successfully, Continue registration!",
+        text: "Your payment slip has been uploaded successfully, Complete payment!",
         icon: "success",
         timer: 3000,
         timerProgressBar: true,
@@ -86,7 +122,7 @@ function BankdepoSt() {
       });
     } catch (error) {
       console.error("Error uploading file:", error);
-
+  
       Swal.close();
       Swal.fire({
         title: "Error!",
@@ -109,9 +145,38 @@ function BankdepoSt() {
     }
   };
 
-  const handlePaid = () => {
-    navigate('/id_create');
+  const handlePaid = async () => {
+    const paymentData = {
+      month: selectedMonth,
+      paidamount: classFees,
+      state: uploadedFileUrl, // Use the uploaded file URL
+      date: new Date().toISOString().split('T')[0], // Today's date in YYYY-MM-DD format
+      visionid: visionId,
+      courseid: selectedCourse
+    };
+  
+    try {
+      await api.post('/classfeesSt', paymentData);
+      Swal.fire({
+          title: "Your classfees payment recorded!",
+          icon: "success",
+          confirmButtonText: "OK",
+      }).then(() => {
+          window.location.reload();
+      });
+    } catch (error) {
+      console.error("Error completing payment:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "There was an error completing your payment. Please try again.",
+        icon: "error",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
   };
+  
 
   return (
     <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-7 w-full'>
@@ -125,112 +190,101 @@ function BankdepoSt() {
         </div>
 
         <div className='mt-7 pb-4 ml-10 mr-10 rounded shadow-md bg-gray-100'>
-
-        <div className='grid grid-cols-1 md:grid-cols-2'>
+          <div className='grid grid-cols-1 md:grid-cols-2'>
             <div className="mt-3 w-96 ml-auto mr-auto">
-            <label htmlFor="course" className="mb-2 inline-block text-neutral-700 font-bold">
-                  Select course
+              <label htmlFor="course" className="mb-2 inline-block text-neutral-700 font-bold">
+                Select course
               </label>
               <select
-                  id="course"
-                  className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  //value={course}
-                  //onChange={(e) => setCourse(e.target.value)}
+                id="course"
+                className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                value={selectedCourse}
+                onChange={handleCourseChange}
               >
-                  <option value="">Select course</option>
-                  {/* {courses.map(course => (
-                      <option key={course.courseid} value={course.courseid}>
-                          {course.courseid} - {course.subject} (Grade {course.grade} - {course.name} )
-                       </option>
-                  ))} */}
+                <option value="">Select course</option>
+                {courses.map(course => (
+                  <option key={course.courseid} value={course.courseid}>
+                    {course.courseid} - {course.subject} (Grade {course.grade} - {course.name})
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="mt-3 w-96 ml-auto mr-auto">
-            <label htmlFor="course" className="mb-2 inline-block text-neutral-700 font-bold">
-                  Select month
+              <label htmlFor="month" className="mb-2 inline-block text-neutral-700 font-bold">
+                Select month
               </label>
               <select
-                  id="day"
-                  className="w-full px-3 py-2 rounded-md border bg-white border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  //value={day}
-                  //onChange={() => {}}
-                  //disabled={inputType === 'date'}
-                  //readOnly
+                id="month"
+                className="w-full px-3 py-2 rounded-md border bg-white border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                value={selectedMonth}
+                onChange={handleMonthChange}
               >
-                  <option value="">Select month</option>
-                  <option value="january">January</option>
-                  <option value="february">February</option>
-                  <option value="march">March</option>
-                  <option value="april">April</option>
-                  <option value="may">May</option>
-                  <option value="june">June</option>
-                  <option value="july">July</option>
-                  <option value="august">August</option>
-                  <option value="september">September</option>
-                  <option value="october">October</option>
-                  <option value="november">November</option>
-                  <option value="december">December</option>
+                <option value="">Select month</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
               </select>
             </div>
-        </div>
+          </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2'>
-
+          <div className='grid grid-cols-1 md:grid-cols-2'>
             <div className="mb-2.5 w-96 mt-3 ml-auto mr-auto">
-            <label className="inline-block text-neutral-700 font-bold">
+              <label className="inline-block text-neutral-700 font-bold">
                 Class fees
-            </label>
-            <div className="flex items-center mt-1 border border-gray-300 bg-transparent rounded px-3 py-2 mr-auto mb-3">
-              <span className="mr-2">Rs.</span>
-              <input className="w-full bg-transparent focus:outline-none focus:bg-transparent" type="text" value="0000.00" readOnly />
-            </div>
+              </label>
+              <div className="flex items-center mt-1 border border-gray-300 bg-transparent rounded px-3 py-2 mr-auto mb-3">
+                <span className="mr-2">Rs.</span>
+                <input className="w-full bg-transparent focus:outline-none focus:bg-transparent" type="text" value={classFees} readOnly />
+              </div>
             </div>
 
             <div className="mb-2.5 mt-3 w-96 ml-auto mr-auto">
-            <label className="inline-block text-neutral-700 font-bold">
+              <label className="inline-block text-neutral-700 font-bold">
                 Upload payment slip
-            </label>
-            <div className="flex items-center rounded py-2 mr-auto">
+              </label>
+              <div className="flex items-center rounded py-2 mr-auto">
                 <input
-                className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
-                type="file"
-                onChange={handleFileChange}
-                id="formFile"
+                  className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                  type="file"
+                  onChange={handleFileChange}
+                  id="formFile"
                 />
                 <button
-                id="uploadBtn"
-                disabled={!fileSelected}
-                onClick={handleUpload}
-                className={`ml-2 px-4 w-24 py-1.5 ${fileSelected ? "ml-2 bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold rounded shadow-sm`}
+                  id="uploadBtn"
+                  disabled={!fileSelected}
+                  onClick={handleUpload}
+                  className={`ml-2 px-4 w-24 py-1.5 ${fileSelected ? "ml-2 bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} text-white font-semibold rounded shadow-sm`}
                 >
-                Upload
+                  Upload
                 </button>
+              </div>
             </div>
-            </div>
+          </div>
 
-        </div>
-
-
-        <div className='grid grid-cols-1 md:grid-cols-1'>
-
+          <div className='grid grid-cols-1 md:grid-cols-1'>
             <div className="w-full ml-0 mb-0 py-0 pt-0 mt-0">
-            <button
+              <button
                 id="continueBtn"
                 disabled={!fileUploaded}
                 className={`px-4 w-64 py-2 ${fileUploaded ? "bg-indigo-900 hover:bg-indigo-950" : "bg-gray-400 cursor-not-allowed"} ml-20 text-white font-semibold rounded shadow-sm`}
                 onClick={handlePaid}
-            >
+              >
                 Complete payment
-            </button>
+              </button>
             </div>
+          </div>
         </div>
-
-
-
-        </div>
-
-        </div>
+      </div>
     </div>
   )
 }
