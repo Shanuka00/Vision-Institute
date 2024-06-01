@@ -13,6 +13,7 @@ const { getGrades, getCourses, getStudents, enrollStudent, getClassFee, clzFeesP
 const { getCoursesStFees, saveClassFees } = require('../controllers/classFeesStController');
 const updateProfilesController = require('../controllers/updateProfilesController');
 const newCourseRegController = require('../controllers/newCourseRegController');
+const feespaymentsController = require('../controllers/feespaymentsController');
 
 const router = express.Router();
 
@@ -97,6 +98,11 @@ router.post('/payClzFees', clzFeesPaid);
 router.get('/nextcourseid', newCourseRegController.getNextCourseId);
 router.get('/teachers', newCourseRegController.getTeachers);
 router.post('/newCourseRegistration', newCourseRegController.registerNewCourse);
+
+// Route to online classfees payments
+router.get('/newOnFeesPayments', feespaymentsController.getFeesPayments);
+router.post('/approveFeesPayment', feespaymentsController.approveFeesPayment);
+router.post('/rejectFeesPayment', feespaymentsController.rejectFeesPayment);
 
 
 // ====================== Student routes ===============================

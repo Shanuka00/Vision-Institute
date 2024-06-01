@@ -216,7 +216,7 @@ function App() {
           } />
         <Route path="/st_dashboard/course" element={
             <div className="flex min-h-screen bg-gray-200">
-              <SidebarTe />
+              <SidebarSt />
               <DashboardCouSt />
             </div>
           } />

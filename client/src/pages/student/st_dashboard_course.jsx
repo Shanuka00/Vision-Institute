@@ -7,7 +7,7 @@ function DashboardCouSt() {
   const { courseId, subject } = location.state; // Extract courseId and subject from location state
 
   const [learningMaterials, setLearningMaterials] = useState([
-    { id: 1, title: 'Sample Material 1', fileUrl: 'https://example.com/sample_material_1.pdf' },
+    { id: 1, title: 'Sample Material 1', fileUrl: 'https://firebasestorage.googleapis.com/v0/b/vision-institute-80d7f.appspot.com/o/classfees%2F10%2FVS100001_2024_february?alt=media&token=aeee0e65-24f6-4ff8-b8b3-4d6ad256e605' },
     { id: 2, title: 'Sample Material 2', fileUrl: 'https://example.com/sample_material_2.pdf' }
   ]);
 
