@@ -11,6 +11,7 @@ const feesController = require('../controllers/feesController');
 const registrationsController = require('../controllers/registrationsController');
 const { getGrades, getCourses, getStudents, enrollStudent, getClassFee, clzFeesPaid } = require('../controllers/enrollController');
 const updateProfilesController = require('../controllers/updateProfilesController');
+const newCourseRegController = require('../controllers/newCourseRegController');
 
 const router = express.Router();
 
@@ -90,6 +91,11 @@ router.get('/studentsForFees', getStudents);
 router.get('/classFeeFetch', getClassFee);
 router.post('/enroll', enrollStudent);
 router.post('/payClzFees', clzFeesPaid);
+
+// Route to register new course
+router.get('/nextcourseid', newCourseRegController.getNextCourseId);
+router.get('/teachers', newCourseRegController.getTeachers);
+router.post('/newCourseRegistration', newCourseRegController.registerNewCourse);
 
 
 // ====================== Student routes ===============================
