@@ -3,14 +3,12 @@ import api from '../../api/api';
 import Modal from 'react-bootstrap/Modal';
 import backB from '../../images/backb.png';
 import Swal from 'sweetalert2';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { initializeApp } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
 
 function FinManagementFeesAd() {
   const [imageUrl, setImageUrl] = useState(null);
-  const [registrations, setRegistrations] = useState([]);
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [feespayments, setFeesPayments] = useState([]);
+  const [selectedFeesPayment, setSelectedFeesPayment] = useState(null);
   // eslint-disable-next-line
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -25,47 +23,33 @@ function FinManagementFeesAd() {
   const [setAmount, setFeeAmount] = useState('');
   const [classFee, setClassFee] = useState('Rs. 0000');
 
-  const loadSlip = async (visionId) => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyDuXPxQCBAW0h3KF7iNloanMDhFgONVRfU",
-      authDomain: "vision-institute-80d7f.firebaseapp.com",
-      projectId: "vision-institute-80d7f",
-      storageBucket: "vision-institute-80d7f.appspot.com",
-      messagingSenderId: "438460841851",
-      appId: "1:438460841851:web:b607f9eac852d2e02d07de",
-      measurementId: "G-D1W84V5B4V"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage(app);
-    const imagePath = `regslips/${visionId}_regfees`;
-    const imageRef = ref(storage, imagePath);
+  const loadSlip = async (Url) => {
 
     try {
-      const url = await getDownloadURL(imageRef);
-      setImageUrl(url);
+      const url = {Url};
+      setImageUrl(url.Url);
     } catch (error) {
       console.error('Error getting download URL:', error);
     }
   };
 
   useEffect(() => {
-    const fetchRegistrations = async () => {
+    const fetchFeesPayments = async () => {
       try {
-        const response = await api.get('/newOnRegistrations');
-        if (response.data && Array.isArray(response.data.registrations)) {
-          setRegistrations(response.data.registrations);
+        const response = await api.get('/newOnFeesPayments');
+        if (response.data && Array.isArray(response.data.feespayments)) {
+          setFeesPayments(response.data.feespayments);
         } else {
           console.error('Unexpected response structure:', response.data);
-          setRegistrations([]);
+          setFeesPayments([]);
         }
       } catch (error) {
-        console.error('Error fetching registrations', error);
-        setRegistrations([]);
+        console.error('Error fetching class fees payments', error);
+        setFeesPayments([]);
       }
     };
 
-    fetchRegistrations();
+    fetchFeesPayments();
 
     const fetchGrades = async () => {
       try {
@@ -119,21 +103,21 @@ function FinManagementFeesAd() {
 
   const handleApprove = async () => {
     try {
-      await api.post('/approveRegistration', { visionId: selectedRegistration.visionid });
-      setSelectedRegistration(null);
+      await api.post('/approveFeesPayment', { classfeeId: selectedFeesPayment.classfeeid });
+      setSelectedFeesPayment(null);
       window.location.reload();
     } catch (error) {
-      console.error('Error approving registration', error);
+      console.error('Error approving fees payment', error);
     }
   };
 
   const handleReject = async () => {
     try {
-      await api.post('/rejectRegistration', { visionId: selectedRegistration.visionid });
-      setSelectedRegistration(null);
+      await api.post('/rejectFeesPayment', { classfeeId: selectedFeesPayment.classfeeid });
+      setSelectedFeesPayment(null);
       window.location.reload();
     } catch (error) {
-      console.error('Error rejecting registration', error);
+      console.error('Error rejecting fees payment', error);
     }
   };
 
@@ -293,14 +277,14 @@ function FinManagementFeesAd() {
           <div className="col-span-2 md:col-span-1 bg-gray-200 p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-bold mb-4">Online payments</h3>
             <div className="space-y-4">
-              {registrations.map((registration, index) => (
+              {feespayments.map((feespayment, index) => (
                 <div key={index} className="bg-white p-4 pb-2 rounded-lg shadow-md flex justify-between items-center">
                   <div>
-                    <p> {registration.visionid}</p>
-                    <p> {registration.firstname} {registration.lastname}</p>
-                    <p> {registration.mobilenumber}</p>
+                    <p> {feespayment.visionid}</p>
+                    <p> {feespayment.firstname} {feespayment.lastname}</p>
+                    <p> {feespayment.mobilenumber}</p>
                   </div>
-                  <button onClick={() => { loadSlip(registration.visionid); setSelectedRegistration(registration); setShowModal(true); }} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">View</button>
+                  <button onClick={() => { loadSlip(feespayment.state); setSelectedFeesPayment(feespayment); setShowModal(true); }} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">View</button>
                 </div>
               ))}
             </div>
@@ -308,26 +292,24 @@ function FinManagementFeesAd() {
         </div>
       </div>
 
-      {selectedRegistration && (
+      {selectedFeesPayment && (
         <Modal
-          show={!!selectedRegistration}
-          onHide={() => setSelectedRegistration(null)}
-          contentlabel="Registration Details"
+          show={!!selectedFeesPayment}
+          onHide={() => setSelectedFeesPayment(null)}
+          contentlabel="ClassFees Details"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Registration Details</Modal.Title>
+            <Modal.Title>ClassFees Details</Modal.Title>
           </Modal.Header>
 
           <Modal.Body style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ flex: 1 }}>
-              <p><b>Vision ID:</b> {selectedRegistration.visionid}</p>
-              <p><b>Name:</b> {selectedRegistration.firstname} {selectedRegistration.lastname}</p>
-              <p><b>Initial:</b> {selectedRegistration.initial}</p>
-              <p><b>Birthday:</b> {selectedRegistration.dateofbirth.substring(0, 10)}</p>
-              <p><b>Gender:</b> {selectedRegistration.gender}</p>
-              <p><b>Email:</b> {selectedRegistration.email}</p>
-              <p><b>Mobilenumber:</b> {selectedRegistration.mobilenumber}</p>
-              <p><b>City:</b> {selectedRegistration.city}</p>
+              <p><b>ClassFee ID:</b> {selectedFeesPayment.classfeeid}</p>
+              <p><b>Month:</b> {selectedFeesPayment.month}</p>
+              <p><b>Paid amount:</b> {selectedFeesPayment.paidamount}</p>
+              <p><b>Paid date:</b> {selectedFeesPayment.date.substring(0, 10)}</p>
+              <p><b>Vision ID:</b> {selectedFeesPayment.visionid}</p>
+              <p><b>Course ID:</b> {selectedFeesPayment.courseid}</p>
             </div>
             {imageUrl && (
               <div style={{ flex: 1 }}>
@@ -340,7 +322,7 @@ function FinManagementFeesAd() {
           <Modal.Footer>
             <button onClick={handleApprove} className="bg-green-500 text-white px-4 py-2 rounded-lg">Approve</button>
             <button onClick={handleReject} className="bg-red-500 text-white px-4 py-2 rounded-lg">Reject</button>
-            <button onClick={() => setSelectedRegistration(null)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">Cancel</button>
+            <button onClick={() => setSelectedFeesPayment(null)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">Cancel</button>
           </Modal.Footer>
         </Modal>
       )}
