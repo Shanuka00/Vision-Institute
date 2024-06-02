@@ -14,6 +14,7 @@ const { getCoursesStFees, saveClassFees } = require('../controllers/classFeesStC
 const updateProfilesController = require('../controllers/updateProfilesController');
 const newCourseRegController = require('../controllers/newCourseRegController');
 const feespaymentsController = require('../controllers/feespaymentsController');
+const { loadStCourses, loadStNotifications } = require('../controllers/loadStCoursesController');
 
 const router = express.Router();
 
@@ -116,6 +117,15 @@ router.get('/qrcodeFetch', getQRCode);
 // Routes to pay class fees
 router.get('/coursesOfSt', getCoursesStFees);
 router.post('/classfeesSt', saveClassFees);
+
+// Route to load courses
+router.get('/loadStCourses', loadStCourses);
+
+// Route to load notifications
+router.get('/loadStNotifications', loadStNotifications);
+
+// Route to mark a message as seen
+router.post('/markAsSeenSt', outsideMessagesController.markMessageAsSeenSt);
 
 
 // ====================== Teacher routes ===============================
