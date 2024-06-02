@@ -37,12 +37,30 @@ exports.markMessageAsSeen = async (req, res) => {
     }
 };
 
-// Controller function to mark a message as seen
+// Controller function to mark a message as seen for Student
 exports.markMessageAsSeenSt = async (req, res) => {
     try {
         const { visionId, courseId, date } = req.body;
         const query = 'UPDATE attendance SET seen = 1 WHERE visionid = ? AND courseid = ? AND date = ?;';
         pool.query(query, [visionId, courseId, date], (error, results) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ message: "Server error" });
+            }
+            res.json({ message: "Message marked as seen successfully" });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+  };
+
+// Controller function to mark a message as seen for Teacher
+exports.markMessageAsSeenTe = async (req, res) => {
+    try {
+        const { expenseid } = req.body;
+        const query = 'UPDATE expense SET seen = 1 WHERE expenseid = ?;';
+        pool.query(query, [expenseid], (error, results) => {
             if (error) {
                 console.error(error);
                 return res.status(500).json({ message: "Server error" });

@@ -15,6 +15,7 @@ const updateProfilesController = require('../controllers/updateProfilesControlle
 const newCourseRegController = require('../controllers/newCourseRegController');
 const feespaymentsController = require('../controllers/feespaymentsController');
 const { loadStCourses, loadStNotifications } = require('../controllers/loadStCoursesController');
+const { loadTeCourses, loadTeNotifications } = require('../controllers/loadTeCoursesController');
 
 const router = express.Router();
 
@@ -130,6 +131,13 @@ router.post('/markAsSeenSt', outsideMessagesController.markMessageAsSeenSt);
 
 // ====================== Teacher routes ===============================
 
+// Route to load courses
+router.get('/loadTeCourses', loadTeCourses);
 
+// Route to load notifications
+router.get('/loadTeNotifications', loadTeNotifications);
+
+// Route to mark a message as seen
+router.post('/markAsSeenTe', outsideMessagesController.markMessageAsSeenTe);
 
 module.exports = router;

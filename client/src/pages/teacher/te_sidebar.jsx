@@ -92,7 +92,7 @@ const SidebarTe = () => {
                         <rect width="32" height="176" x="336" y="136" fill="var(--ci-primary-color, currentColor)" className="ci-primary"/>
                     </svg>
                     </div>
-                    Payment
+                    Payments
                 </NavLink>
 
                 <NavLink
