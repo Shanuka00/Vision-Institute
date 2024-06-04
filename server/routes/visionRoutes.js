@@ -18,6 +18,7 @@ const { loadStCourses, loadStNotifications } = require('../controllers/loadStCou
 const { loadTeCourses, loadTeNotifications } = require('../controllers/loadTeCoursesController');
 const markAttendanceController = require('../controllers/markAttendanceController');
 const paymentFromTeController = require('../controllers/paymentFromTeController');
+const { getStudentSchedules, getTeacherSchedules } = require('../controllers/studentShedulesController');
 
 const router = express.Router();
 
@@ -133,6 +134,9 @@ router.get('/loadStNotifications', loadStNotifications);
 // Route to mark a message as seen
 router.post('/markAsSeenSt', outsideMessagesController.markMessageAsSeenSt);
 
+// Route to get student schedules by vision ID
+router.get('/studentSchedules/:visionId', getStudentSchedules);
+
 
 // ====================== Teacher routes ===============================
 
@@ -147,5 +151,8 @@ router.post('/markAsSeenTe', outsideMessagesController.markMessageAsSeenTe);
 
 // Load collection and payscheme
 router.post('/paymentFromTe', paymentFromTeController.fetchPayments);
+
+// Route to get teacher schedules by vision ID
+router.get('/teacherSchedules/:visionId', getTeacherSchedules);
 
 module.exports = router;
