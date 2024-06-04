@@ -16,6 +16,7 @@ const newCourseRegController = require('../controllers/newCourseRegController');
 const feespaymentsController = require('../controllers/feespaymentsController');
 const { loadStCourses, loadStNotifications } = require('../controllers/loadStCoursesController');
 const { loadTeCourses, loadTeNotifications } = require('../controllers/loadTeCoursesController');
+const markAttendanceController = require('../controllers/markAttendanceController');
 
 const router = express.Router();
 
@@ -105,6 +106,9 @@ router.post('/newCourseRegistration', newCourseRegController.registerNewCourse);
 router.get('/newOnFeesPayments', feespaymentsController.getFeesPayments);
 router.post('/approveFeesPayment', feespaymentsController.approveFeesPayment);
 router.post('/rejectFeesPayment', feespaymentsController.rejectFeesPayment);
+
+// Route to mark student attendance
+router.post('/markAttendance', markAttendanceController.markAttendance);
 
 
 // ====================== Student routes ===============================
