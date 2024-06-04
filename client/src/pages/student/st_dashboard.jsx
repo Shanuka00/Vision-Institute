@@ -96,11 +96,10 @@ function DashboardSt() {
               const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
               const day = dateObject.getDate().toString().padStart(2, '0');
               const date = `${year}-${month}-${day}`;
-              const time = dateObject.toLocaleTimeString();
 
               return (
                 <div key={notification.courseid} className='bg-white p-4 pb-2 mb-3 my-2 rounded flex justify-between items-center'>
-                  <p>Your attendance for the {notification.courseid} class on {date} at {time} has been marked</p>
+                  <p>Your attendance for the {notification.courseid} class on {date} has been marked</p>
                   <button onClick={() => handleSeen(profileData.visionid, notification.courseid, date)} className='bg-indigo-900 hover:bg-indigo-950 text-white px-2 py-1 rounded text-sm'>Seen</button>
                 </div>
               )

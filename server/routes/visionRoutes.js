@@ -17,6 +17,7 @@ const feespaymentsController = require('../controllers/feespaymentsController');
 const { loadStCourses, loadStNotifications } = require('../controllers/loadStCoursesController');
 const { loadTeCourses, loadTeNotifications } = require('../controllers/loadTeCoursesController');
 const markAttendanceController = require('../controllers/markAttendanceController');
+const paymentFromTeController = require('../controllers/paymentFromTeController');
 
 const router = express.Router();
 
@@ -143,5 +144,8 @@ router.get('/loadTeNotifications', loadTeNotifications);
 
 // Route to mark a message as seen
 router.post('/markAsSeenTe', outsideMessagesController.markMessageAsSeenTe);
+
+// Load collection and payscheme
+router.post('/paymentFromTe', paymentFromTeController.fetchPayments);
 
 module.exports = router;

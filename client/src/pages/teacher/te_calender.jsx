@@ -41,9 +41,10 @@ function CalenderTe() {
             eventClick={handleEventClick}
             height={850}
             headerToolbar={{
-                    start: 'prev,next today',
+                    start: 'prev,next',
                     center: 'title',
-                    end: 'addQuizButton' // Add custom button to the end of the toolbar
+                    end: 'today'
+                    //end: 'addQuizButton'
                 }}
                 customButtons={{
                     addQuizButton: {
