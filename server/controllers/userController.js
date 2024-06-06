@@ -46,6 +46,7 @@ function determineRedirectPath(role, state) {
         case 'student':
             return {
                 'approved': '/st_dashboard',
+                'free': '/st_dashboard',
                 'NoRegYesPass': '/id_create',
                 'YesRegYesPass': '/reg_waiting'
             }[state];

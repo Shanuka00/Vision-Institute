@@ -12,6 +12,7 @@ function AtndManagementAd() {
     const [showQrScanner, setShowQrScanner] = useState(false);
     const [selectedGrade, setSelectedGrade] = useState('');
     const [selectedCourse, setSelectedCourse] = useState('');
+    const [inputValue, setInputValue] = useState('');
     const navigate = useNavigate();
 
 
@@ -45,6 +46,26 @@ function AtndManagementAd() {
             setCourses(response.data);
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (inputValue.length === 8) {
+                let data = { text: inputValue };
+                handleScan(data);
+                setInputValue('');
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: `Please enter a valid Vision ID of 8 characters.`,
+                    icon: "error",
+                    confirmButtonText: "OK",
+                }).then(() => {
+                    document.getElementById('visionID').focus();
+                });
+            }
         }
     };
 
@@ -227,6 +248,19 @@ function AtndManagementAd() {
                 <div className="flex flex-col justify-between">
                     <div className="mb-3">
                         <button onClick={handleGetAttendance} className="bg-indigo-900 hover:bg-indigo-950 text-white py-2 px-6 rounded" disabled={!selectedGrade || !selectedCourse}>Get next attendance</button>
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            name="visionID"
+                            placeholder="Enter Vision ID and press enter to get attendance"
+                            id="visionID"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e)}
+                            className="border rounded py-2 px-4 w-full mb-3"
+                            disabled={!selectedGrade || !selectedCourse}
+                        />
                     </div>
                     <div style={{ width: '100%', height: '90%' }} className="border rounded text-3xl font-semibold p-4 flex items-center justify-center">
                         {qrData ? (
