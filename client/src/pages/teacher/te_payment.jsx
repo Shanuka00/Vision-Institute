@@ -124,8 +124,8 @@ function PaymentTe() {
         <div className='ml-20 mt-16'>
           <div className='mt-3 ml-auto mr-auto w-6/12 font-semibold text-3xl'>
             <p>Total collection:<font color='#1111dd'> Rs.{paymentDetails.collection}</font></p>
-            <p>Total expenses:<font color='#1111dd'> Rs.{paymentDetails.expenses}</font></p>
             <p>Payment scheme:<font color='#1111dd'> {paymentDetails.payscheme}%</font></p>
+            <p>Total expenses:<font color='#1111dd'> Rs.{paymentDetails.expenses}</font></p>
             <p>Total payment you can get:<font color='#1111dd'> Rs.{paymentDetails.total}</font></p>
           </div>
         </div>

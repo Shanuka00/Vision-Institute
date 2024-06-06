@@ -19,6 +19,8 @@ const { loadTeCourses, loadTeNotifications } = require('../controllers/loadTeCou
 const markAttendanceController = require('../controllers/markAttendanceController');
 const paymentFromTeController = require('../controllers/paymentFromTeController');
 const { getStudentSchedules, getTeacherSchedules } = require('../controllers/studentShedulesController');
+const { getStudentsByCourse } = require('../controllers/courseStudentsController');
+const { checkStudentState, markAsFreeCard, removeFreeCard, resetPassword } = require('../controllers/studentFreeResetController');
 
 const router = express.Router();
 
@@ -111,6 +113,15 @@ router.post('/rejectFeesPayment', feespaymentsController.rejectFeesPayment);
 
 // Route to mark student attendance
 router.post('/markAttendance', markAttendanceController.markAttendance);
+
+// Route to get students by course ID
+router.get('/studentsInCourse', getStudentsByCourse);
+
+// Route to mark a student as free card and reset password
+router.get('/checkStudentState', checkStudentState);
+router.post('/markAsFreeCard', markAsFreeCard);
+router.post('/removeFreeCard', removeFreeCard);
+router.post('/resetPassword', resetPassword);
 
 
 // ====================== Student routes ===============================

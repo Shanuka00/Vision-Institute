@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../api/api';
 
@@ -9,7 +9,7 @@ function DashboardSt() {
   const [notifications, setNotifications] = useState([]);
   const [profileData, setProfileData] = useState({});
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -56,9 +56,9 @@ function DashboardSt() {
     }
   };
 
-  const handleCourseClick = (id) => {
-    navigate(`/st_dashboard/course`, { state: { courseId: id } });
-  };
+  // const handleCourseClick = (id) => {
+  //   navigate(`/st_dashboard/course`, { state: { courseId: id } });
+  // };
 
   return (
     <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
@@ -70,8 +70,8 @@ function DashboardSt() {
             {courses.map(course => (
               <div 
                 key={course.courseid} 
-                className='flex bg-white p-4 pb-2 mb-3 my-2 rounded cursor-pointer'
-                onClick={() => handleCourseClick(course.courseid)}
+                className='flex bg-white p-4 pb-2 mb-3 my-2 rounded cursor|pointer'
+                // onClick={() => handleCourseClick(course.courseid)}
               >
                 <div className='pr-16'>
                   <p><strong>Course ID:</strong> {course.courseid}</p>
