@@ -21,6 +21,7 @@ const paymentFromTeController = require('../controllers/paymentFromTeController'
 const { getStudentSchedules, getTeacherSchedules } = require('../controllers/studentShedulesController');
 const { getStudentsByCourse } = require('../controllers/courseStudentsController');
 const { checkStudentState, markAsFreeCard, removeFreeCard, resetPassword } = require('../controllers/studentFreeResetController');
+const expenseHandleController = require('../controllers/expenseHandleController');
 
 const router = express.Router();
 
@@ -122,6 +123,11 @@ router.get('/checkStudentState', checkStudentState);
 router.post('/markAsFreeCard', markAsFreeCard);
 router.post('/removeFreeCard', removeFreeCard);
 router.post('/resetPassword', resetPassword);
+
+// Route to handle expenses
+router.get('/getteachersEx', expenseHandleController.getTeachers);
+router.get('/getcoursesEx/:visionid', expenseHandleController.getCourses);
+router.post('/addexpenseEx', expenseHandleController.addExpense);
 
 
 // ====================== Student routes ===============================
