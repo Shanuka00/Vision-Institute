@@ -203,7 +203,7 @@ function FinManagementFeesAd() {
   return (
     <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
       <div className="flex">
-        <h2 className="text-3xl font-bold mb-4">Class fees payment 💸</h2>
+        <h2 className="text-3xl font-bold mb-4">Class fees payments 💸</h2>
         <img onClick={handleBackButton} style={{ textDecoration: 'none', cursor: 'pointer' }} className='ml-auto w-10 mb-4 -mt-1' src={backB} alt="Down arrow" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -278,11 +278,12 @@ function FinManagementFeesAd() {
             <h3 className="text-lg font-bold mb-4">Online payments</h3>
             <div className="space-y-4">
               {feespayments.map((feespayment, index) => (
-                <div key={index} className="bg-white p-4 pb-2 rounded-lg shadow-md flex justify-between items-center">
+                <div key={index} className="bg-white pt-3 px-4 pb-1 rounded-lg shadow-md flex justify-between items-center">
                   <div>
-                    <p> {feespayment.visionid}</p>
-                    <p> {feespayment.firstname} {feespayment.lastname}</p>
-                    <p> {feespayment.mobilenumber}</p>
+                    <p> Student ID: {feespayment.visionid}</p>
+                    <p className='-mt-2'> Course ID: {feespayment.courseid}</p>
+                    <p className='-mt-2'> Amount: Rs.{feespayment.paidamount}</p>
+                    <p className='-mt-2'> Month: {feespayment.month}</p>
                   </div>
                   <button onClick={() => { loadSlip(feespayment.state); setSelectedFeesPayment(feespayment); setShowModal(true); }} className="bg-indigo-900 hover:bg-indigo-950 text-white px-4 py-2 rounded-lg">View</button>
                 </div>

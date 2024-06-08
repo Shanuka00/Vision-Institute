@@ -22,6 +22,7 @@ const { getStudentSchedules, getTeacherSchedules } = require('../controllers/stu
 const { getStudentsByCourse } = require('../controllers/courseStudentsController');
 const { checkStudentState, markAsFreeCard, removeFreeCard, resetPassword } = require('../controllers/studentFreeResetController');
 const expenseHandleController = require('../controllers/expenseHandleController');
+const newPaymentController = require('../controllers/newPaymentController');
 
 const router = express.Router();
 
@@ -128,6 +129,9 @@ router.post('/resetPassword', resetPassword);
 router.get('/getteachersEx', expenseHandleController.getTeachers);
 router.get('/getcoursesEx/:visionid', expenseHandleController.getCourses);
 router.post('/addexpenseEx', expenseHandleController.addExpense);
+
+// Route to handle new payment
+router.post('/newMonPayment', newPaymentController.createPayment);
 
 
 // ====================== Student routes ===============================

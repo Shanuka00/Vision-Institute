@@ -114,7 +114,7 @@ function StdRegistration() {
         <h2 className="text-3xl font-bold leading-7 text-gray-900 sm:grid-cols-full text-center">Admission Form</h2>
 
           <p className="mt-1 text-xs pt-8 leading-2 text-red-600 border-b border-gray-900/10 pb-8">
-            * Please be kind to Insert the correct details, and you will have to pay Rs.300 before register in the system.
+            * Please be kind to Insert the correct details, and you will have to pay registration fees before register in the system.
           </p>
 
           <h2 className="text-base font-semibold leading-1 text-gray-900">Personal Information | පුද්ගලික තොරතුරු</h2>

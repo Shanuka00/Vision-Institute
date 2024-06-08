@@ -1,5 +1,3 @@
-// server/models/paymentFromTeModel.js
-
 const pool = require('../db');
 
 const fetchPayments = async (course, month) => {
@@ -12,6 +10,7 @@ const fetchPayments = async (course, month) => {
         const query1 = 'SELECT payscheme FROM course WHERE courseid = ?';
         const query2 = 'SELECT SUM(paidamount) AS collection FROM classfees WHERE courseid = ? AND MONTH = ?';
         const query3 = 'SELECT SUM(amount) AS expenses FROM expense WHERE courseid = ? AND MONTH = ?';
+        const query4 = 'SELECT SUM(amountpaid) AS already FROM payment WHERE courseid = ? AND MONTH = ?';
   
         connection.query(query1, [course], (error1, result1) => {
           if (error1) {
@@ -27,21 +26,30 @@ const fetchPayments = async (course, month) => {
             }
 
             connection.query(query3, [course, month], (error3, result3) => {
-                connection.release();
       
                 if (error3) {
+                  connection.release();
                   reject(error3);
                 }
       
-                if (!result1 || !result2 || !result3) {
-                  reject(new Error('No results found'));
-                }
-      
-                resolve({
-                  payscheme: result1[0].payscheme,
-                  collection: result2[0].collection * 1.00,
-                  expenses: result3[0].expenses * 1.00,
-                  total: ((result2[0].collection * result1[0].payscheme)/100) - result3[0].expenses
+                connection.query(query4, [course, month], (error4, result4) => {
+                  connection.release();
+        
+                  if (error3) {
+                    reject(error4);
+                  }
+        
+                  if (!result1 || !result2 || !result3 || !result4) {
+                    reject(new Error('No results found'));
+                  }
+        
+                  resolve({
+                    payscheme: result1[0].payscheme,
+                    collection: result2[0].collection * 1.00,
+                    expenses: result3[0].expenses * 1.00,
+                    already: result4[0].already * 1.00,
+                    total: ((result2[0].collection * result1[0].payscheme)/100) - result3[0].expenses - result4[0].already
+                  });
                 });
               });
           });
