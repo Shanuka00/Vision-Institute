@@ -155,45 +155,45 @@ function RegFees() {
     }
   };
 
-  const handleClick = async () => {
+  // const handleClick = async () => {
 
-    try {
+  //   try {
       
-      const response = await axios.post('/api/vision/addUser', {
-        maxVisionId,
-        firstName,
-        lastName,
-        initial,
-        birthday,
-        password: 'e4c4bcf6f1addc82e879fe8dbe1eddb3',
-        gender,
-        emailAddress,
-        mobilePhone,
-        whatsappNumber,
-        addressLine1,
-        addressLine2,
-        city,
-        school,
-        parentName,
-        occupation,
-        contactNo,
-        aboutVision,
-        role: 'student',
-        state: 'NoRegNoPass',
-      });
-      console.log('User added successfully:', response.data);
+  //     const response = await axios.post('/api/vision/addUser', {
+  //       maxVisionId,
+  //       firstName,
+  //       lastName,
+  //       initial,
+  //       birthday,
+  //       password: 'e4c4bcf6f1addc82e879fe8dbe1eddb3',
+  //       gender,
+  //       emailAddress,
+  //       mobilePhone,
+  //       whatsappNumber,
+  //       addressLine1,
+  //       addressLine2,
+  //       city,
+  //       school,
+  //       parentName,
+  //       occupation,
+  //       contactNo,
+  //       aboutVision,
+  //       role: 'student',
+  //       state: 'NoRegNoPass',
+  //     });
+  //     console.log('User added successfully:', response.data);
 
-      // Navigate to the next page after successfully adding the user
-      navigate('/id_create',{
-        state: {
-          nextVid: {maxVisionId},
-          currentState: false,
-        }
-      });
-    } catch (error) {
-      console.error('Error adding user:', error);
-    }
-  };
+  //     // Navigate to the next page after successfully adding the user
+  //     navigate('/id_create',{
+  //       state: {
+  //         nextVid: {maxVisionId},
+  //         currentState: false,
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error('Error adding user:', error);
+  //   }
+  // };
 
   const handlePaid = async () => {
 
@@ -240,7 +240,7 @@ function RegFees() {
     <div className="pt-28 flex flex-col gap-1">
 
       <div className="w-full mx-3 py-1">
-        <p className="text-lg font-semibold text-red-900 mx-8">🟤 To complete the registration, pay Rs.300 to one of the following bank accounts and upload the slip.</p>
+        <p className="text-lg font-semibold text-red-900 mx-8">🟤 To complete the registration, pay registration fees to one of the following bank accounts and upload the slip.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 mx-10 gap-8">
@@ -296,7 +296,7 @@ function RegFees() {
       </button>
 
       </div>
-      <div className="text-center mt-2">
+      {/* <div className="text-center mt-2">
         <button 
           className="text-blue-600 mt-2 font-semibold hover:underline hover:pointer hover:font-bold"
           style={{ textDecoration: 'none', cursor: 'pointer' }}
@@ -304,7 +304,7 @@ function RegFees() {
         >
           Continue without payment..
         </button>
-      </div>
+      </div> */}
 
     </div> 
 
