@@ -18,15 +18,15 @@ function FinManagementAd() {
         <div className="py-1 lg:py-4 px-32 mx-auto max-w-screen-md space-y-4">
           <div className="flex justify-between items-center">
             <p className="text-2xl font-medium">Overall Collection:</p>
-            <p className="text-2xl font-medium text-indigo-700">78,500</p>
+            <p className="text-2xl font-medium text-indigo-700">78500</p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-2xl font-medium">Overall Expenses:</p>
-            <p className="text-2xl font-medium text-indigo-700">2,600</p>
+            <p className="text-2xl font-medium text-indigo-700">4600</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-medium">Overall Distribution:</p>
-            <p className="text-2xl font-medium text-indigo-700">0</p>
+            <p className="text-2xl font-medium">Overall Paid:</p>
+            <p className="text-2xl font-medium text-indigo-700">14500</p>
           </div>
         </div>
       </div>

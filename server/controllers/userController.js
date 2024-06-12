@@ -53,11 +53,13 @@ function determineRedirectPath(role, state) {
         case 'teacher':
             return {
                 'registered': '/te_dashboard',
+                'approved': '/te_dashboard',
                 'removed': '/te_logout'
             }[state];
         case 'admin':
             return {
                 'admin': '/ad_dashboard',
+                'approved': '/ad_dashboard'
             }[state];
         default:
             return null;

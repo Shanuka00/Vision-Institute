@@ -29,9 +29,9 @@ const getCoursesByStudentVisionId = async (visionid) => {
 const getNotificationsByStudentVisionId = async (visionid) => {
   return new Promise((resolve, reject) => {
     const query = `
-      SELECT courseid, date
-      FROM attendance
-      WHERE visionid = ? AND seen = 0;
+      SELECT attendance.courseid, DATE, name
+      FROM attendance INNER JOIN course ON attendance.courseid = course.courseid
+      WHERE attendance.visionid = ? AND seen = 0;
     `;
     pool.query(query, [visionid], (error, results) => {
       if (error) {

@@ -167,7 +167,7 @@ function FinManagementPayAd() {
         doc.text(`Amount Paid: Rs.${modalTotal}`, 20, 130);
         doc.text(`Note: ${note || 'Monthly payment'}`, 20, 140);
     
-        // Add current time and date
+        // Current time and date
         const currentDate = new Date().toLocaleString();
         doc.setTextColor(secondaryColor);
         doc.setFontSize(10);

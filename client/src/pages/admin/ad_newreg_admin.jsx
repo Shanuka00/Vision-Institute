@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/registration_styles.css';
 import Datetime from 'react-datetime';
+import api from '../../api/api';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";
 import { useNavigate } from 'react-router-dom';
@@ -72,27 +74,27 @@ function NewRegAdAd() {
       return errors;
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       const errors = validate();
       setFormErrors(errors);
       if (Object.keys(errors).length === 0) {
-        navigate('/reg_fees', {
-        state: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          initial: formData.initial,
-          birthday: formData.birthday,
-          gender: formData.gender,
-          emailAddress: formData.emailAddress,
-          mobilePhone: formData.mobilePhone,
-          whatsappNumber: formData.whatsappNumber,
-          addressLine1: formData.addressLine1,
-          addressLine2: formData.addressLine2,
-          city: formData.city,
-        }
-      });
-    }
+          try {
+              const response = await api.post('/registerAdmin', formData);
+              let regId = response.data.visionId;
+              Swal.fire({
+                  title: "Profile created successfully!",
+                  icon: "success",
+                  text: `Vision ID: ${regId}`,
+                  confirmButtonText: "OK",
+              }).then(() => {
+                  navigate('/ad_newreg/admin');
+                  window.location.reload();
+              });
+          } catch (error) {
+              console.error("There was an error creating the profile!", error);
+          }
+      }
   };
   
     return (

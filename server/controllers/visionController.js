@@ -108,9 +108,53 @@ const updatePasswordAndState2 = async (req, res) => {
 };
 
 
+const registerTeacher = async (req, res) => {
+    try {
+        const { firstName, lastName, initial, birthday, gender, emailAddress, mobilePhone, whatsappNumber, addressLine1, addressLine2, city } = req.body;
+        const password = 'e4c4bcf6f1addc82e879fe8dbe1eddb3';
+        const role = 'teacher';
+        const state = 'registered';
+
+        // Get the next vision ID
+        const nextVisionIdResult = await visionModel.getMaxVisionIdTe();
+
+        // Insert the new user
+        await visionModel.createVisionUser(nextVisionIdResult, firstName, lastName, initial, birthday, password, gender, emailAddress, mobilePhone, whatsappNumber, addressLine1, addressLine2, city, role, state);
+
+        res.status(201).json({ message: 'Profile created successfully', visionId: nextVisionIdResult});
+    } catch (error) {
+        console.error('Error creating profile:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+};
+
+
+const registerAdmin = async (req, res) => {
+    try {
+        const { firstName, lastName, initial, birthday, gender, emailAddress, mobilePhone, whatsappNumber, addressLine1, addressLine2, city } = req.body;
+        const password = 'e4c4bcf6f1addc82e879fe8dbe1eddb3';
+        const role = 'admin';
+        const state = 'admin';
+
+        // Get the next vision ID
+        const nextVisionIdResult = await visionModel.getMaxVisionIdAd();
+
+        // Insert the new user
+        await visionModel.createVisionUser(nextVisionIdResult, firstName, lastName, initial, birthday, password, gender, emailAddress, mobilePhone, whatsappNumber, addressLine1, addressLine2, city, role, state);
+
+        res.status(201).json({ message: 'Profile created successfully', visionId: nextVisionIdResult});
+    } catch (error) {
+        console.error('Error creating profile:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+};
+
+
 module.exports = {
     addUser,
     getMaxVisionId,
+    registerTeacher,
+    registerAdmin,
     getStudentById,
     updatePasswordAndState,
     updatePasswordAndState2
