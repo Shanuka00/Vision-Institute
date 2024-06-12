@@ -64,6 +64,14 @@ function NewRegCouAd() {
         }
     };
 
+    const handleUpdateButton = async () => {
+        try {
+            navigate('/ad_newreg/course/update');
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const errors = validateForm();
@@ -115,9 +123,14 @@ function NewRegCouAd() {
     return (
         <div className='rounded-s-3xl bg-white md:ml-72 md:px-10 py-10 w-full'>
             <div className='rounded-3xl bg-gray-100 px-10 py-10 w-full h-full'>
-                <div className='flex w-full border-b border-gray-900/10 pb-2 mb-4'>
+                <div className='w-full border-b border-gray-900/10 pb-2 mb-4'>
+                <div className='flex w-full'>
                     <h2 className="text-2xl mb-6">New Course Registration</h2>
                     <img onClick={handleBackButton} style={{ textDecoration: 'none', cursor: 'pointer' }} className='ml-auto w-12 mb-3 -mt-2' src={backB} alt="Down arrow" />
+                </div>
+                <div>
+                    <button onClick={handleUpdateButton} className="bg-indigo-900 hover:bg-indigo-950 text-white font-semibold py-2 px-6 rounded">Course update</button>
+                </div>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group py-2">

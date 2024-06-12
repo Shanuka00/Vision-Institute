@@ -33,6 +33,7 @@ import NewRegAd from "./pages/admin/ad_newreg";
 import NewRegStdAd from "./pages/admin/ad_newreg_student";
 import NewRegTeAd from "./pages/admin/ad_newreg_teacher";
 import NewRegCouAd from "./pages/admin/ad_newreg_course";
+import NewRegCouUpAd from "./pages/admin/ad_newreg_course_update";
 import NewRegAdAd from "./pages/admin/ad_newreg_admin";
 import DashboardAd from "./pages/admin/ad_dashboard";
 import ProfileAd from "./pages/admin/ad_profile";
@@ -119,6 +120,12 @@ function App() {
             <div className="flex min-h-screen bg-gray-200">
               <SidebarAd />
               <NewRegCouAd />
+            </div>
+          } />
+        <Route path="/ad_newreg/course/update" element={
+            <div className="flex min-h-screen bg-gray-200">
+              <SidebarAd />
+              <NewRegCouUpAd />
             </div>
           } />
         <Route path="/ad_newreg/admin" element={
