@@ -23,6 +23,9 @@ const { getStudentsByCourse } = require('../controllers/courseStudentsController
 const { checkStudentState, markAsFreeCard, removeFreeCard, resetPassword } = require('../controllers/studentFreeResetController');
 const expenseHandleController = require('../controllers/expenseHandleController');
 const newPaymentController = require('../controllers/newPaymentController');
+const courseController = require('../controllers/courseController');
+const loadOverFinController = require('../controllers/loadOverFinController');
+const loadAttndRecController = require('../controllers/loadAttndRecController');
 
 const router = express.Router();
 
@@ -138,6 +141,20 @@ router.post('/addexpenseEx', expenseHandleController.addExpense);
 
 // Route to handle new payment
 router.post('/newMonPayment', newPaymentController.createPayment);
+
+// Fetch course details by course ID
+router.get('/course/:courseId', courseController.getCourseDetails);
+
+// Update course details by course ID
+router.put('/course/:courseId', courseController.updateCourseDetails);
+
+// Route to load overall finance data
+router.get('/finance/collection', loadOverFinController.getOverallCollection);
+router.get('/finance/expenses', loadOverFinController.getOverallExpenses);
+router.get('/finance/paid', loadOverFinController.getOverallPaid);
+
+// Define the route for loading attendance records
+router.get('/loadattendance', loadAttndRecController.loadAttendanceRecords);
 
 
 // ====================== Student routes ===============================
