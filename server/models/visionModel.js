@@ -23,6 +23,93 @@ const getMaxVisionId = async () => {
 };
 
 
+// Function to get the maximum vision ID for teachers
+const getMaxVisionIdTe = async () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                reject(err);
+            }
+
+            connection.query("SELECT MAX(visionid) AS vid FROM visionuser WHERE role = 'teacher';", (error, results) => {
+                connection.release();
+
+                if (error) {
+                    reject(error);
+                }
+
+                const visionId = results[0].vid;
+                try {
+                    const prefix = visionId.match(/[A-Za-z]+/)[0]; // Extract the prefix dynamically
+                    const currentId = visionId.slice(prefix.length); // Extract numeric part after the prefix
+                    const nextId = parseInt(currentId) + 1; // Increment the numeric part
+                    const nextVisionId = `${prefix}${nextId}`; // Concatenate the prefix with the incremented numeric part
+                    resolve(nextVisionId);
+                } catch (err) {
+                    console.error('Error fetching vision IDs:', err);
+                }
+                
+            });
+        });
+    });
+};
+
+
+// Function to get the maximum vision ID for teachers
+const getMaxVisionIdAd = async () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                reject(err);
+            }
+
+            connection.query("SELECT MAX(visionid) AS vid FROM visionuser WHERE role = 'admin';", (error, results) => {
+                connection.release();
+
+                if (error) {
+                    reject(error);
+                }
+
+                const visionId = results[0].vid;
+                try {
+                    const prefix = visionId.match(/[A-Za-z]+/)[0]; // Extract the prefix dynamically
+                    const currentId = visionId.slice(prefix.length); // Extract numeric part after the prefix
+                    const nextId = parseInt(currentId) + 1; // Increment the numeric part
+                    const nextVisionId = `${prefix}${nextId}`; // Concatenate the prefix with the incremented numeric part
+                    resolve(nextVisionId);
+                } catch (err) {
+                    console.error('Error fetching vision IDs:', err);
+                }
+                
+            });
+        });
+    });
+};
+
+
+// Function to create a new vision user
+const createVisionUser = async (visionId, firstName, lastName, initial, dateOfBirth, password, gender, email, mobileNumber, whatsappNumber, addressLine1, addressLine2, city, role, state) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                reject(err);
+            }
+
+            const query = 'INSERT INTO visionuser (visionid, firstname, lastname, initial, dateofbirth, password, gender, email, mobilenumber, whatsappnumber, addressline1, addressline2, city, role, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            connection.query(query, [visionId, firstName, lastName, initial, dateOfBirth, password, gender, email, mobileNumber, whatsappNumber, addressLine1, addressLine2, city, role, state], (error, results) => {
+                connection.release();
+
+                if (error) {
+                    reject(error);
+                }
+
+                resolve(results);
+            });
+        });
+    });
+};
+
+
 const addUser = async ({
     maxVisionId,
     firstName,
@@ -172,5 +259,8 @@ module.exports = {
     getUserByVisionId,
     getUserByVisionId2,
     updatePasswordAndState,
-    updatePasswordAndState2
+    updatePasswordAndState2,
+    getMaxVisionIdTe,
+    getMaxVisionIdAd,
+    createVisionUser,
 };

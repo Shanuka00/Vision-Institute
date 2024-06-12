@@ -29,6 +29,12 @@ const router = express.Router();
 // Route to fetch the maximum vision ID
 router.get('/maxVisionId', visionController.getMaxVisionId);
 
+// Route to fetch the maximum vision ID and Register (teacher)
+router.post('/registerTeacher', visionController.registerTeacher);
+
+// Route to fetch the maximum vision ID and Register (admin)
+router.post('/registerAdmin', visionController.registerAdmin);
+
 // Route to add a new user
 router.post('/addUser', visionController.addUser);
 
